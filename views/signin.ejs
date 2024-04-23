@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up</title>
+    <!-- Include Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/style.css"> <!-- Your custom CSS -->
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="left-content bg-white" style="width: 490px;">
+                    <p></p>
+                    <h2 class="text-center">Sign up</h2>
+                    <h4 class="text-center">Welcome to our website</h4>
+                    
+                    <form action="/numbers" method="post" id="signupForm" style="margin-left: 10px; margin-bottom: 2px; margin-top: 3px;">
+                        <!-- Fields here -->
+                        <div class="form-group">
+                            <label for="name">Name:</label>
+                            <input type="text" id="name" name="name" class="form-control" required>
+                        </div>
+
+                       
+
+                        <div class="form-group">
+                            <label for="emailAddress">Email Address:</label>
+                            <input type="email" id="emailAddress" name="emailAddress" class="form-control" required>
+                        </div>
+
+                        
+                        <div class="form-group">
+                            <label for="phone">Phone:</label>
+                            <input type="tel" id="phone" name="phone" class="form-control" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="password">Password:</label>
+                            <input type="password" id="password" name="password" class="form-control" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="repeatPassword">Repeat Password:</label>
+                            <input type="password" id="repeatPassword" name="repeatPassword" class="form-control" required>
+                        </div>
+
+                        <button type="submit" class="btn btn" style="margin: 0 auto; text-align: center; text-decoration: none; color: rgb(214, 171, 171); background-color:rgb(233, 223, 210); padding: 10px; border-radius: 5px;color:black ; font-weight: bold;width: 200px;">Sign up</button>
+                        
+                    </form>
+                    <p></p>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="right-content">
+                    <img src="https://i.pinimg.com/564x/7b/79/6f/7b796fdec2c626cfd077d121d373b8d5.jpg" alt="Placeholder image" class="img-fluid" style="height:560px;width: 570px;">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS (optional) -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"></script>
+</body>
+</html>
