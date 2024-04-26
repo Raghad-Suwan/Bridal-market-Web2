@@ -1,23 +1,22 @@
 
 const express = require('express');
 const app = express();
+const path=require('path');
 const port = 5000; 
-const dashbordRoutes = require('./routes/dashbord/dashbord_routes')
-const path  = require('path');
+
 
 app.set('view engine', 'ejs');
 
-const events =require('./routes/event-routes')
-app.use("/events", events)
 
-const publicDir = path.join(__dirname ,'./public');
-app.use(express.static(publicDir));
-app.use('/dashbord', dashbordRoutes );
+app.use(express.static(path.join(__dirname,'public')));
+ app.use(express.urlencoded({extended:false}));
+
+
+app.get('/', (req, res) => {
+  res.render('home');
+});
+
 
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`);
 });
-
-
-
-
