@@ -1,0 +1,119 @@
+
+button{
+    background-color:black;
+     color:white;
+     width: 300px;
+     height: 50px;
+     border-radius: 1ch;
+     margin-top:3%;
+     margin-bottom:3%;
+
+
+&:hover {
+    background-color: #333; 
+}
+
+&:active {
+    background-color: #666; 
+}}
+
+
+
+.fas.fa-star {
+    color: grey;
+    cursor: pointer; 
+}
+
+
+.options{
+    width:20%;
+    height:7%;
+    border-radius: 0.5ch;
+    margin-top: 5px;
+    border-color: rgb(0, 0, 0);
+    text-align: center;
+    }
+    
+    .images-container img {
+white-space: nowrap; 
+display: inline-block;
+border:none;
+}
+
+
+.reviews {
+text-align: center;
+margin-top: 50px;
+}
+
+
+
+
+
+
+/* Media Queries for Small Devices (phones) */
+@media screen and (max-width: 576px) {
+    
+    
+    .images-container img {
+    text-align: center;  
+    display: flex;
+    flex-wrap: wrap;  
+    white-space: wrap; 
+    width:200px;
+    margin-bottom: 10px;
+    }
+    
+}
+
+/* Media Queries for Medium Devices (tablets) */
+@media screen and (min-width: 577px) and (max-width: 992px) {
+    
+     .you-might-like{
+    max-width: 900px;
+   }
+    .images-container img {
+    text-align: center;  
+    display: flex;
+    flex-wrap: wrap;  
+    white-space: wrap; 
+    width:100px;
+    margin-bottom: 10px;
+    display: inline-block;
+    }
+   
+  
+}
+
+/* Media Queries for Large Devices (laptops) */
+@media screen and  (max-width: 350px) {
+   
+    
+    
+    .images-container img {
+    text-align: center;  
+    display: flex;
+    flex-wrap: wrap;  
+    white-space: wrap; 
+    width:150px;
+    margin-bottom: 10px;
+    }
+    
+
+
+  
+    button{
+        background-color:black;
+         color:white;
+         width: 250px;
+         height: 50px;
+         border-radius: 1ch;
+         margin-top:3%;
+         margin-bottom:3%;
+    
+    }
+
+
+}
+
+
