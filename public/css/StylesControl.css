@@ -1,0 +1,141 @@
+.form-design{
+
+	padding: right;
+		width: 60%; 
+	}
+	
+	@import url('https://fonts.googleapis.com/css2?family=Roboto:ital@1&display=swap');
+	@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+	
+	.header_fixed{
+	
+		max-height: 100vh;
+		width: 200%;
+		overflow: auto;
+	}
+	
+	.table {
+		width: 200%;
+		border-collapse: collapse;
+	}
+	
+	.header_fixed thead th {
+		position: sticky;
+		top: 0;
+		background-color: black;
+		color: #e6e7e8;
+		font-size: 15px;
+	}
+	
+	th,
+	td {
+		border-bottom: 1px solid #dddddd;
+		padding: 10px 20px;
+		font-size: 14px;
+	}
+	
+	
+	td img {
+		height: 100px;
+		width: 100px;
+		border-radius: 100%;
+		border: 5px solid #e6e7e8;
+	}
+	
+	
+	td button {
+		border: none;
+		padding: 7px 20px;
+		border-radius: 20px;
+		background-color: black;
+		color: #e6e7e8;
+	}
+	
+	
+	.table-move{
+	
+		width: 100%;
+		display: flex;
+		justify-content: center;
+		font-family: 'Roboto', sans-serif;
+	
+	}
+	
+	
+	
+	
+	#root{
+		background: #212b2a;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		width: 100%;
+		height: 100vh;
+		overflow: hidden;
+		box-sizing: border-box;
+		font-family: 'Inter', sans-serif;
+	 }
+	 
+	 .preview_img{
+		 width: 300px;
+		 height: 190px;
+		 background: #303d3c;
+		 border-radius: 10px;
+		 -webkit-border-radius: 10px;
+		 -moz-border-radius: 10px;
+		 -ms-border-radius: 10px;
+		 -o-border-radius: 10px;
+		 padding: 20px;
+	 }
+	 .preview_img .main_img{
+		 width: 100%;
+		 height: 100%;
+		 overflow: hidden;
+		 box-shadow: inset 0 0 10px 0 #222222;
+		 border-radius: 10px;
+		 -webkit-border-radius: 10px;
+		 -moz-border-radius: 10px;
+		 -ms-border-radius: 10px;
+		 -o-border-radius: 10px;
+		 display: flex;
+		 justify-content: center;
+		 align-items: center;
+	 }
+	 .preview_img img{
+		 width: 100%;
+		 height: 100%;
+		 display: block;
+		 
+	 }
+	 .imgHidden{
+		 display: none;
+	 }
+	 .imgUploadCss{
+		 display: block;
+		 width: 300px;
+		 background: #303d3c;
+		 font-size: 16px;
+		 font-weight: 400;
+		 color: #ffffff;
+		 font-family: 'Inter', sans-serif;
+		 padding: 20px 20px;
+		 margin-top: 16px;
+		 border-radius: 6px;
+		 -webkit-border-radius: 6px;
+		 -moz-border-radius: 6px;
+		 -ms-border-radius: 6px;
+		 -o-border-radius: 6px;
+		 position: relative;
+		 overflow: hidden;
+		 cursor: pointer;
+	 
+	 }
+	 img[alt="Not Image Selected"]{
+		color: #c74444;
+	 }
+	 
+	
+	 
+	
+	
+	
