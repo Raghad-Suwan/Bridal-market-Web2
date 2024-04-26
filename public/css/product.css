@@ -1,0 +1,60 @@
+.filter-by {
+  margin: 20px 0; /* Adjust top and bottom margin as necessary */
+}
+
+.filter-by h6 {
+  font-size: 12px; /* Adjust font size as necessary */
+  font-weight: bold;
+  margin-bottom: 10px; /* Space below the 'FILTER BY' text */
+}
+
+.filter-header {
+  padding: 5px 0; /* Padding for the clickable area */
+  font-size: 14px; /* Adjust font size as necessary */
+  border-bottom: 1px solid #ccc; /* Line below the text */
+  cursor: pointer;
+  display: flex; /* Use flexbox for alignment */
+  justify-content: space-between; /* Space between the title and the plus icon */
+  align-items: center;
+  width: 200px; /* Fixed width to keep the headers short */
+}
+
+.filter-title {
+  margin-right: 15px; /* Space before the plus icon */
+}
+
+.fa-plus {
+  transition: transform 0.3s ease; /* Smooth transition for plus icon */
+}
+
+.collapse.show .fa-plus {
+  transform: rotate(45deg); /* Rotate icon when collapse is open */
+}
+.cardspace{
+  margin-left: 323px;
+}
+.card-title{
+  font-family: "Sedan", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.card-title-italic {
+  font-family: "Sedan", serif;
+  font-weight: 400;
+  font-style: italic;
+}
+.card-text {
+  font-family: "Lugrasimo", cursive;
+  font-weight: 100;
+  font-style: normal;
+}
+.card-price {
+  font-family: "Shadows Into Light", cursive;
+  font-weight: 50;
+  font-style: normal;
+}
+
+
+
+

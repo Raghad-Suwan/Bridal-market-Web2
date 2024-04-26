@@ -1,3 +1,4 @@
+
 const express = require('express');
 const app = express();
 const port = 5000; 
@@ -5,6 +6,9 @@ const dashbordRoutes = require('./routes/dashbord/dashbord_routes')
 const path  = require('path');
 
 app.set('view engine', 'ejs');
+
+const events =require('./routes/event-routes')
+app.use("/events", events)
 
 const publicDir = path.join(__dirname ,'./public');
 app.use(express.static(publicDir));
