@@ -1,0 +1,24 @@
+.footer {
+    background-color: #f8f9fa; /* Adjust the color to match your design */
+    padding: 20px 0;
+  }
+  .footer-column h3 {
+    border-bottom: 1px solid black;
+    display: inline-block;
+    margin-bottom: 10px;
+    padding-bottom: 5px;
+  }
+  .footer-column a {
+    display: block;
+    margin-bottom: 5px;
+    color: black; /* Adjust the link color to match your design */
+    text-decoration: none;
+  }
+  .social-icons img {
+    width: 24px; /* Adjust the size to match your design */
+    height: 24px;
+    margin-right: 10px;
+  }
+  a{
+    color:black
+  }
