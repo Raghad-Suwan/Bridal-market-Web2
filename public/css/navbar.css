@@ -1,18 +1,18 @@
 .nav-link{
-    color: black;
+  color: black;
 }
 .nav-item{
 text-align: left;
 }
 
 .nav-custom {
-    position: relative;
-  }
+  position: relative;
+}
 
-  .nav-custom hr {
-    position: absolute;
-    width: 100%;
-    top: 50%; /* Adjust this value to move the HR up or down */
-    transform: translateY(-50%);
-    margin: 0;
-  }
+.nav-custom hr {
+  position: absolute;
+  width: 100%;
+  top: 50%; /* Adjust this value to move the HR up or down */
+  transform: translateY(-50%);
+  margin: 0;
+}

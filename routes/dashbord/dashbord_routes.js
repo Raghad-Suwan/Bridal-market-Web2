@@ -9,7 +9,7 @@ res.render("addproduct")
 
 
 router.get("/product", (req,res)=>{
-    res.render("product")
+    res.render("product-dashbord")
     })
 
 
