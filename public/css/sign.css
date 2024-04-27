@@ -8,7 +8,8 @@ body, html {
     max-width: 960px;
     margin: 0 auto;
     padding: 2rem;
-    background-color: antiquewhite;
+    background-color:rgb(211, 203, 203)
+
 }
 
 .left-content ,
@@ -58,13 +59,13 @@ form button:focus {
 }
 
 form button {
-    background-color: rgb(248, 220, 184);
+    background-color: rgb(211, 203, 203);
     color: black;
     cursor: pointer;
 }
 
 form button:hover {
-    background-color:antiquewhite;
+    background-color:rgb(211, 203, 203);
 }
 
 form p {

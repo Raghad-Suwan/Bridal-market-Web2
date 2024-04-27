@@ -19,16 +19,8 @@ const home = require('./routes/home/home-routes')
 const loading = require('./routes/sign/loadingpage')
 const productpage = require('./routes/productPage/product-route')
 
-
- app.use(express.urlencoded({extended:false}));
- app.get("/signin", (req, res) => {
-
-  res.render("signin.ejs");
-});
-app.get("/signup", (req, res) => {
-  
-  res.render("signup.ejs");
-});
+const signupUser = require('./routes/sign/sign-routes')
+const signupProvider = require('./routes/sign/sign-routes')
 
 
 app.use(express.static(publicDir));
@@ -38,6 +30,9 @@ app.use("/events", events);
 app.use('/profiles', profiles );
 app.use('/loading',loading);
 app.use('/productpage',productpage);
+app.use('/signup',signupUser);
+app.use('/home', home); 
+app.use('/signupProvider',signupProvider);
 
 
 
@@ -45,7 +40,6 @@ app.use('/productpage',productpage);
 //   res.render('home');
 // });
 
-app.use('/home', home); 
 
 
 app.listen(port, () => {
