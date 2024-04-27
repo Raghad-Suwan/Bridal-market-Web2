@@ -9,6 +9,8 @@ app.set('view engine', 'ejs');
 
 
 
+
+
 const publicDir = path.join(__dirname ,'./public');
 
 const events =require('./routes/event-routes')
@@ -16,6 +18,17 @@ const profiles =require("./routes/profiles/profiles_routes");
 const home = require('./routes/home/home-routes')
 const loading = require('./routes/sign/loadingpage')
 const productpage = require('./routes/productPage/product-route')
+
+
+ app.use(express.urlencoded({extended:false}));
+ app.get("/signin", (req, res) => {
+
+  res.render("signin.ejs");
+});
+app.get("/signup", (req, res) => {
+  
+  res.render("signup.ejs");
+});
 
 
 app.use(express.static(publicDir));
