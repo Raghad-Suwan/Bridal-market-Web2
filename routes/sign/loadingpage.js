@@ -7,6 +7,7 @@ router.get("/loading", (req,res)=>{
     res.render("LoadingPage")
     })
 
+    
  
 module.exports = router; 
 
