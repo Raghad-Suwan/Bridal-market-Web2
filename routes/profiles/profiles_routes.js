@@ -2,20 +2,14 @@ const { render } = require('ejs');
 const express = require('express');
 const router = express.Router();
 
-router.get('/profile', (req, res) => {
-    res.render('profile');
-});
 
-router.get('/editprofile', (req, res) => {
-    res.render('editprofile');
-});
+const profile = require('../../controllers/userController')
 
-router.get('/providerprofile', (req, res) => {
-    res.render('providerprofile');
-});
 
-router.get('/editproviderprofile', (req, res) => {
-    res.render('editproviderprofile');
-});
+
+router.get('/profile', profile.ProfilePage)
+router.get('/editprofile', profile.EditProfilePage)
+router.get('/providerprofile', profile.ProviderProfilePage)
+router.get('/editproviderprofile', profile.EditProviderProfilePage)
 
 module.exports = router;

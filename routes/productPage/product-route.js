@@ -2,10 +2,9 @@ const { render } = require('ejs');
 const express = require('express');
 const router = express.Router();
 
+const productpage = require('../../controllers/userController')
 
-router.get("/productpage", (req,res)=>{
-res.render("ProductPage")
-})
+router.get("/productpage", productpage.ProductPage)
 
 
 

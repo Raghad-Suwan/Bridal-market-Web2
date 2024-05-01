@@ -2,15 +2,12 @@ const { render } = require('ejs');
 const express = require('express');
 const router = express.Router();
 
-
-router.get("/signup-user", (req,res)=>{
-res.render("signup-user")
-})
+const signupuser = require('../../controllers/userController')
+const signupprovider = require('../../controllers/userController')
 
 
-router.get("/signup-provider", (req,res)=>{
-    res.render("signup-provider")
-    })
+router.get("/signup", signupuser.SignupUserPage)
+router.get("/signupProvider", signupprovider.signupprovider)
 
 
 
