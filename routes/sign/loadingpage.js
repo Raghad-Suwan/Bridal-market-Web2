@@ -2,10 +2,10 @@ const { render } = require('ejs');
 const express = require('express');
 const router = express.Router();
 
+const LoadingPage = require('../../controllers/userController')
 
-router.get("/loading", (req,res)=>{
-    res.render("LoadingPage")
-    })
+
+router.get("/loading", LoadingPage.LoadingPage)
 
     
  
