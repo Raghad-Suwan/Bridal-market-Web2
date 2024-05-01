@@ -35,9 +35,6 @@ app.use('/signupProvider',signupProvider);
 
 
 
-// app.get('/home', (req, res) => {
-//   res.render('home');
-// });
 
 
 
