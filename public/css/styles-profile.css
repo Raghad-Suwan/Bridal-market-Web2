@@ -1,14 +1,10 @@
-body{
-    background: rgb(211, 203, 203)
-}
 
 .form-control:focus {
     box-shadow: none;
-    border-color: rgb(211, 203, 203)
 }
 
 .profile-button {
-    background: rgb(211, 203, 203);
+    /* background: rgb(211, 203, 203); */
     box-shadow: none;
     border: none
 }
@@ -25,9 +21,14 @@ body{
     margin-bottom: 20px;
 }
 .image-frame {
+    display: flex; /* Using flexbox */
+    flex-direction: column; /* Stack children vertically */
+    align-items: center; /* Center-align the items */
     width: 150px; 
     height: 150px; 
     overflow: hidden;  
+    border-radius: 50%; /* Circular frame */
+
 }
 
 .image-frame img {
@@ -37,5 +38,15 @@ body{
 }
 
 .placecont{
-    padding-top: 6%;
+    /* padding-top: 1%; */
+    padding-bottom: 2%;
+    /* background-color: rgb(211, 203, 203) */
+}
+.placeconttt{
+    background-color:  rgb(211, 203, 203);
+}
+
+.user-name {
+    color: #000; /* Color for the username text */
+    margin-top: 20px; /* Space between image and text */
 }
