@@ -50,3 +50,8 @@
     color: #000; /* Color for the username text */
     margin-top: 20px; /* Space between image and text */
 }
+.error-message {
+    color: red;
+    font-size: 0.8em;
+  }
+  

@@ -9,86 +9,87 @@
         crossorigin="anonymous"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
 
- <!--icon bootstrap    -->
- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
- <link rel="stylesheet" href="/css/styles-profile.css">
- <link href="/css/navbar.css" rel="stylesheet">
-
+    <link rel="stylesheet" href="/css/styles-profile.css">
+    <link href="/css/navbar.css" rel="stylesheet">
+    
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>profile </title>
 </head>
 
-<body>
 
+<body>
     <%-include('../views/partials/search.ejs')-%>
     <%-include('../views/partials/navbar.ejs')-%>
 
+            <div class="container rounded bg-white mt-5 mb-5 ">
+                <div class="row placeconttt">
+                    <div class="col-md-5 border-right">
 
-    <div class="container rounded bg-white mt-5 mb-5 ">
-        <div class="row placeconttt">
-            <div class="col-md-5 border-right">
-                
-                <div class="d-flex flex-column align-items-center text-center p-3 py-5">
-                    <div class="image-frame">
+                        <div class="d-flex flex-column align-items-center text-center p-3 py-5">
+                            <div class="image-frame">
 
-                    <img class="rounded-circle "
-                     
-                        src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg " alt="Profile Picture">
-                </div>
-                <span class="user-name">user name </span>
+                                <img class="rounded-circle "
+                                    src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg "
+                                    alt="Profile Picture">
+                            </div>
+                            <span class="user-name">user name </span>
 
-            </div>
-
-                <a href="/dashbord/add">
-                    <div class="mt-1 text-center"><button class="btn btn-light profile-button" type="button"> go to
-                            control page </button></div>
-                </a>
-            </div>
-            <div class="col-md-5 border-right">
-                <div class="p-3 py-5">
-                    <div class="d-flex justify-content-between align-items-center mb-3">
-                        <h4 class="text-right">Provider Profile Settings</h4>
-                    </div>
-                    <div class="row mt-3 ">
-                        <div class="col-md-12"><label for="validationCustom01" class="labels">Name</label>
-                            <input id="validationCustom01" value="" type="text" class="form-control" placeholder="">
                         </div>
-                        <div class="col-md-12"><label class="labels">Mobile Number</label>
-                            <input type="text" class="form-control" placeholder="" value="">
-                        </div>
-                        <div class="col-md-12"><label class="labels">Email ID</label>
-                            <input type="text" class="form-control" placeholder="" value="">
-                        </div>
+
+                        <a href="/dashbord/add">
+                            <div class="mt-1 text-center"><button class="btn btn-light profile-button" type="button"> go
+                                    to
+                                    control page </button></div>
+                        </a>
                     </div>
-                    <div class="row mt-3">
-                        <div class="col-md-12"><label class="labels">State/Region</label><input type="text"
-                                class="form-control" value="" placeholder=""></div>
-                    </div>
+                    <div class="col-md-5 border-right">
+                        <div class="p-3 py-5">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <h4 class="text-right">Provider Profile Settings</h4>
+                            </div>
+                            <div class="row mt-3 ">
+                                <div class="col-md-12"><label for="validationCustom01" class="labels">Name</label>
+                                    <input id="validationCustom01" value="" type="text" class="form-control"
+                                        placeholder="">
+                                </div>
+                                <div class="col-md-12"><label class="labels">Mobile Number</label>
+                                    <input type="text" class="form-control" placeholder="" value="">
+                                </div>
+                                <div class="col-md-12"><label class="labels">Email ID</label>
+                                    <input type="text" class="form-control" placeholder="" value="">
+                                </div>
+                            </div>
+                            <div class="row mt-3">
+                                <div class="col-md-12"><label class="labels">State/Region</label><input type="text"
+                                        class="form-control" value="" placeholder=""></div>
+                            </div>
 
-                    <div class="row ">
-                        <div class="col">
+                            <div class="row ">
+                                <div class="col">
 
 
-                            <div class="mt-5 text-center d-grid  mx-auto">
-                                <form action="/profiles/editproviderprofile" method="GET">
-                                    <button id="myButton" class="btn btn-light profile-button" type="submit">edit
-                                        profile </button>
-                                </form>
+                                    <div class="mt-5 text-center d-grid  mx-auto">
+                                        <form action="/profiles/editproviderprofile" method="GET">
+                                            <button id="myButton" class="btn btn-light profile-button"
+                                                type="submit">edit
+                                                profile </button>
+                                        </form>
+                                    </div>
+
+                                </div>
+
                             </div>
 
                         </div>
-
                     </div>
-
                 </div>
-            </div>
-        </div>
 
-    </div>
-    </div>
-    </div>
+            </div>
+            </div>
+            </div>
 
 </body>
 
