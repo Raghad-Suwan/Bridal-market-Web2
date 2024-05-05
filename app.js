@@ -9,7 +9,6 @@ app.set('view engine', 'ejs');
 
 
 
-
 const publicDir = path.join(__dirname ,'./public');
 const dashbordRoutes = require('./routes/dashbord/dashbord_routes')
 const events =require('./routes/event/event-routes')
