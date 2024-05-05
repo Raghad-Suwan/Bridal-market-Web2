@@ -33,7 +33,7 @@ app.use('/signup',signupUser);
 app.use('/', home); 
 app.use('/signupProvider',signupProvider);
 
-
+ 
 
 //dynamic product 
 app.get('/eventproduct', (req, res) => {
