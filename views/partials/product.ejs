@@ -26,7 +26,7 @@
           <!-- Price filter content goes here -->
         </div>
 
-        <div class="filter-header" data-bs-toggle="collapse" data-bs-target="#filter-age">
+        <div class="filter-header" data-bs-toggle="collapse" data-bs-target="#filter-size">
           <span class="filter-title">size</span>
           <i class="fas fa-plus"></i>
         </div>
@@ -34,7 +34,7 @@
           <!-- Age filter content goes here -->
         </div>
 
-        <div class="filter-header" data-bs-toggle="collapse" data-bs-target="#filter-brand">
+        <div class="filter-header" data-bs-toggle="collapse" data-bs-target="#filter-city">
           <span class="filter-title">city</span>
           <i class="fas fa-plus"></i>
         </div>
@@ -44,133 +44,23 @@
       </div>
     </div>
 
-    <div class="col-lg-9 col-md-8 col-sm-12">
+    <div class="col-md-9">
       <div class="row">
-      
-          <div class="col-lg-4 col-md-6 col-12">
-            <div class="card" style="border: none;padding:15px; text-align: left; line-height:1ch;">
+        <% products.forEach(product => { %>
+          <div class="col-lg-4 col-md-6 col-sm-12 mb-5">
+            <div class="card" style="border: none;padding:15px; text-align: left; line-height:1ch;" >
               <a href="/productpage/productpage">
-              <img id="might-like-img"
-                src="https://htmlcolorcodes.com/assets/images/colors/gray-color-solid-background-1920x1080.png"
-                class="card-img-top" alt="..." style="width: 100%; height: 230px; object-fit: cover;">
-              </a>
+                <img src="<%= product.src %>" class="card-img-top" alt="<%= product.title %>" style="height: 250px; object-fit: cover;">
+            </a>
               <div class="card-body">
-                <h5 class="card-title"><strong>1200 piece jigswan puzzle</strong></h5>
-                <p class="card-text">Brand</p>
-                <p class="card-price"><span>$</span> 12.53</p>
+                <h5 class="card-title"><%= product.title %></h5>
+                <p class="card-text"><%= product.brand %></p>
+                <p class="card-price">$<%= product.price.toFixed(2) %></p>
               </div>
             </div>
           </div>
-        
-           
-              <div class="col-lg-4 col-md-6 col-12">
-             
-                <div class="card" style="border: none;padding:15px; text-align: left; line-height:1ch;">
-                  <a href="/productpage/productpage">
-                  <img id="might-like-img"
-                    src="https://htmlcolorcodes.com/assets/images/colors/gray-color-solid-background-1920x1080.png"
-                    class="card-img-top" alt="..." style="width: 100%; height: 230px; object-fit: cover;">
-                  </a>
-
-                  <div class="card-body">
-                    <h5 class="card-title"><strong>Title</strong></h5>
-                    <p class="card-text">Brand</p>
-                    <p class="card-price"><span>$</span> 152 </p>
-                  </div>
-                </div>
-              </div>
-      
-      
-        <div class="col-lg-4 col-md-6 col-12">
-          <div class="card" style="border: none;padding:15px; text-align: left; line-height:1ch;">
-            <a href="/productpage/productpage">
-
-            <img id="might-like-img"
-              src="https://htmlcolorcodes.com/assets/images/colors/gray-color-solid-background-1920x1080.png"
-              class="card-img-top" alt="..." style="width: 100%; height: 230px; object-fit: cover;">
-              </a>
-            <div class="card-body">
-              <h5 class="card-title"><strong>Title</strong></h5>
-              <p class="card-text">Brand</p>
-              <p class="card-price"><span>$</span>34.23 </p>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-4 col-md-6 col-12">
-          <div class="card" style="border: none;padding:15px; text-align: left; line-height:1ch;">
-            <img id="might-like-img"
-              src="https://htmlcolorcodes.com/assets/images/colors/gray-color-solid-background-1920x1080.png"
-              class="card-img-top" alt="..." style="width: 100%; height: 230px; object-fit: cover;">
-            <div class="card-body">
-              <h5 class="card-title"><strong>Title</strong></h5>
-              <p class="card-text">Brand</p>
-              <p class="card-price"><span>$</span> 67.25 </p>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-4 col-md-6 col-12">
-          <div class="card" style="border: none;padding:15px; text-align: left; line-height:1ch;">
-            <img id="might-like-img"
-              src="https://htmlcolorcodes.com/assets/images/colors/gray-color-solid-background-1920x1080.png"
-              class="card-img-top" alt="..." style="width: 100%; height: 230px; object-fit: cover;">
-            <div class="card-body">
-              <h5 class="card-title"><strong>Title</strong></h5>
-              <p class="card-text">Brand</p>
-              <p class="card-price"><span>$</span>324 </p>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-4 col-md-6 col-12">
-          <div class="card" style="border: none;padding:15px; text-align: left; line-height:1ch;">
-            <img id="might-like-img"
-              src="https://htmlcolorcodes.com/assets/images/colors/gray-color-solid-background-1920x1080.png"
-              class="card-img-top" alt="..." style="width: 100%; height: 230px; object-fit: cover;">
-            <div class="card-body">
-              <h5 class="card-title"><strong>Title</strong></h5>
-              <p class="card-text">Brand</p>
-              <p class="card-price"><span>$</span> 100 </p>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-4 col-md-6 col-12">
-          <div class="card" style="border: none;padding:15px; text-align: left; line-height:1ch;">
-            <img id="might-like-img"
-              src="https://htmlcolorcodes.com/assets/images/colors/gray-color-solid-background-1920x1080.png"
-              class="card-img-top" alt="..." style="width: 100%; height: 230px; object-fit: cover;">
-            <div class="card-body">
-              <h5 class="card-title"><strong>Title</strong></h5>
-              <p class="card-text">Brand</p>
-              <p class="card-price"><span>$</span> 125 </p>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-4 col-md-6 col-12">
-          <div class="card" style="border: none;padding:15px; text-align: left; line-height:1ch;">
-            <img id="might-like-img"
-              src="https://htmlcolorcodes.com/assets/images/colors/gray-color-solid-background-1920x1080.png"
-              class="card-img-top" alt="..." style="width: 100%; height: 230px; object-fit: cover;">
-            <div class="card-body">
-              <h5 class="card-title"><strong>Title</strong></h5>
-              <p class="card-text">Brand</p>
-              <p class="card-price"><span>$</span> 123 </p>
-            </div>
-          </div>
-        </div>
-        <div class=" col-lg-4 col-md-6 col-12">
-          <div class="card" style="border: none;padding:15px; text-align: left; line-height:1ch;">
-            <img id="might-like-img"
-              src="https://htmlcolorcodes.com/assets/images/colors/gray-color-solid-background-1920x1080.png"
-              class="card-img-top" alt="..." style="width: 100%; height: 230px; object-fit: cover;">
-            <div class="card-body">
-              <h5 class="card-title"><strong>Title</strong></h5>
-              <p class="card-text">Brand</p>
-              <p class="card-pric"><span>$</span> Price </p>
-            </div>
-          </div>
-        </div>
+        <% }); %>
       </div>
     </div>
   </div>
-
-
-  <!--card group-->
+</div>
