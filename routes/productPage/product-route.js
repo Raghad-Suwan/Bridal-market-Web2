@@ -4,7 +4,7 @@ const router = express.Router();
 
 const productpage = require('../../controllers/userController')
 
-router.get("/productpage", productpage.ProductPage)
+router.get("/productpage/:categoryName", productpage.ProductPage)
 
 
 

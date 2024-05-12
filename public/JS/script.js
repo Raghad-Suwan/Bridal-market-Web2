@@ -9,7 +9,7 @@ let preview = document.getElementById('preview')
 
 function ReadUrl(input){
     let reader =  new FileReader();
-     reader.onload = function(e) {
+    reader.onload = function(e) {
         imgUrl = e.target.result
         $('#preview').attr('src',e.target.result)
     }
