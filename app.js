@@ -8,7 +8,7 @@ app.set('view engine', 'ejs');
 
 // mongodb connect
 const mongoose = require("mongoose"); 
-mongoose.connect("mongodb://localhost:27017/crud") 
+mongoose.connect("") 
  
 const UserSchema= new mongoose.Schema({ 
   name: String, 
@@ -28,7 +28,6 @@ app.get("/getUsers",(req, res) =>{
 
 
 
-//routs
 const publicDir = path.join(__dirname ,'./public');
 const dashbordRoutes = require('./routes/dashbord/dashbord_routes')
 const events =require('./routes/event/event-routes')
