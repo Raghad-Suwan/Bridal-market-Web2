@@ -37,3 +37,14 @@ exports.Index = (req, res) => {
 exports.signupprovider = (req, res) => {
     res.render("../views/signup-provider.ejs");
 };
+exports.allproduct = (req, res, products) => {
+    console.log(" hi iam in all product ")
+    res.render("../views/systmedashbord/allproduct.ejs", { products });
+};
+
+exports.allorder=(req,res,orders)=>{
+    res.render("../views/systmedashbord/allorder.ejs",{ orders });
+
+
+
+}

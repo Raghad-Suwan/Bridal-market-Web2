@@ -8,7 +8,7 @@ app.set('view engine', 'ejs');
 
 // mongodb connect
 const mongoose = require("mongoose"); 
-mongoose.connect("") 
+// mongoose.connect("") 
  
 const UserSchema= new mongoose.Schema({ 
   name: String, 
@@ -38,6 +38,7 @@ const productpage = require('./routes/productPage/product-route')
 
 const signupUser = require('./routes/sign/sign-routes')
 const signupProvider = require('./routes/sign/sign-routes');
+const MaindashbordRoutes = require('./routes/Maindashbord/main_dashbord')
 
 
 app.use(express.static(publicDir));
@@ -50,6 +51,7 @@ app.use('/productpage',productpage);
 app.use('/signup',signupUser);
 app.use('/', home); 
 app.use('/signupProvider',signupProvider);
+app.use('/dashbordMain', MaindashbordRoutes );
 
  
 
