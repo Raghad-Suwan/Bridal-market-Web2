@@ -7,8 +7,7 @@ const path  = require('path');
 app.set('view engine', 'ejs');
 
 
-
-
+//routs
 const publicDir = path.join(__dirname ,'./public');
 const dashbordRoutes = require('./routes/dashbord/dashbord_routes')
 const events =require('./routes/event/event-routes')
@@ -53,11 +52,42 @@ res.render('index', { products: products });
 //To go to the desired image
 
 
+//mongo 
 
+const mongoose = require("mongoose");  
+app.use(express.urlencoded({ extended: true}));
+const UserModel=require("./models/dressesSchema")
 
+mongoose.connect("mongodb://localhost:27017/test1").then(() =>{ 
+ 
+app.listen(port, () => { 
+  console.log(`Example app listening at http://localhost:${port}`); 
+  console.log('success connection with database'); 
+}); 
+})
+.catch((err) =>{ 
+  console.log(err); 
+}) 
 
-app.listen(port, () => {
-  console.log(`Example app listening at http://localhost:${port}`);
-});
+    
+app.get("/getUsers",(req, res) =>{  
+  
+  UserModel.find({})
+
+  .then(function(pruducts){  
+    res.json(pruducts)  
+  })
+  .catch(function(err){  
+    console.log(err)  
+  })  
+})
+
+app.post("/signup/signup",(req, res) =>{ 
+ console.log( req.body)
+ res.redirect("/")
+ })
+// app.listen(port, () => {
+//   console.log(`Example app listening at http://localhost:${port}`);
+// });
 
 
