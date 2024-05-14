@@ -75,8 +75,7 @@ app.get("/eventproduct", (req, res) => {
 });
 
 
-//To go to the desired image
-
+//To go to the desired image kk
 
 
 
