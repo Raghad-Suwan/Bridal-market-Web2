@@ -10,14 +10,7 @@ const mongoose = require("mongoose");
 mongoose.connect("mongodb://localhost:27017/crud")
 const Users =require('./models/userschema')
 
-
-
-
-
-
-
 //models
-
 
 //routs
 const publicDir = path.join(__dirname, './public');
@@ -30,7 +23,6 @@ const productpage = require('./routes/productPage/product-route')
 const calender1 = require("./routes/calender/calender")
 const signupUser = require('./routes/sign/sign-routes')
 const signupProvider = require('./routes/sign/sign-routes');
-
 
 
 app.use(express.static(publicDir));
@@ -46,8 +38,7 @@ app.use('/', home);
 app.use('/signupProvider', signupProvider);
 
 
-
-
+//add product from mongo to productpage
 
 app.get("/eventproduct", (req, res) => {
     Users.find()
@@ -58,11 +49,10 @@ app.get("/eventproduct", (req, res) => {
   })
 
 
-  //dynamic product 
+  //to navigate to the path I want and the images within the path
 
   app.get('/productpage/:categoryName', async (req, res) => {
     const categoryName = req.params.categoryName;
-
     try {
         // استرجاع المنتجات المتعلقة بالفئة categoryName من قاعدة البيانات
         const filteredProducts = await Users.find({ category:categoryName });
@@ -75,8 +65,31 @@ app.get("/eventproduct", (req, res) => {
 });
 
 
-//To go to the desired image kk
+//To go to the desired image with pagination 
 
+app.get('/eventproduct/:categoryName/:page', async (req, res) => {
+  const pagenumber = parseInt(req.params.page);
+  const authorsperPage = 3;
+  const categoryName = req.params.categoryName;
+  try {
+      const totalProducts = await Users.countDocuments({ category: categoryName });
+      const totalPages = Math.ceil(totalProducts / authorsperPage);
+      const authorlist = await Users.find({ category: categoryName })
+                                    .skip((pagenumber - 1) * authorsperPage)
+                                    .limit(authorsperPage);
+      res.render('index', { 
+          products: authorlist, 
+          categoryName: categoryName, 
+          currentPage: pagenumber, 
+          totalPages: totalPages 
+      });
+  } catch (error) {
+      console.error(error);
+      res.status(500).send('خطأ في استرجاع البيانات');
+  }
+});
+
+//file home.ejs
 
 
 

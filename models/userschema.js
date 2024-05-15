@@ -9,6 +9,7 @@ price:Number,
 title:String,
 src:String,
 category:String,
+num:Number,
 },{
     min: 9,
     max: 9
