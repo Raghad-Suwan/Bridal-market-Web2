@@ -31,6 +31,34 @@ app.use('/home', home);
 app.use('/signupProvider',signupProvider);
 
 
+
+//Maindashboard routes
+const Provider = require('./routes/maindashboard/models/allproviders'); 
+const User = require('./routes/maindashboard/models/allusers');
+
+//home route for Maindashboard
+app.get('/', (req, res) => {
+  res.render('maindashboard')});
+  app.get('/allserviceproviders', async (req, res) => {
+    const providers = await Provider.find({});
+    res.render('allserviceproviders', { providers, message: null });
+  });
+  app.get('/allusers', async (req, res) => {
+    const users = await User.find({});
+    res.render('allusers', { users, message: null });
+  });
+  const ActivationRoutes = require('./routes/maindashboard/activationroute');
+  const deleteProviderRoutes = require('./routes/maindashboard/deleteproviderroute');
+  const deleteUserRoutes = require('./routes/maindashboard/deleteuserroute');
+  app.use('/updateActivation', ActivationRoutes);
+  app.use('/deleteProvider', deleteProviderRoutes);
+  app.use('/deleteUser',deleteUserRoutes);
+
+
+
+
+
+
 const product = {
   title: 'Sample Product',
   price: 80,
