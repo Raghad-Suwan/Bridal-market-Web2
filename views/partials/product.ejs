@@ -43,21 +43,20 @@
         </div>
       </div>
     </div>
-
     <div class="col-md-9">
       <div class="row">
         <% products.forEach(product => { %>
           <div class="col-lg-4 col-md-6 col-sm-12 mb-5">
             <div class="card" style="border: none;padding:15px; text-align: left; line-height:1ch;" >
               <a href="/productpage/productpage">
-                <img src="<%= product.src %>" class="card-img-top" alt="<%= product.title %>" style="height: 250px; object-fit: cover;">
-            </a>
+                <img src="<%= product.src %>" class="card-img-top"  style="height: 250px; object-fit: cover;">
+            </a>  
               <div class="card-body">
                 <h5 class="card-title"><%= product.title %></h5>
                 <p class="card-text"><%= product.brand %></p>
                 <p class="card-price">$<%= product.price.toFixed(2) %></p>
               </div>
-            </div>
+            </div> 
           </div>
         <% }); %>
       </div>
