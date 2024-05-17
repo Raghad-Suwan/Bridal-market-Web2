@@ -15,7 +15,6 @@ num:Number,
     max: 9
 })
 
-
 //create a model based in the schema
 const Provider = mongoose.model('users', productscema)
 

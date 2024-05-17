@@ -69,7 +69,7 @@ app.get("/eventproduct", (req, res) => {
 
 app.get('/eventproduct/:categoryName/:page', async (req, res) => {
   const pagenumber = parseInt(req.params.page);
-  const authorsperPage = 3;
+  const authorsperPage = 6;
   const categoryName = req.params.categoryName;
   try {
       const totalProducts = await Users.countDocuments({ category: categoryName });
