@@ -5,8 +5,8 @@ mobiscroll.setOptions({
       themeVariant: 'light'                  // More info about themeVariant: https://mobiscroll.com/docs/javascript/datepicker/api#opt-themeVariant
   });
   
-  var min = '2024-05-01T00:00';
-  var max = '2024-11-01T00:00';
+  var min = '2024-01-01T00:00';
+  var max = '2025-12-31T00:00';
   
 
   
