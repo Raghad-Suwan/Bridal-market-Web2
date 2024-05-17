@@ -8,7 +8,7 @@ app.set('view engine', 'ejs');
 
 // mongodb connect
 const mongoose = require("mongoose"); 
-//mongoose.connect("") 
+mongoose.connect("") 
  
 const UserSchema= new mongoose.Schema({ 
   name: String, 
@@ -17,17 +17,7 @@ const UserSchema= new mongoose.Schema({
  
 const UserModel =mongoose.model("users",UserSchema) 
  
-const calendar = require('./routes/res-routes');
-app.use("/cal", calendar);
 
- app.get('/',(req,res)=>{
-res.render("calendar1")
-
-})
-app.get('/calendar2',(req,res)=>{
- // res.render("calendar2")
-
-//})
 app.get("/getUsers",(req, res) =>{ 
  
   UserModel.find({}).then(function(users){ 
