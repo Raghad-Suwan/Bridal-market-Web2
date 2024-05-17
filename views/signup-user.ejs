@@ -41,11 +41,15 @@
                         <div class="form-group">
                             <label for="password"data-lang="password" >Password:</label>
                             <input type="password" id="password" name="password" class="form-control" required style="width: 460px;">
+                           
                         </div>
 
                         <div class="form-group">
                             <label for="repeatPassword"data-lang="RepeatPassword" >Repeat Password:</label>
                             <input type="password" id="repeatPassword" name="repeatPassword" class="form-control" required style="width: 460px;">
+                            <div id="password-warning" class="password-warning">
+                                Password should contain numbers, letters, and symbols. The minimum password length is 5.
+                            </div>
                         </div>
 
                         <button type="submit" class="btn btn" style="margin: 0 auto; text-align: center; text-decoration: none; color: rgb(214, 171, 171); background-color:rgb(233, 223, 210); padding: 10px; border-radius: 5px;color:black ; font-weight: bold;width: 200px;"data-lang="SignUp" >Sign up</button>
@@ -67,6 +71,25 @@
  
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"></script>
-    
+    <script>
+   //https://www.w3schools.com/jsref/prop_style_display.asp
+        function showPasswordWarning() {
+            const warningMessage = document.getElementById('password-warning');
+            warningMessage.style.display = 'block';
+        }
+
+   
+        function hidePasswordWarning() {
+            const warningMessage = document.getElementById('password-warning');
+            warningMessage.style.display = 'none';
+        }
+
+  
+        document.addEventListener('DOMContentLoaded', (event) => {
+            const passwordField = document.getElementById('password');
+            passwordField.addEventListener('focus', showPasswordWarning);
+            passwordField.addEventListener('blur', hidePasswordWarning);
+        });
+    </script>
 </body>
 </html>
