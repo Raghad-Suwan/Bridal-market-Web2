@@ -7,5 +7,4 @@ const productpage = require('../../controllers/userController')
 router.get("/productpage", productpage.ProductPage)
 
 
-
 module.exports = router; 

@@ -1,0 +1,38 @@
+
+
+
+<div class="d-flex justify-content-between flex-wrap flex-md nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h2">Search</h1>
+    
+</div>
+<div class="table-responsive">
+    <% if (customers > 0 ) { %>
+        <table class="table table-striped table-sm">
+            <thead>
+                <tr>
+                    <th scope="col">brand</th>
+                    <th scope="col">catagory</th>
+                    <th scope="col">price</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% customers.forEach(element=> { %>
+                    <td>
+                        <%= element.brand %>
+                    </td>
+                    <td>
+                        <%= element.catagory %>
+                    </td>
+                    <td>
+                        <%= element.price %>
+                    </td>
+                    
+                    <% }) %>
+            </tbody>
+        </table>
+
+        <% } else { %>
+
+            <h2>No results found.</h2>
+            <% } %>
+</div>
