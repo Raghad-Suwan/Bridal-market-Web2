@@ -1,9 +1,9 @@
 const { render } = require('ejs');
 const express = require('express');
 const router = express.Router();
+const isAuth=require('../../middleware/is-auth')
+const homepage = require('../../controllers/appControllers')
 
-const homepage = require('../../controllers/userController')
-
-router.get("/", homepage.HomePage )
+router.get("/home", isAuth,homepage.homes_get )
     
 module.exports = router; 

@@ -1,55 +1,55 @@
-
-const express = require('express');
-const app = express();
+const express = require("express");
+const session = require("express-session");
 const port = 5000; 
 const path  = require('path');
+const MongoDBStore = require("connect-mongodb-session")(session);
+const MongidbStore=require('./mongodbStore/store')
+const appControllers = require("./controllers/appControllers");
 
-app.set('view engine', 'ejs');
-
-// mongodb connect
-const mongoose = require("mongoose"); 
-mongoose.connect("") 
- 
-const UserSchema= new mongoose.Schema({ 
-  name: String, 
-  age: Number 
-}) 
- 
-const UserModel =mongoose.model("users",UserSchema) 
- 
-app.get("/getUsers",(req, res) =>{ 
- 
-  UserModel.find({}).then(function(users){ 
-    res.json(users) 
-  }).catch(function(err){ 
-    console.log(err) 
-  }) 
-})
-
-
-
-const publicDir = path.join(__dirname ,'./public');
+const signupUser = require('./routes/sign/signup-routes')
+const LoginPage=require('./routes/Login/Login-routes')
+const home = require('./routes/home/home-routes')
 const dashbordRoutes = require('./routes/dashbord/dashbord_routes')
 const events =require('./routes/event/event-routes')
 const profiles =require("./routes/profiles/profiles_routes");
-const home = require('./routes/home/home-routes')
 const loading = require('./routes/sign/loadingpage')
 const productpage = require('./routes/productPage/product-route')
-
-const signupUser = require('./routes/sign/sign-routes')
-const signupProvider = require('./routes/sign/sign-routes');
+//const signupProvider = require('./routes/sign/sign-routes');
 
 
-app.use(express.static(publicDir));
+const app = express();
 
+//app
+
+
+
+app.set("view engine", "ejs");
+app.use(express.urlencoded({ extended: true }));
+app.use(express.static('public'));
+app.use(express.json());
+
+app.use(
+  session({
+    secret: "secret",
+    resave: false,
+    saveUninitialized: false,
+    store: MongidbStore,
+  })
+);
+
+// Routes
 app.use('/dashbord', dashbordRoutes );
 app.use('/eventproduct', events);
 app.use('/profiles', profiles );
 app.use('/loading',loading);
 app.use('/productpage',productpage);
-app.use('/signup',signupUser);
+app.use('/signup-user', signupUser);
+
 app.use('/', home); 
-app.use('/signupProvider',signupProvider);
+
+
+ app.use('/Login',LoginPage)
+ //app.use('/signupProvider',signupProvider);
 
  
 
@@ -81,7 +81,6 @@ app.get('/productpage/:categoryName', (req, res) => {
 
 
 app.listen(port, () => {
-  console.log(`Example app listening at http://localhost:${port}`);
+  console.log("App Running on http://localhost:5000");
 });
-
 
