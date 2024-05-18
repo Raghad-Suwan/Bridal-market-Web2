@@ -35,7 +35,7 @@ exports.login_post = async (req, res) => {
 
         // Set session authentication
         req.session.isAuth = true;
-        req.session.username = user.username;
+        req.session.name = user.name;
 
         // Redirect to home page after successful login
         res.render('../views/home');
@@ -110,7 +110,7 @@ exports.signin_post = async (req, res) => {
 // Home GET route
 // Home GET route
 exports.homes_get = (req, res) => {
-    const username = req.session.username;
+    const name = req.session.name;
     res.render('home.ejs', { name: username });
 };
 //The code was accessed through https://youtube.com/watch?v=TDe7DRYK8vU&si=6UbOY4mMgdKWLvds
