@@ -58,24 +58,15 @@ app.get('/', (req, res) => {
 
 
 
-
-const product = {
-  title: 'Sample Product',
-  price: 80,
-  description: 'This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.',
-  image: 'https://htmlcolorcodes.com/assets/images/colors/gray-color-solid-background-1920x1080.png',
-  images: [
-    'https://htmlcolorcodes.com/assets/images/colors/gray-color-solid-background-1920x1080.png',
-    'https://htmlcolorcodes.com/assets/images/colors/gray-color-solid-background-1920x1080.png',
-    'https://htmlcolorcodes.com/assets/images/colors/gray-color-solid-background-1920x1080.png',
-  ]
-};
-const similarProducts = [
-  { title: 'Similar Product 1', brand: 'Brand A', price: 20, image: 'https://htmlcolorcodes.com/assets/images/colors/gray-color-solid-background-1920x1080.png' },
-  { title: 'Similar Product 2', brand: 'Brand B', price: 30, image: 'https://htmlcolorcodes.com/assets/images/colors/gray-color-solid-background-1920x1080.png' },
-  { title: 'Similar Product 3', brand: 'Brand C', price: 25, image: 'https://htmlcolorcodes.com/assets/images/colors/gray-color-solid-background-1920x1080.png' },
-  { title: 'Similar Product 4', brand: 'Brand D', price: 52, image: 'https://htmlcolorcodes.com/assets/images/colors/gray-color-solid-background-1920x1080.png' }
-];
+// product page 
+ const Product=require('./models/product');
+  const similarproduct=require('./models/similarproduct');
+  
+  app.get('/', async (req, res) => {
+    const products = await Product.find({}); // Fetch all products
+    const similarProducts = await similarproduct .find({});
+    res.render('ProductPage', { products, similarProducts });
+  });
 app.get('/', (req, res) => {
   res.render('ProductPage', { product, similarProducts });
 });
