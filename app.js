@@ -13,7 +13,7 @@ app.set('view engine', 'ejs');
 
 
 const mongoose = require("mongoose");
-mongoose.connect("mongodb://localhost:27017/crud")
+mongoose.connect("mongodb+srv://saja:123456789s@cluster0.se97yow.mongodb.net/BridalMarket")
 const Users =require('./models/userschema')
 const customersCon = require('./models/ConenctUsSchema')
 const customersRes = require('./models/reservationSchema')
