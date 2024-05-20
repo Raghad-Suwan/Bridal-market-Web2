@@ -8,5 +8,6 @@ router.get("/calender1", calender.calender1 )
 
 router.get("/calender2", calender.calender2 )
 
-    
+router.get("/reservationConf", calender.reservationConf)
+
 module.exports = router; 

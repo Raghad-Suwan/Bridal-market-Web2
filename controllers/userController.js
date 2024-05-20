@@ -43,3 +43,6 @@ exports.calender1 = (req, res) => {
 exports.calender2 = (req, res) => {
     res.render("../views/calendar2.ejs");
 };
+exports.reservationConf = (req, res) => {
+    res.render("../views/reservationConf.ejs");
+};
