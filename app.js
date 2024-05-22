@@ -31,12 +31,12 @@ const Users = require('./models/userschema')
 
 
 
+const publicDir = path.join(__dirname ,'./public');
 
 
-//models
 
 //routs
-const publicDir = path.join(__dirname, './public');
+
 const dashbordRoutes = require('./routes/dashbord/dashbord_routes')
 const events = require('./routes/event/event-routes')
 const profiles = require("./routes/profiles/profiles_routes");
@@ -201,7 +201,31 @@ app.get('/eventproduct/:categoryName/:page', (req, res) => {
 
 //productpage whit id 
 
-//file home.ejs
+//Maindashboard routes
+const Provider = require('./routes/maindashboard/models/allproviders'); 
+const User = require('./routes/maindashboard/models/allusers');
+
+//home route for Maindashboard
+app.get('/', (req, res) => {
+  res.render('maindashboard')});
+  app.get('/allserviceproviders', async (req, res) => {
+    const providers = await Provider.find({});
+    res.render('allserviceproviders', { providers, message: null });
+  });
+  app.get('/allusers', async (req, res) => {
+    const users = await User.find({});
+    res.render('allusers', { users, message: null });
+  });
+  const ActivationRoutes = require('./routes/maindashboard/activationroute');
+  const deleteProviderRoutes = require('./routes/maindashboard/deleteproviderroute');
+  const deleteUserRoutes = require('./routes/maindashboard/deleteuserroute');
+  app.use('/updateActivation', ActivationRoutes);
+  app.use('/deleteProvider', deleteProviderRoutes);
+  app.use('/deleteUser',deleteUserRoutes);
+
+
+
+
 
 
 
