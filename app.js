@@ -1,8 +1,15 @@
-//express and path 
-const express = require('express');
+const express = require("express");
+const session = require("express-session");
+const port = 5000; 
+const path  = require('path');
 const app = express();
-const port = 5000;
-const path = require('path');
+const MongoDBStore = require("connect-mongodb-session")(session);
+const MongidbStore=require('./mongodbStore/store')
+const appControllers = require("./controllers/appControllers");
+
+const signupUser = require('./routes/sign/signup-routes')
+const LoginPage=require('./routes/Login/Login-routes')
+
 
 
 
@@ -20,8 +27,6 @@ app.use(express.urlencoded({
 app.use(express.json());
 
 
-//routs
-app.set('view engine', 'ejs');
 
 // mongodb connect 
 
@@ -31,16 +36,15 @@ mongoose.connect("mongodb+srv://hadisawalmeh:123456789h@cluster0.se97yow.mongodb
 const Users = require('./models/userschema')
 
 
-const searchModel = require("./models/Customer")
-const Search = require("./models/search")
 
 
 //routs
 
-const dashbordRoutes = require('./routes/dashbord/dashbord_routes')
-const events = require('./routes/event/event-routes')
-const profiles = require("./routes/profiles/profiles_routes");
+
 const home = require('./routes/home/home-routes')
+const dashbordRoutes = require('./routes/dashbord/dashbord_routes')
+const events =require('./routes/event/event-routes')
+const profiles =require("./routes/profiles/profiles_routes");
 const loading = require('./routes/sign/loadingpage')
 const productpage = require('./routes/productPage/product-route');
 const calender1 = require("./routes/calender/calender")
@@ -62,30 +66,19 @@ app.use('/signup', signupUser);
 app.use('/', home);
 app.use('/signupProvider', signupProvider);
 app.use('/searchPage', productpage)
+app.use('/Login',LoginPage)
 
 
 
 
-//mongo connect
-/*
-mongoose.connect("mongodb://localhost:27017/test1")
-  .then(() => {
-
-    app.listen(port, () => {
-      console.log(`Example app listening at http://localhost:${port}`);
-      console.log('success connection with database');
-      
-    });
-  })
-  .catch((err) => {
-    console.log(err);
-  })
-
-*/
-//search
 
 
 
+
+
+//app
+
+const sessionCookieLifeTime = 1000 * 60 * 15;
 
 
 
@@ -126,7 +119,20 @@ app.get("/productpage/productpage/:id", (req, res) => {
 });
 
 
-//to navigate to the path I want and the images within the path
+
+app.use(
+  session({
+    secret: "Muy8fuSOYHDsR6WOCwNS6K6sy2QmhSEp",
+    resave: false,
+    saveUninitialized: false,
+      cookie: { maxAge: sessionCookieLifeTime },
+    store: MongidbStore,
+  })
+  //https://l.facebook.com/l.php?u=https%3A%2F%2Fgithub.com%2Faux-sam%2Fnodejs%2Ftree%2Fmain%3Ffbclid%3DIwZXh0bgNhZW0CMTAAAR02TTL2cb_o8e6f52-OIVHe7bwgvnZU8a2eN7OFqlqYu7wwfk2OjfaA1Qs_aem_AaCGS-JRtka59oklW4jKYQOjrF0a6oVXGCxPawjitusRnYtQKsCJGCmFJNNlPrE_I1JlmSfRSW0f98k4N0uEbBAa&h=AT3FQOJsP0dvkfGaFrDlscsxVSgLoPUFwP7MnLZ58DIychTlHsdblw90vGwgZ0ZU227aRIOwQ4XDA3HtcCm9IaTzvbiA9yB8TaTHWToyT9XVgE7TpN-RPxqhSyumYa8Tm5-_-sNLlahUvjU
+);
+
+
+
 
 
 //To go to the desired image with pagination 
@@ -160,6 +166,9 @@ app.get('/eventproduct/:categoryName/:page', (req, res) => {
             res.status(500).send('Server Error');
         });
 });
+//search
+const searchModel = require("./models/Customer")
+const Search = require("./models/search")
 
 // path must be as the action attribute
 app.post("/searchPage", (req, res) => {
@@ -227,5 +236,6 @@ app.use('/deleteUser', deleteUserRoutes);
 
 
 app.listen(port, () => {
+
     console.log(`Example app listening at http://localhost:${port}`);
 });
