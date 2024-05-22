@@ -9,14 +9,14 @@ price:Number,
 title:String,
 src:String,
 category:String,
-num:Number,
-},{
-    min: 9,
-    max: 9
+descreption:String,
+
+
 })
 
 //create a model based in the schema
 const Provider = mongoose.model('users', productscema)
+
 
 
 

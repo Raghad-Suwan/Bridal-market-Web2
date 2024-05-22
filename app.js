@@ -7,8 +7,11 @@ app.set('view engine', 'ejs');
 
 // mongodb connect
 const mongoose = require("mongoose");
-mongoose.connect("mongodb://localhost:27017/crud")
-const Users =require('./models/userschema')
+mongoose.connect("mongodb+srv://hadisawalmeh:123456789h@cluster0.se97yow.mongodb.net/BridalMarket")
+const Users = require('./models/userschema')
+
+
+
 
 //models
 
@@ -38,61 +41,78 @@ app.use('/', home);
 app.use('/signupProvider', signupProvider);
 
 
-//add product from mongo to productpage
-
-app.get("/eventproduct", (req, res) => {
+// Add product from MongoDB to product page
+app.get("/eventproduct", async (req, res) => {
     Users.find()
-    .then((result) => {res.render("index",{products: result})})
-    .catch((err) => {
-      console.log(err);
-    } )
-  })
-
-
-  //to navigate to the path I want and the images within the path
-
-  app.get('/productpage/:categoryName', async (req, res) => {
-    const categoryName = req.params.categoryName;
-    try {
-        // استرجاع المنتجات المتعلقة بالفئة categoryName من قاعدة البيانات
-        const filteredProducts = await Users.find({ category:categoryName });
-
-        res.render('index', { products: filteredProducts });
-    } catch (error) {
-        console.error(error);
-        res.status(500).send('خطأ في استرجاع البيانات');
-    }
+        .then((result) => {
+            res.render("index", {
+                products: result
+            });
+        })
+        .catch((err) => {
+            console.log(err);
+        });
 });
+
+
+app.get("/productpage/productpage/:id", (req, res) => {
+    Users.findById(req.params.id)
+        .then(product => {
+            return Users.find({
+                category: product.category,
+                _id: { $ne: product._id } // استبعاد المنتج الحالي
+            }).limit(4)
+            .then(similarProducts => {
+                res.render("productpage", {
+                    product: product,
+                    similarProducts: similarProducts
+                });
+            });
+        })
+        .catch(err => {
+            console.log(err);
+            res.status(500).send('Server Error');
+        });
+});
+
+
+//to navigate to the path I want and the images within the path
 
 
 //To go to the desired image with pagination 
 
-app.get('/eventproduct/:categoryName/:page', async (req, res) => {
-  const pagenumber = parseInt(req.params.page);
-  const authorsperPage = 6;
-  const categoryName = req.params.categoryName;
-  try {
-      const totalProducts = await Users.countDocuments({ category: categoryName });
-      const totalPages = Math.ceil(totalProducts / authorsperPage);
-      const authorlist = await Users.find({ category: categoryName })
-                                    .skip((pagenumber - 1) * authorsperPage)
-                                    .limit(authorsperPage);
-      res.render('index', { 
-          products: authorlist, 
-          categoryName: categoryName, 
-          currentPage: pagenumber, 
-          totalPages: totalPages 
-      });
-  } catch (error) {
-      console.error(error);
-      res.status(500).send('خطأ في استرجاع البيانات');
-  }
+app.get('/eventproduct/:categoryName/:page', (req, res) => {
+    const numofpage = parseInt(req.params.page);
+    const numofproduct = 6;
+    const categoryName = req.params.categoryName;
+
+    Users.countDocuments({ category: categoryName })
+        .then(totalProducts => {
+            const totalPages = Math.ceil(totalProducts / numofproduct);
+            return Users.find({ category: categoryName })
+                .skip((numofpage - 1) * numofproduct)
+                .limit(numofproduct)
+                .then(authorlist => {
+                    res.render('index', {
+                        products: authorlist,
+                        categoryName: categoryName,
+                        currentPage: numofpage,
+                        totalPages: totalPages
+                    });
+                });
+        })
+        .catch(error => {
+            console.error(error);
+            res.status(500).send('Server Error');
+        });
 });
+
+//productpage whit id 
 
 //file home.ejs
 
 
 
 app.listen(port, () => {
-  console.log(`Example app listening at http://localhost:${port}`);
+    console.log(`Example app listening at http://localhost:${port}`);
 });
