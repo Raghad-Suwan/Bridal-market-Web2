@@ -21,7 +21,9 @@ const publicDir = path.join(__dirname, './public');
 app.use(express.static(publicDir));
 
 // Middleware to parse the body of POST requests
-app.use(express.urlencoded({ extended: true }));
+app.use(express.urlencoded({
+    extended: true
+}));
 app.use(express.json());
 
 
@@ -36,7 +38,6 @@ const Users = require('./models/userschema')
 
 
 
-
 //routs
 
 
@@ -46,9 +47,6 @@ const events =require('./routes/event/event-routes')
 const profiles =require("./routes/profiles/profiles_routes");
 const loading = require('./routes/sign/loadingpage')
 const productpage = require('./routes/productPage/product-route');
-const productpage = require('./routes/productPage/product-route')
-
-
 const calender1 = require("./routes/calender/calender")
 const signupUser = require('./routes/sign/sign-routes')
 const signupProvider = require('./routes/sign/sign-routes');
@@ -60,7 +58,7 @@ app.use('/calender1', calender1);
 app.use('/calender2', calender1);
 app.use('/dashbord', dashbordRoutes);
 app.use('/eventproduct', events);
-app.use('/dashbordMain', MaindashbordRoutes );
+app.use('/dashbordMain', MaindashbordRoutes);
 app.use('/profiles', profiles);
 app.use('/loading', loading);
 app.use('/productpage', productpage);
@@ -73,38 +71,9 @@ app.use('/Login',LoginPage)
 
 
 
-//search
-const searchModel = require("./models/Customer")
-const Search = require("./models/search")
-// path must be as the action attribute
-app.post("/searchPage", (req, res) => {
 
-  console.log(req.body)
-  const search = new Search(req.body);
-  search.save().then(() => {
-    res.redirect("/searchPage")
 
-  }).catch(err => console.error(err));
-})
-app.get('/searchPage', (req, res) => {
-  searchModel.find({})
-    .then(search => res.json(search))
-    .catch(err => console.error(err));
-  console.log(req.body)
-  
-});
-//order
-app.get("/dashbord/Order");
 
-//redirect sign up page to home 
-app.post("/signup/signup", (req, res) => {
-  console.log(req.body)
-  res.redirect("/")
-})
-//ERRORE 404
-app.use((req, res, next) => {
-  res.status(404).send("Sorry, can't find that!");
-});
 
 
 //app
@@ -131,15 +100,17 @@ app.get("/productpage/productpage/:id", (req, res) => {
     Users.findById(req.params.id)
         .then(product => {
             return Users.find({
-                category: product.category,
-                _id: { $ne: product._id } // استبعاد المنتج الحالي
-            }).limit(4)
-            .then(similarProducts => {
-                res.render("productpage", {
-                    product: product,
-                    similarProducts: similarProducts
+                    category: product.category,
+                    _id: {
+                        $ne: product._id
+                    } // استبعاد المنتج الحالي
+                }).limit(4)
+                .then(similarProducts => {
+                    res.render("productpage", {
+                        product: product,
+                        similarProducts: similarProducts
+                    });
                 });
-            });
         })
         .catch(err => {
             console.log(err);
@@ -171,10 +142,14 @@ app.get('/eventproduct/:categoryName/:page', (req, res) => {
     const numofproduct = 6;
     const categoryName = req.params.categoryName;
 
-    Users.countDocuments({ category: categoryName })
+    Users.countDocuments({
+            category: categoryName
+        })
         .then(totalProducts => {
             const totalPages = Math.ceil(totalProducts / numofproduct);
-            return Users.find({ category: categoryName })
+            return Users.find({
+                    category: categoryName
+                })
                 .skip((numofpage - 1) * numofproduct)
                 .limit(numofproduct)
                 .then(authorlist => {
@@ -191,30 +166,68 @@ app.get('/eventproduct/:categoryName/:page', (req, res) => {
             res.status(500).send('Server Error');
         });
 });
+//search
+const searchModel = require("./models/Customer")
+const Search = require("./models/search")
 
-//productpage whit id 
+// path must be as the action attribute
+app.post("/searchPage", (req, res) => {
+
+    console.log(req.body)
+    const search = new Search(req.body);
+    search.save().then(() => {
+        res.redirect("/searchPage")
+
+    }).catch(err => console.error(err));
+})
+app.get('/searchPage', (req, res) => {
+    searchModel.find({})
+        .then(search => res.json(search))
+        .catch(err => console.error(err));
+    console.log(req.body)
+
+});
+//order
+app.get("/dashbord/Order");
+
+//redirect sign up page to home 
+app.post("/signup/signup", (req, res) => {
+    console.log(req.body)
+    res.redirect("/")
+})
+//ERRORE 404
+app.use((req, res, next) => {
+    res.status(404).send("Sorry, can't find that!");
+});
 
 //Maindashboard routes
-const Provider = require('./routes/maindashboard/models/allproviders'); 
+const Provider = require('./routes/maindashboard/models/allproviders');
 const User = require('./routes/maindashboard/models/allusers');
 
 //home route for Maindashboard
 app.get('/', (req, res) => {
-  res.render('maindashboard')});
-  app.get('/allserviceproviders', async (req, res) => {
+    res.render('maindashboard')
+});
+app.get('/allserviceproviders', async (req, res) => {
     const providers = await Provider.find({});
-    res.render('allserviceproviders', { providers, message: null });
-  });
-  app.get('/allusers', async (req, res) => {
+    res.render('allserviceproviders', {
+        providers,
+        message: null
+    });
+});
+app.get('/allusers', async (req, res) => {
     const users = await User.find({});
-    res.render('allusers', { users, message: null });
-  });
-  const ActivationRoutes = require('./routes/maindashboard/activationroute');
-  const deleteProviderRoutes = require('./routes/maindashboard/deleteproviderroute');
-  const deleteUserRoutes = require('./routes/maindashboard/deleteuserroute');
-  app.use('/updateActivation', ActivationRoutes);
-  app.use('/deleteProvider', deleteProviderRoutes);
-  app.use('/deleteUser',deleteUserRoutes);
+    res.render('allusers', {
+        users,
+        message: null
+    });
+});
+const ActivationRoutes = require('./routes/maindashboard/activationroute');
+const deleteProviderRoutes = require('./routes/maindashboard/deleteproviderroute');
+const deleteUserRoutes = require('./routes/maindashboard/deleteuserroute');
+app.use('/updateActivation', ActivationRoutes);
+app.use('/deleteProvider', deleteProviderRoutes);
+app.use('/deleteUser', deleteUserRoutes);
 
 
 
@@ -226,5 +239,3 @@ app.listen(port, () => {
 
     console.log(`Example app listening at http://localhost:${port}`);
 });
-
-
