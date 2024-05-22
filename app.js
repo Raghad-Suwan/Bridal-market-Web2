@@ -22,10 +22,13 @@ app.use(express.json());
 //routs
 app.set('view engine', 'ejs');
 
-// mongodb connect
+// mongodb connect 
+
+
 const mongoose = require("mongoose");
 mongoose.connect("mongodb+srv://hadisawalmeh:123456789h@cluster0.se97yow.mongodb.net/BridalMarket")
 const Users = require('./models/userschema')
+
 
 
 
@@ -44,6 +47,7 @@ const productpage = require('./routes/productPage/product-route')
 const calender1 = require("./routes/calender/calender")
 const signupUser = require('./routes/sign/sign-routes')
 const signupProvider = require('./routes/sign/sign-routes');
+const MaindashbordRoutes = require('./routes/Maindashbord/main_dashbord')
 
 
 app.use(express.static(publicDir));
@@ -51,6 +55,7 @@ app.use('/calender1', calender1);
 app.use('/calender2', calender1);
 app.use('/dashbord', dashbordRoutes);
 app.use('/eventproduct', events);
+app.use('/dashbordMain', MaindashbordRoutes );
 app.use('/profiles', profiles);
 app.use('/loading', loading);
 app.use('/productpage', productpage);
@@ -58,6 +63,7 @@ app.use('/signup', signupUser);
 app.use('/', home);
 app.use('/signupProvider', signupProvider);
 app.use('/searchPage', productpage)
+
 
 
 //dynamic product 
