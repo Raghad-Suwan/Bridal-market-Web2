@@ -78,31 +78,30 @@
                             <th>Action</th>
                         </tr>
                     </thead>
+
+
                     <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td><img src=https://drive.google.com/thumbnail?id=1qw3KUJnYgvnJHQP-yY13u_rXrJO8ZbL_ /></td>
-                            <td>-----</td>
-                            <td>------</td>
-                            <td>------</td>
-                            <td>--------</td>
-                            <td>--------</td>
 
+                       <% arr.forEach((item, index) => { %>
+                         <tr>
+                            <td><%= index+1 %> </td>
+                            <td><img src=<%= item.image %> alt="Image"/></td>
+                            <td><%= item.name %></td>
+                            <td><%= item.emailAddress %></td>
+                            <td><%= item.phone %></td>
+                            <td><%= item.locaton %></td>
+                            <td><%= item.date %></td>
+
+                           
                             <td><button>Delete</button></td>
 
                         </tr>
                         <tr>
-                            <td>2</td>
-                            <td><img src=https://drive.google.com/thumbnail?id=1KV8Ob2wXIcobIvayGGDB1qUpQn_iZKIp /></td>
-                            <td>------</td>
-                            <td>-------</td>
-                            <td>------</td>
-                            <td>------</td>
-                            <td>--------</td>
-
-                            <td><button>Delete</button></td>
-
+                         
                         </tr>
+                       <% }) %>
+                       
+                       
 
 
                     </tbody>

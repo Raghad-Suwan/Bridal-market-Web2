@@ -11,7 +11,11 @@ body, html {
     background-color:rgb(211, 203, 203)
 
 }
-
+.password-warning {
+    display: none;
+    color: rgba(0, 0, 0, 0.308);
+    margin-top: 10px;
+}
 .left-content ,
 .right-content {
     display: flex;
