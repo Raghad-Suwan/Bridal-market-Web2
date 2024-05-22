@@ -52,32 +52,33 @@
         <div id="layoutSidenav_content">
             <main>
                 <div class="container-fluid px-4">
-                    <h1 class="mt-4">Add a product</h1>
+                    <h1 class="mt-4"> Update product</h1>
                     <ol class="breadcrumb mb-4">
-                        <li class="breadcrumb-item active">Add a product</li>
+                        <li class="breadcrumb-item active"> Update product</li>
                     </ol>
 
 
 
-                    <form action="/dashbord/add" method = "post" class = "container form-design " enctype="multipart/form-data">
+                    <form action="/dashbord/update" method = "post" class = "container form-design " enctype="multipart/form-data">
                         <div>
+                            <input type="hidden" name="id" value="<%= product._id %>">
 
                             <div class="mb-3">
                                 <label for="Input1"  class="form-label"> Product name </label>
-                                <input type="text" name="name" placeholder=" Product name" class="form-control" id="Input1" placeholder="Product name">
+                                <input type="text" name="name" placeholder=" Product name" class="form-control" id="Input1" value="<%= product.name %>"  placeholder="Product name">
                             </div>
                             <div class="mb-3">
                                 <label for="Input2" class="form-label">product price</label>
-                                <input type="text" name="price" placeholder="Product price"  class="form-control" id="Input2" placeholder="product price">
+                                <input type="text" name="price" placeholder="Product price"  class="form-control" id="Input2" value="<%= product.price %>" placeholder="product price">
                             </div>
                             <div class="mb-3">
                                 <label for="Input3"  class="form-label">Size</label>
-                                <input type="text" name="size" placeholder="Size" class="form-control" id="Input3" placeholder="Size">
+                                <input type="text" name="size" placeholder="Size" class="form-control" id="Input3" value="<%= product.size %>" placeholder="Size">
                             </div>
 
                             <div class="mb-3">
                                 <label for="Textarea1"   class="form-label">Description</label>
-                                <textarea  name="description" rows="3" class="form-control" id="Textarea1" rows="3"></textarea>
+                                <textarea  name="description" rows="3" class="form-control" id="Textarea1"  rows="3"><%= product.description %></textarea>
                             </div>
 
                             <div>
@@ -128,7 +129,7 @@
 
 
                         <div class="col-12 mt-5 ">
-                            <button class="btn btn-primary" type="submit">Submit form</button>
+                            <button class="btn btn-primary" type="submit">Update form</button>
                         </div>
 
                     </form>
