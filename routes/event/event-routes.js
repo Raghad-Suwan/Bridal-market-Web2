@@ -5,8 +5,7 @@ const router = express.Router()
 
 const indexProduct =require('../../controllers/userController')
 
-router.get("/index", indexProduct.Index)
-
+router.get("/eventproduct/categoryName/page", indexProduct.Index)
 
 
 

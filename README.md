@@ -23,3 +23,13 @@ https://trello.com/b/usQfyWoR/dream-day
 -----------------------------------------------------------------
 Dashbord template :
 https://startbootstrap.com/template/sb-admin
+
+Image Upload :
+https://codepen.io/shrabon-dev/pen/PodYOxg
+
+table :
+https://www.codewora.com/design/template/?templateName=1&name=table
+
+-----------------------------------------------
+Calenders templates : 
+https://demo.mobiscroll.com/javascript/datetime/date-time-picker# 
