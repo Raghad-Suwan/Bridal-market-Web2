@@ -9,6 +9,5 @@ router.get("/eventproduct/categoryName/page", indexProduct.Index)
 
 
 
-
 //We can see the file from the app.js
 module.exports =router
