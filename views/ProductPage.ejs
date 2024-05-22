@@ -17,24 +17,27 @@
   <title>Product Page</title>
 </head>
 
-
 <body> <!--container -->
   <%-include('../views/partials/search.ejs')-%>
 
   <%-include('../views/partials/navbar.ejs')-%>
 
+
+
   <div class="container " style="margin-top:5%;">
 
     <div class="card mb-3" style="max-width:100%; max-height: 10%; border: none; "> <!---product card-->
       <div class="row g-2">
+
         <div class="col-md-5">
-          <img src="https://htmlcolorcodes.com/assets/images/colors/gray-color-solid-background-1920x1080.png"
+          <img src="<%= product.src %>"
             class="img-fluid rounded-start" style="width: 500px; height: 450px;">
         </div>
+
         <div class="col-md-3">
           <div class="card-body">
-            <h2 class="card-title">Card title</h2>
-            <h3><span>$</span> Price</h3>
+            <h2 class="card-title"><%= product.title %></h2>
+            <h3><span>$</span><%= product.price %></h3>
             <div class="rating">
               <i id="star1" class="fas fa-star"></i>
               <i id="star2" class="fas fa-star"></i>
@@ -43,8 +46,7 @@
               <i id="star5" class="fas fa-star"></i>
             </div>
             <br>
-            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional
-              content. This content is a little bit longer.</p>
+            <p class="card-text"><%= product.descreption %> </p>
             <span>Size :</span>
             <br>
             <select class="options" name="quantity">
@@ -61,63 +63,34 @@
           </form>
           </div>
         </div>
+        
+  
+        
+
       </div>
+
     </div> <!---product card-->
 
-    <div class="images-container">
-      <img src="https://htmlcolorcodes.com/assets/images/colors/gray-color-solid-background-1920x1080.png"
-        class="img-thumbnail" alt="..." style=" width: 130px; height: 120px; margin-left: 2%;">
-      <img src="https://htmlcolorcodes.com/assets/images/colors/gray-color-solid-background-1920x1080.png"
-        class="img-thumbnail" alt="..." style=" width: 130px; height: 120px; margin-left: 2%;">
-      <img src="https://htmlcolorcodes.com/assets/images/colors/gray-color-solid-background-1920x1080.png"
-        class="img-thumbnail" alt="..." style=" width: 130px; height: 120px; margin-left: 2%;">
-    </div>
+  
   </div> <!--container-->
 
   <div class="you-might-like" style="text-align: center; margin:10%;  max-width: 100%;"> <!--you might like -->
     <h3><strong>You might also like </strong></h3>
-    <div class="card-group"> <!--card group-->
+    <div class="card-group">
+      <% similarProducts.forEach(similarProduct => { %>
       <div class="card" style="border: none;padding:15px; text-align: left; line-height:1ch;">
-        <img id="might-like-img"
-          src="https://htmlcolorcodes.com/assets/images/colors/gray-color-solid-background-1920x1080.png"
-          class="card-img-top" alt="..." style="width: 100%; height: 230px; object-fit: cover;">
-        <div class="card-body">
-          <h5 class="card-title"><strong>Title</strong></h5>
-          <p class="card-text">Brand</p>
-          <p class="card-text">Price <span>$</span></p>
-        </div>
+          <a href="/productpage/productpage/<%= similarProduct._id %>">
+              <img id="might-like-img" src="<%= similarProduct.src %>" class="card-img-top" alt="..." style="width: 100%; height: 230px; object-fit: cover;">
+          </a>
+          <div class="card-body">
+              <h5 class="card-title"><strong><%= similarProduct.title %></strong></h5>
+              <p class="card-text"><%= similarProduct.brand %></p>
+              <p class="card-text">Price <span>$<%= similarProduct.price %></span></p>
+          </div>
       </div>
-      <div class="card" style="border: none;padding:15px; text-align: left; line-height:1ch;">
-        <img id="might-like-img"
-          src="https://htmlcolorcodes.com/assets/images/colors/gray-color-solid-background-1920x1080.png"
-          class="card-img-top" alt="..." style="width: 100%; height: 230px; object-fit: cover;">
-        <div class="card-body">
-          <h5 class="card-title"><strong>Title</strong></h5>
-          <p class="card-text">Brand</p>
-          <p class="card-text">Price <span>$</span></p>
-        </div>
-      </div>
-      <div class="card" style="border: none;padding:15px; text-align: left; line-height:1ch;">
-        <img id="might-like-img"
-          src="https://htmlcolorcodes.com/assets/images/colors/gray-color-solid-background-1920x1080.png"
-          class="card-img-top" alt="..." style="width: 100%; height: 230px; object-fit: cover;">
-        <div class="card-body">
-          <h5 class="card-title"><strong>Title</strong></h5>
-          <p class="card-text">Brand</p>
-          <p class="card-text">Price <span>$</span></p>
-        </div>
-      </div>
-      <div class="card" style="border: none; padding:15px; text-align: left; line-height:1ch;">
-        <img id="might-like-img"
-          src="https://htmlcolorcodes.com/assets/images/colors/gray-color-solid-background-1920x1080.png"
-          class="card-img-top" alt="..." style="width: 100%; height: 230px; object-fit: cover;">
-        <div class="card-body">
-          <h5 class="card-title"><strong>Title</strong></h5>
-          <p class="card-text">Brand</p>
-          <p class="card-text">Price <span>$</span></p>
-        </div>
-      </div>
-    </div> <!--card group-->
+      <% }); %>
+  </div>
+</div>
 
   </div> <!--you might like -->
 
@@ -132,10 +105,7 @@
     integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
     crossorigin="anonymous"></script>
 
-
-
     <%-include('../views/partials/footer.ejs')-%>
-
 
 </body>
 

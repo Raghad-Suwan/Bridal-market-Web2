@@ -18,10 +18,14 @@ button{
 }}
 
 
-
 .fas.fa-star {
     color: grey;
     cursor: pointer; 
+    text-decoration: none;
+}
+
+.fas.fa-star.black {
+    color: rgb(214, 170, 66); 
 }
 
 
