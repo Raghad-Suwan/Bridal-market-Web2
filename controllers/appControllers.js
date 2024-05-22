@@ -1,5 +1,6 @@
 const bcrypt = require('bcryptjs');
 const User = require("../models/user"); 
+const mongoose=require('mongoose')
 //appcontrollers
 // Login GET route
 
@@ -20,7 +21,7 @@ exports.login_post = async (req, res) => {
        
         if (!user) {
             req.session.error = "invalid";
-            return res.redirect('/Login');
+            return res.redirect('/Login/Login');
         }
 
        
@@ -30,7 +31,7 @@ exports.login_post = async (req, res) => {
 
         if (!isPasswordMatch) {
             req.session.error = "invalid";
-            return res.redirect('/Login');
+            return res.redirect('/Login/Login');
         }
 
         // Set session authentication
@@ -38,7 +39,7 @@ exports.login_post = async (req, res) => {
         req.session.name = user.name;
 
         // Redirect to home page after successful login
-        res.render('../views/home');
+       res.redirect("/")
     } catch (error) {
         // Handle any errors
         console.error(error);
@@ -62,7 +63,7 @@ exports.signin_post = async (req, res) => {
         const userExists = await User.findOne({ emailAddress });
        
         if (userExists) { 
-            return res.redirect('/Login');
+            return res.redirect('/Login/Login');
         }
 
         const gmailRegex = /^[a-zA-Z][a-zA-Z0-9._%+-]*@gmail\.com$/;//https://www.w3schools.com/jsref/jsref_obj_regexp.asp
@@ -100,7 +101,7 @@ exports.signin_post = async (req, res) => {
         await newUser.save();
 
       
-        res.redirect('/Login');
+        res.redirect('/Login/Login');
     } catch (error) {
        
         res.status(500).send("Internal Server Error");
@@ -111,7 +112,12 @@ exports.signin_post = async (req, res) => {
 // Home GET route
 exports.homes_get = (req, res) => {
     const name = req.session.name;
-    res.render('home.ejs', { name: username });
+    res.render('home.ejs', { name: name });
 };
 //The code was accessed through https://youtube.com/watch?v=TDe7DRYK8vU&si=6UbOY4mMgdKWLvds
 //https://github.com/LloydJanseVanRensburg/Authentication_Node_Sessions_Cookies
+//exports.homes_get = (req, res) => {
+    //const name = req.session.name;
+    //res.render('home.ejs', { name: username });
+//};
+//

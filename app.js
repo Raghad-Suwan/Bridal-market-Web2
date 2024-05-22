@@ -1,13 +1,13 @@
 const express = require("express");
-const session = require("express-session");
+//const session = require("express-session");
 const port = 5000; 
 const path  = require('path');
 const app = express();
-const MongoDBStore = require("connect-mongodb-session")(session);
+//const MongoDBStore = require("connect-mongodb-session")(session);
 const MongidbStore=require('./mongodbStore/store')
 const appControllers = require("./controllers/appControllers");
 
-const signupUser = require('./routes/sign/signup-routes')
+//const signupUser = require('./routes/sign/signup-routes')
 const LoginPage=require('./routes/Login/Login-routes')
 
 
@@ -32,7 +32,7 @@ app.use(express.json());
 
 
 const mongoose = require("mongoose");
-mongoose.connect("mongodb+srv://hadisawalmeh:123456789h@cluster0.se97yow.mongodb.net/BridalMarket")
+mongoose.connect("mongodb+srv://raghad:98765ragahd@cluster0.9jk40dj.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0")
 const Users = require('./models/userschema')
 
 

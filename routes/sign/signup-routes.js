@@ -7,8 +7,8 @@ const signuppost = require('../../controllers/appControllers')
 const signupget = require('../../controllers/appControllers')
 
 
-router.get("/", signupget.signin_get)
-router.post("/",signuppost.signin_post)
+router.get("/signup", signupget.signin_get)
+router.post("/signup",signuppost.signin_post)
 
 
 
