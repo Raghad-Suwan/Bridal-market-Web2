@@ -3,7 +3,6 @@ const session = require("express-session");
 
 const express = require("express");
 //const session = require("express-session");
-const port = 5000; 
 const path  = require('path');
 const app = express();
 //const MongoDBStore = require("connect-mongodb-session")(session);
@@ -125,7 +124,7 @@ app.get('/eventproduct', (req, res) => {
 app.use('/searchPage', productpage)
 app.use('/Login',LoginPage)
 
-
+})
 
 
 

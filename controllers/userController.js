@@ -29,7 +29,7 @@ exports.DashboardPage =  (req, res) => {
      return Product.find().then((data) => res.render('../views/product-dashbord.ejs', { data: data}))
 
 
-
+}
 exports.DashboardPage = (req, res) => {
     res.render("../views/product-dashbord.ejs");
 };
