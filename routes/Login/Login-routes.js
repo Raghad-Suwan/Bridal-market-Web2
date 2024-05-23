@@ -6,7 +6,7 @@ const loginget =  require('../../controllers/appControllers')
 
 const loginpost =  require('../../controllers/appControllers')
 
-//const signupprovider = require('../../controllers/appControllers')
+
 router.get("/Login", loginget.login_get); // GET request for login page
 router.post("/Login", loginpost.login_post)
 
