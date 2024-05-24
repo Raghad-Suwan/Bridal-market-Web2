@@ -5,45 +5,17 @@ const mongoose = require("mongoose");
 const path  = require('path');
 const app = express();
 require("dotenv").config();
-// const port = process.env.PORT 
+const port = process.env.PORT 
 
 
 const appControllers = require("./controllers/appControllers");
 
 
+mongoose.connect(process.env.DB_URI, { useNewUrlParser: true, useUnifiedTopology: true });
 
-
-
-app.set('view engine', 'ejs');
-require("dotenv").config();
-
-// mongoose.connect(process.env.DB_URI, { useNewUrlParser: true, useUnifiedTopology: true });
-
-// const db = mongoose.connection;
-// db.on("error", (error) => console.log(error));
-// db.once("open", () => console.log("Connected to the database!"));
-
-
-// milddlewares
-app.use(express.urlencoded({ extended: false }));
-app.use(express.json());
-app.use(
-  session({
-    secret: "my secret key",
-    saveUninitialized: true,
-    resave: false,
-  })
-); 
-
-
-app.use((req, res, next) => {
-
-  res.locals.message = req.session.message;
-  delete req.session.message;
-  next();
-});
-
-
+const db = mongoose.connection;
+db.on("error", (error) => console.log(error));
+db.once("open", () => console.log("Connected to the database!"));
 
 
 
@@ -67,15 +39,15 @@ const ActivationRoutes = require('./routes/maindashboard/activationroute');
 const deleteProviderRoutes = require('./routes/maindashboard/deleteproviderroute');
 const deleteUserRoutes = require('./routes/maindashboard/deleteuserroute');
 
-
+app.set('view engine', 'ejs');
 const publicDir = path.join(__dirname, './public');
 app.use(express.static(publicDir));
+
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
-mongoose.connect("mongodb+srv://raghad:98765ragahd@cluster0.9jk40dj.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0")
   
 const store = new MongoDBStore({
-    uri: "mongodb+srv://raghad:98765ragahd@cluster0.9jk40dj.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0",
+    uri:process.env.DB_URI,
     collection: 'MYsessions'
     //https://youtube.com/watch?v=TDe7DRYK8vU&si=6UbOY4mMgdKWLvds
 });
@@ -158,24 +130,7 @@ app.get('/searchPage', (req, res) => {
     console.log(req.body)
 
 });
-//dynamic product 
-app.get('/eventproduct', (req, res) => {
-  const products = [
-    { id: 1, title: 'Piece Jigsaw Puzzle', brand: 'Ravensburger', price: 19.99, src: 'https://htmlcolorcodes.com/assets/images/colors/gray-color-solid-background-1920x1080.png' },
-    { id: 2, title: 'Etch A Sketch', brand: 'Ohio Art', price: 21.99, src: 'https://htmlcolorcodes.com/assets/images/colors/gray-color-solid-background-1920x1080.png' },
-    { id: 3, title: 'Piece Jigsaw Puzzle', brand: 'Raveasdnsburger', price: 19.99, src: 'https://htmlcolorcodes.com/assets/images/colors/gray-color-solid-background-1920x1080.png' },
-    { id: 4, title: 'Piece Jigsaw Puzzle', brand: 'Ravensburger', price: 19.99, src: 'https://htmlcolorcodes.com/assets/images/colors/gray-color-solid-background-1920x1080.png' },
-    { id: 5, title: 'Piece Jigsaw Puzzle', brand: 'Ravensburger', price: 19.99, src: 'https://htmlcolorcodes.com/assets/images/colors/gray-color-solid-background-1920x1080.png' },
-    { id: 6, title: 'Piece Jigsaw Puzzle', brand: 'Ravensburger', price: 19.99, src: 'https://htmlcolorcodes.com/assets/images/colors/gray-color-solid-background-1920x1080.png' },
-    { id: 7, title: 'Piece Jigsaw Puzzle', brand: 'Ravensburger', price: 19.99, src: 'https://htmlcolorcodes.com/assets/images/colors/gray-color-solid-background-1920x1080.png' },
-    { id: 8, title: 'Piece Jigsaw Puzzle', brand: 'Ravensburger', price: 19.99, src: 'https://htmlcolorcodes.com/assets/images/colors/gray-color-solid-background-1920x1080.png' },
-    { id: 9, title: 'Piece Jigsaw Puzzle', brand: 'Ravensburger', price: 19.99, src: 'https://htmlcolorcodes.com/assets/images/colors/gray-color-solid-background-1920x1080.png' },
-  ];
-  res.render('index', { products: products });
-app.use('/searchPage', productpage)
-app.use('/Login',LoginPage)
 
-})
 
 app.get("/eventproduct", async (req, res) => {
     Users.find()
@@ -195,7 +150,7 @@ app.get("/productpage/productpage/:id", (req, res) => {
                     category: product.category,
                     _id: {
                         $ne: product._id
-                    } // استبعاد المنتج الحالي
+                    } 
                 }).limit(4)
                 .then(similarProducts => {
                     res.render("productpage", {
@@ -210,12 +165,7 @@ app.get("/productpage/productpage/:id", (req, res) => {
         });
 });
 
-app.get("/dashbord/Order");
 
-app.post("/signup/signup", (req, res) => {
-    console.log(req.body)
-    res.redirect("/")
-})
 app.use((req, res, next) => {
     res.status(404).send("Sorry, can't find that!");
 });
@@ -240,6 +190,7 @@ app.get('/allusers', async (req, res) => {
         message: null
     });
 });
+
 
 
 app.listen(process.env.PORT, () => {
