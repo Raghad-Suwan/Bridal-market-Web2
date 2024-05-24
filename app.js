@@ -147,6 +147,9 @@ app.get('/eventproduct/:categoryName/:page', (req, res) => {
             res.status(500).send('Server Error');
         });
 });
+//search
+const searchModel = require("./models/Customer")
+const Search = require("./models/search")
 
 // path must be as the action attribute
 app.post("/searchPage", (req, res) => {
