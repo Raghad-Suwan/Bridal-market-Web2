@@ -5,21 +5,12 @@ const path  = require('path');
 const app = express();
 const MongoDBStore = require("connect-mongodb-session")(session);
 const MongidbStore=require('./mongodbStore/store')
-const appControllers = require("./controllers/appControllers");
-
-const signupUser = require('./routes/sign/signup-routes')
-const LoginPage=require('./routes/Login/Login-routes')
-
-
-
 
 
 app.set('view engine', 'ejs');
-
 // Static files
 const publicDir = path.join(__dirname, './public');
 app.use(express.static(publicDir));
-
 // Middleware to parse the body of POST requests
 app.use(express.urlencoded({
     extended: true
@@ -30,16 +21,13 @@ app.use(express.json());
 
 // mongodb connect 
 
-
 const mongoose = require("mongoose");
 mongoose.connect("mongodb+srv://hadisawalmeh:123456789h@cluster0.se97yow.mongodb.net/BridalMarket")
 const Users = require('./models/userschema')
-
-
 const searchModel = require("./models/Customer")
 const Search = require("./models/search")
 
-
+const sessionCookieLifeTime = 1000 * 60 * 15;
 
 //routs
 
@@ -51,12 +39,13 @@ const profiles =require("./routes/profiles/profiles_routes");
 const loading = require('./routes/sign/loadingpage')
 const productpage = require('./routes/productPage/product-route');
 const calender1 = require("./routes/calender/calender")
-const signupUser = require('./routes/sign/sign-routes')
-const signupProvider = require('./routes/sign/sign-routes');
+const signupUser = require('./routes/sign/signup-routes')
+const signupProvider = require('./routes/sign/signup-routes');
 const MaindashbordRoutes = require('./routes/Maindashbord/main_dashbord')
-
+const LoginPage=require('./routes/Login/Login-routes')
 
 app.use(express.static(publicDir));
+app.use('/', home);
 app.use('/calender1', calender1);
 app.use('/calender2', calender1);
 app.use('/dashbord', dashbordRoutes);
@@ -65,23 +54,12 @@ app.use('/dashbordMain', MaindashbordRoutes);
 app.use('/profiles', profiles);
 app.use('/loading', loading);
 app.use('/productpage', productpage);
-app.use('/signup', signupUser);
-app.use('/', home);
+app.use('/signup-user', signupUser);
 app.use('/signupProvider', signupProvider);
 app.use('/searchPage', productpage)
 app.use('/Login',LoginPage)
 
 
-
-
-
-
-
-
-
-//app
-
-const sessionCookieLifeTime = 1000 * 60 * 15;
 
 
 

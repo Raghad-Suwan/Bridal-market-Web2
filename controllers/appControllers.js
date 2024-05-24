@@ -111,7 +111,7 @@ exports.signin_post = async (req, res) => {
 // Home GET route
 exports.homes_get = (req, res) => {
     const name = req.session.name;
-    res.render('home.ejs', { name: username });
+    res.render('home', { name: username });
 };
 //The code was accessed through https://youtube.com/watch?v=TDe7DRYK8vU&si=6UbOY4mMgdKWLvds
 //https://github.com/LloydJanseVanRensburg/Authentication_Node_Sessions_Cookies
