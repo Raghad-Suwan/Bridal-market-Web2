@@ -5,7 +5,7 @@ const mongoose = require("mongoose");
 const path  = require('path');
 const app = express();
 require("dotenv").config();
-const port = process.env.PORT 
+// const port = process.env.PORT 
 
 
 const appControllers = require("./controllers/appControllers");
@@ -14,20 +14,34 @@ const appControllers = require("./controllers/appControllers");
 
 
 
+app.set('view engine', 'ejs');
+require("dotenv").config();
+
+// mongoose.connect(process.env.DB_URI, { useNewUrlParser: true, useUnifiedTopology: true });
+
+// const db = mongoose.connection;
+// db.on("error", (error) => console.log(error));
+// db.once("open", () => console.log("Connected to the database!"));
 
 
-mongoose.connect(process.env.DB_URI, { useNewUrlParser: true, useUnifiedTopology: true });
+// milddlewares
+app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
+app.use(
+  session({
+    secret: "my secret key",
+    saveUninitialized: true,
+    resave: false,
+  })
+); 
 
-const db = mongoose.connection;
-db.on("error", (error) => console.log(error));
-db.once("open", () => console.log("Connected to the database!"));
 
+app.use((req, res, next) => {
 
-
-
-
-
-
+  res.locals.message = req.session.message;
+  delete req.session.message;
+  next();
+});
 
 
 
@@ -52,7 +66,8 @@ const Search = require("./models/search")
 const ActivationRoutes = require('./routes/maindashboard/activationroute');
 const deleteProviderRoutes = require('./routes/maindashboard/deleteproviderroute');
 const deleteUserRoutes = require('./routes/maindashboard/deleteuserroute');
-app.set('view engine', 'ejs');
+
+
 const publicDir = path.join(__dirname, './public');
 app.use(express.static(publicDir));
 app.use(express.urlencoded({ extended: false }));
@@ -225,7 +240,9 @@ app.get('/allusers', async (req, res) => {
         message: null
     });
 });
-app.listen(5000, () => {
 
-    console.log("Example app listening at ")//http://localhost:${port}`);
+
+app.listen(process.env.PORT, () => {
+
+    console.log(`Example app listening at http://localhost:${process.env.PORT}`);
 });

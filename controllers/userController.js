@@ -30,9 +30,7 @@ exports.DashboardPage =  (req, res) => {
 
 
 }
-exports.DashboardPage = (req, res) => {
-    res.render("../views/product-dashbord.ejs");
-};
+
 exports.ProfilePage = (req, res) => {
     res.render("../views/profile.ejs");
 };
