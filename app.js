@@ -24,8 +24,7 @@ app.use(express.json());
 const mongoose = require("mongoose");
 mongoose.connect("mongodb+srv://hadisawalmeh:123456789h@cluster0.se97yow.mongodb.net/BridalMarket")
 const Users = require('./models/userschema')
-const searchModel = require("./models/Customer")
-const Search = require("./models/search")
+
 
 const sessionCookieLifeTime = 1000 * 60 * 15;
 
