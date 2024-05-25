@@ -21,7 +21,7 @@
 
 <body>
 
-    <%  if(messageview) { %>
+    <%  if(typeof messageview !=='undefined') { %>
         <div class="alert alert-success alert-dismissible fade show" role="alert">
             <%=  messageview %>
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
@@ -185,19 +185,19 @@
                                     <h3 class=" mb-4 ">Conenct Us</h3>
 
                                     <div class="mb-3">
-                                        <input type="text" class="form-control border-0 border-bottom border-primary"
+                                        <input type="text" class="form-control border-0 border-bottom border-primary styleinput"
                                             placeholder="Your Name" name="name" required>
                                     </div>
                                     <div class="mb-3">
-                                        <input type="email" class="form-control border-0 border-bottom border-primary"
+                                        <input type="email" class="form-control border-0 border-bottom border-primary styleinput"
                                             placeholder="Your Email" name="email" required>
                                     </div>
                                     <div class="mb-3">
-                                        <input type="tel" class="form-control border-0 border-bottom border-primary"
+                                        <input type="tel" class="form-control border-0 border-bottom border-primary styleinput"
                                             placeholder="Your Phone Number" name="phonenumber" required>
                                     </div>
                                     <div class="mb-3">
-                                        <input type="text" class="form-control border-0 border-bottom border-primary"
+                                        <input type="text" class="form-control border-0 border-bottom border-primary styleinput"
                                             placeholder="Your Message" rows="3" name="message" required></input>
                                     </div>
                                     <button type="submit" class="btn btn-primary">Send Message</button>

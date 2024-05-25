@@ -141,9 +141,4 @@ res.render("searchPage", {
     console.error(error);
     res.status(500).send('Internal Server Error');
   }};
-exports.calender1 = (req, res) => {
-    res.render("../views/calendar1.ejs");
-};
-exports.calender2 = (req, res) => {
-    res.render("../views/calendar2.ejs");
-};
+

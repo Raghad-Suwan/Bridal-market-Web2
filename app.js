@@ -29,7 +29,7 @@ const events =require('./routes/event/event-routes')
 const profiles =require("./routes/profiles/profiles_routes");
 const loading = require('./routes/sign/loadingpage')
 const productpage = require('./routes/productPage/product-route');
-const calender1 = require("./routes/calender/calender")
+const calendar = require("./routes/calendar/calenderRoute")
 const signupUser = require('./routes/sign/signup-routes')
 const signupProvider = require('./routes/sign/signup-routes');
 const MaindashbordRoutes = require('./routes/Maindashbord/main_dashbord')
@@ -38,6 +38,7 @@ const Search = require("./models/search")
 const ActivationRoutes = require('./routes/maindashboard/activationroute');
 const deleteProviderRoutes = require('./routes/maindashboard/deleteproviderroute');
 const deleteUserRoutes = require('./routes/maindashboard/deleteuserroute');
+const conenctUsRoutes = require('./routes/ConenctUs/conenctUsRoute');
 
 app.set('view engine', 'ejs');
 const publicDir = path.join(__dirname, './public');
@@ -74,8 +75,9 @@ app.use('/profiles', profiles);
 app.use('/loading', loading);
 app.use('/productpage', productpage);
 app.use('/eventproduct', events);
-app.use('/calender1', calender1);
-app.use('/calender2', calender1);
+app.use('/cal1', calendar);
+app.use('/cal2', calendar);
+app.use('/reservationConf', calendar);
 app.use('/signup', signupUser);
 app.use('/dashbord', dashbordRoutes);
 app.use('/eventproduct', events);
@@ -83,6 +85,7 @@ app.use('/updateActivation', ActivationRoutes);
 app.use('/deleteProvider', deleteProviderRoutes);
 app.use('/deleteUser', deleteUserRoutes);
 app.use('/dashbordMain', MaindashbordRoutes);
+app.use('/', conenctUsRoutes);
 
 app.use('/signupProvider', signupProvider);
 app.get('/eventproduct/:categoryName/:page', (req, res) => {
@@ -195,5 +198,5 @@ app.get('/allusers', async (req, res) => {
 
 app.listen(process.env.PORT, () => {
 
-    console.log(Example app listening at http://localhost:${process.env.PORT});
+    console.log('Example app listening at http://localhost:${process.env.PORT}');
 });

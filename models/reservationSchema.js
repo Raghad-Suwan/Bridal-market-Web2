@@ -1,4 +1,3 @@
-
 // Create schema
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
@@ -12,5 +11,4 @@ const reservationSchema = new Schema({
 
 
 // Create model and export it 
-
 module.exports = mongoose.model("reservation data", reservationSchema);
