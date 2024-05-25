@@ -36,3 +36,15 @@ https://demo.mobiscroll.com/javascript/datetime/date-time-picker#
 backages : mongoose , bcryptjs
     connect-mongodb-session
     express-session
+
+    -------------------------------------------------------------------
+for profile page :
+    https://youtu.be/FL8eFtvS6UI?si=LDHFIKHeqDA-zqxq
+    
+Send data to database  :
+https://youtu.be/6D7DyrlxWc4?si=rvZGXRbiKDf74APY
+
+ Get data from database : 
+https://youtu.be/9LseL3exbcA?si=c60odfA8wkMtPixH
+
+
