@@ -15,7 +15,7 @@
     <body class="sb-nav-fixed">
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
             <!-- Navbar Brand-->
-            <a class="navbar-brand ps-3" href="/dashbord/add">Dashboard</a>
+            <a class="navbar-brand ps-3" href="/dashbordMain/product">Main Dashboard</a>
             
        
         </nav>
@@ -26,20 +26,15 @@
                         <div class="nav">
 
 
-                            <a class="nav-link" href="/dashbord/add">
-                                <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
-                                Add a product
-                                
-                            </a>
                                        
                            
-                            <a class="nav-link" href="/dashbord/product">
+                            <a class="nav-link" href="/dashbordMain/product">
                                 <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
-                                 product
+                                All product
                             </a>
-                            <a class="nav-link" href="/dashbord/Order">
+                            <a class="nav-link" href="/dashbordMain/Order">
                                 <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
-                                Order
+                               All Order
                             </a>
                         </div>
                     </div>
@@ -49,10 +44,10 @@
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid px-4">
-                        <h1 class="mt-4"> Product</h1>
+                        <h1 class="mt-4"> All Product</h1>
                         <ol class="breadcrumb mb-4">
-                            <li class="breadcrumb-item"><a href="/dashbord/add">Dashboard</a></li>
-                            <li class="breadcrumb-item active"> Product</li>
+                            <li class="breadcrumb-item"><a href="/dashbordMain/product">Main Dashboard</a></li>
+                            <li class="breadcrumb-item active">All  Product</li>
                         </ol>
                       
                     </div>
@@ -70,60 +65,39 @@
                                 <th>Type</th>
                                 <th>City</th>
                                 <th>Description</th>
+                                <th>company name</th>
+
 
                                 <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
-
-
-                            <% for(let i = 0; i < data.length; i++) { %>
-                            <tr>
-                                <td><%= data[i].name %></td>
-                                <td><img src='/uploads/<%= data[i].img %>' alt="Product Image" /></td>
-                                <td><%= data[i].size %></td>
-                                <td><%= data[i].price %></td>
-                                <td><%= data[i].service %></td>
-                                <td><%= data[i].city %></td>
-                                <td><%= data[i].description %></td>
-                                    <td>
-                                        <a href="/dashbord/product/<%= data[i]._id %>" class="btn btn-secondary">
-                                          Update
-                                        </a>
-                                        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                                          Delete
-                                        </button>
-                                    </td>
-                            </tr>
-
-                            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                <div class="modal-dialog">
-                                  <div class="modal-content">
-                                    <div class="modal-header">
-                                      <h5 class="modal-title" id="exampleModalLabel">Delete Product</h5>
-                                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                    </div>
-                                    <div class="modal-body">
-                                      Are you sure ?
-                                    </div>
-                                    <div class="modal-footer">
-                                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                      <a href="/dashbord/product/delete/<%= data[i]._id %>" class="btn btn-danger">Delete</a>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                        
-
-                      <%  } %>
-
+                            <% if (products.length > 0) { %>
+                                <% products.forEach(product => { %>
+                                    <tr>
+                                        <td><%= product.Name %></td>
+                                        <td><img src="<%= product.Image %>" alt="<%= product.Name %>" style="max-width: 100px;"></td>
+                                        <td><%= product.Size %></td>
+                                        <td><%= product.price %></td>
+                                        <td><%= product.Type %></td>
+                                        <td><%= product.City %></td>
+                                        <td><%= product.Description %></td>
+                                        <td><%= product.companyname %></td>
+                                        <td><button>Delete</button></td>
+                                    </tr>
+                                <% }); %>
+                            <% } else { %>
+                                <tr>
+                                    <td colspan="9">No products found</td>
+                                </tr>
+                            <% } %>
                         
                         </tbody>
                     </table>
                 </div>
 
 
-                
+                 
                 <footer class="py-4 bg-light mt-auto">
                     <div class="container-fluid px-4">
                         <div class="d-flex align-items-center justify-content-between small">

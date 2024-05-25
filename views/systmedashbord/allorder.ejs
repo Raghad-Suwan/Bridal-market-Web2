@@ -19,7 +19,7 @@
 <body class="sb-nav-fixed">
     <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
         <!-- Navbar Brand-->
-        <a class="navbar-brand ps-3" href="/dashbord/add">Dashboard</a>
+        <a class="navbar-brand ps-3" href="/dashbordMain/product"> Main Dashboard</a>
 
 
     </nav>
@@ -28,21 +28,15 @@
             <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
                 <div class="sb-sidenav-menu">
                     <div class="nav">
-                        <a class="nav-link" href="/dashbord/add">
-                            <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
-                            Add a product
-
-                        </a>
-
-
-                        <a class="nav-link" href="/dashbord/product">
+                      
+                        <a class="nav-link" href="/dashbordMain/product">
                             <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
-                            product
+                           All product
 
                         </a>
-                        <a class="nav-link" href="/dashbord/Order">
+                        <a class="nav-link" href="/dashbordMain/Order">
                             <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
-                            Order
+                           All Order
                         </a>
                     </div>
                 </div>
@@ -52,10 +46,10 @@
         <div id="layoutSidenav_content">
             <main>
                 <div class="container-fluid px-4">
-                    <h1 class="mt-4">Order</h1>
+                    <h1 class="mt-4">All Order</h1>
                     <ol class="breadcrumb mb-4">
-                        <li class="breadcrumb-item"><a href="/dashbord/add">Dashboard</a></li>
-                        <li class="breadcrumb-item active">Order</li>
+                        <li class="breadcrumb-item"><a href="/dashbordMain/product">Main Dashboard</a></li>
+                        <li class="breadcrumb-item active"> All Order</li>
                     </ol>
 
                 </div>
@@ -67,43 +61,40 @@
                 <table>
                     <thead>
                         <tr>
-                            <th>S No.</th>
+                            <th>Name</th>
                             <th>Image</th>
-                            <th>Username</th>
-                            <th>Email</th>
-                            <th>phone </th>
-                            <th>Location </th>
-                            <th>Date </th>
+                            <th>Size </th>
+                            <th>price  </th>
+                            <th>Type</th>
+                            <th>City</th>
+                            <th>Description</th>
+                            <th>company name</th>
+
 
                             <th>Action</th>
                         </tr>
                     </thead>
-
-
                     <tbody>
-
-                       <% arr.forEach((item, index) => { %>
-                         <tr>
-                            <td><%= index+1 %> </td>
-                            <td><img src=<%= item.image %> alt="Image"/></td>
-                            <td><%= item.name %></td>
-                            <td><%= item.emailAddress %></td>
-                            <td><%= item.phone %></td>
-                            <td><%= item.locaton %></td>
-                            <td><%= item.date %></td>
-
-                           
-                            <td><button>Delete</button></td>
-
-                        </tr>
-                        <tr>
-                         
-                        </tr>
-                       <% }) %>
-                       
-                       
-
-
+                        <% if (orders.length > 0) { %>
+                            <% orders.forEach(orders => { %>
+                                <tr>
+                                    <td><%= orders.Name %></td>
+                                    <td><img src="<%= orders.Image %>" alt="<%= orders.Name %>" style="max-width: 100px;"></td>
+                                    <td><%= orders.Size %></td>
+                                    <td><%= orders.price %></td>
+                                    <td><%= orders.Type %></td>
+                                    <td><%= orders.City %></td>
+                                    <td><%= orders.Description %></td>
+                                    <td><%= orders.companyname %></td>
+                                    <td><button>Delete</button></td>
+                                </tr>
+                            <% }); %>
+                        <% } else { %>
+                            <tr>
+                                <td colspan="9">No order found</td>
+                            </tr>
+                        <% } %>
+                    
                     </tbody>
                 </table>
             </div>
