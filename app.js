@@ -5,10 +5,10 @@ const mongoose = require("mongoose");
 const path  = require('path');
 const app = express();
 require("dotenv").config();
-const port = process.env.PORT 
 
 
 const appControllers = require("./controllers/appControllers");
+
 
 
 mongoose.connect(process.env.DB_URI, { useNewUrlParser: true, useUnifiedTopology: true });

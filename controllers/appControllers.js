@@ -37,6 +37,7 @@ exports.login_post = async (req, res) => {
         if (req.session) {
             req.session.isAuth = true;
             req.session.name = user.name;
+            req.session.emailAddress = user.emailAddress; //
             console.log("Session updated", req.session);
         }
 

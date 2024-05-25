@@ -1,5 +1,5 @@
 const Product = require('../models/productschema');
-
+const User =require('../models/user');
 
 
 exports.ProductPage = (req, res) => {
@@ -28,12 +28,23 @@ exports.DashboardPage =  (req, res) => {
       
      return Product.find().then((data) => res.render('../views/product-dashbord.ejs', { data: data}))
 
-
 }
 
-exports.ProfilePage = (req, res) => {
-    res.render("../views/profile.ejs");
-};
+exports.ProfilePage = async(req, res) => {
+
+    try{ 
+        const userData = await User.findOne({ emailAddress: req.session.emailAddress });
+            res.render('../views/profile.ejs', { user: userData });
+
+    }catch(error)  {
+            console.error(error);
+            res.status(500).send('Server error');
+        };
+    
+    };
+        
+
+
 exports.EditProfilePage = (req, res) => {
     res.render("../views/editprofile.ejs");
 };
