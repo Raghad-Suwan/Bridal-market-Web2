@@ -5,5 +5,7 @@ const home=require('../../controllers/userController')
 router.get("/", home.HomePage )
 
 
+router.get("/", isAuth,homepage.homes_get)
+    
 module.exports = router; 
 //https://youtube.com/watch?v=0Hu27PoloYw&si=N4cHQN3x1Bl2W0Lz

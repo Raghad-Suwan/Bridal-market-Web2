@@ -31,8 +31,23 @@ table :
 https://www.codewora.com/design/template/?templateName=1&name=table
 
 -----------------------------------------------
-Calenders templates : 
+Previous the calenders templates : 
 https://demo.mobiscroll.com/javascript/datetime/date-time-picker# 
+
+New calendar (input fields that let the user enter a date and time): https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/date
+-------------------------------------------------------------------
 backages : mongoose , bcryptjs
     connect-mongodb-session
     express-session
+
+    -------------------------------------------------------------------
+for profile page :
+    https://youtu.be/FL8eFtvS6UI?si=LDHFIKHeqDA-zqxq
+    
+Send data to database  :
+https://youtu.be/6D7DyrlxWc4?si=rvZGXRbiKDf74APY
+
+ Get data from database : 
+https://youtu.be/9LseL3exbcA?si=c60odfA8wkMtPixH
+
+

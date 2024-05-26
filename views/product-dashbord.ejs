@@ -75,29 +75,48 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>-----</td>
-                                <td><img src=https://drive.google.com/thumbnail?id=1qw3KUJnYgvnJHQP-yY13u_rXrJO8ZbL_ /></td>
-                                <td>-----</td>
-                                <td>------</td>
-                                <td>-----</td>
-                                <td>------</td>
-                                <td>------</td>
-                                <td><button>Delete</button></td>
 
-                            </tr>
-                            <tr>
-                                <td>------</td>
-                                <td><img src=https://drive.google.com/thumbnail?id=1KV8Ob2wXIcobIvayGGDB1qUpQn_iZKIp /></td>
-                                <td>------</td>
-                                <td>-------</td>
-                                <td>-----</td>
-                                <td>------</td>
-                                <td>------</td>
-                                <td><button>Delete</button></td>
 
+                            <% for(let i = 0; i < data.length; i++) { %>
+                            <tr>
+                                <td><%= data[i].name %></td>
+                                <td><img src='/uploads/<%= data[i].img %>' alt="Product Image" /></td>
+                                <td><%= data[i].size %></td>
+                                <td><%= data[i].price %></td>
+                                <td><%= data[i].service %></td>
+                                <td><%= data[i].city %></td>
+                                <td><%= data[i].description %></td>
+                                    <td>
+                                        <a href="/dashbord/product/<%= data[i]._id %>" class="btn btn-secondary">
+                                          Update
+                                        </a>
+                                        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                          Delete
+                                        </button>
+                                    </td>
                             </tr>
-                    
+
+                            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                  <div class="modal-content">
+                                    <div class="modal-header">
+                                      <h5 class="modal-title" id="exampleModalLabel">Delete Product</h5>
+                                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                      Are you sure ?
+                                    </div>
+                                    <div class="modal-footer">
+                                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                      <a href="/dashbord/product/delete/<%= data[i]._id %>" class="btn btn-danger">Delete</a>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                        
+
+                      <%  } %>
+
                         
                         </tbody>
                     </table>

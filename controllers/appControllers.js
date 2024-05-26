@@ -1,59 +1,62 @@
 const bcrypt = require('bcryptjs');
 const User = require("../models/user"); 
-//appcontrollers
-// Login GET route
+const mongoose=require('mongoose')
+
+
+
 
 exports.login_get = (req, res) => {
-    const error = req.session.error;
-    delete req.session.error;
-    res.render("LoginPages.ejs", { err: error });
+    const error = req.session && req.session.error; 
+    if (req.session) {
+        delete req.session.error; 
+    }
+    res.render("LoginPages.ejs", { err: error }); 
 }
-
-// Login POST route
 exports.login_post = async (req, res) => {
     const { emailAddress, password } = req.body;
 
     try {
-    
-        
         const user = await User.findOne({ emailAddress });
-       
+
         if (!user) {
-            req.session.error = "invalid";
-            return res.redirect('/Login');
+            req.session.error = "Invalid email or password";
+            console.log("User not found");
+            return res.redirect('/Login/Login');
         }
 
-       
-        
         const isPasswordMatch = await bcrypt.compare(password, user.password);
-        
 
         if (!isPasswordMatch) {
-            req.session.error = "invalid";
-            return res.redirect('/Login');
+            if(req.session){
+                req.session.error = "Invalid email or password";
+            }
+            console.log("Password does not match");
+            return res.redirect('/Login/Login');
         }
 
-        // Set session authentication
-        req.session.isAuth = true;
-        req.session.name = user.name;
+        if (req.session) {
+            req.session.isAuth = true;
+            req.session.name = user.name;
+            console.log("Session updated", req.session);
+        }
 
-        // Redirect to home page after successful login
-        res.render('../views/home');
+        return res.redirect("/");
     } catch (error) {
-        // Handle any errors
         console.error(error);
-        res.status(500).send("Internal Server Error");
+        return res.status(500).send("Internal Server Error");
     }
-}
+};
 
-// Signin GET route
+
 exports.signin_get = (req, res) => {
-    const error = req.session.error;
-    delete req.session.error;
-    res.render("../views/signup-user", { err: error });
+    const error = req.session && req.session.error; 
+    if (error) {
+        delete req.session.error; 
+    }
+    res.render("signup-user", { err: error }); 
 }
 
-// Signin POST route
+
 exports.signin_post = async (req, res) => {
     const { name, emailAddress, password, phone, repeatPassword } = req.body;
 
@@ -62,7 +65,7 @@ exports.signin_post = async (req, res) => {
         const userExists = await User.findOne({ emailAddress });
        
         if (userExists) { 
-            return res.redirect('/Login');
+            return res.redirect('/Login/Login');
         }
 
         const gmailRegex = /^[a-zA-Z][a-zA-Z0-9._%+-]*@gmail\.com$/;//https://www.w3schools.com/jsref/jsref_obj_regexp.asp
@@ -100,18 +103,17 @@ exports.signin_post = async (req, res) => {
         await newUser.save();
 
       
-        res.redirect('/Login');
+        res.redirect('/Login/Login');
     } catch (error) {
        
         res.status(500).send("Internal Server Error");
     }
 };
 
-// Home GET route
-// Home GET route
+
 exports.homes_get = (req, res) => {
     const name = req.session.name;
-    res.render('home', { name: username });
+    res.render('home.ejs', { name: name });
 };
 //The code was accessed through https://youtube.com/watch?v=TDe7DRYK8vU&si=6UbOY4mMgdKWLvds
 //https://github.com/LloydJanseVanRensburg/Authentication_Node_Sessions_Cookies
