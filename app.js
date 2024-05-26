@@ -11,7 +11,10 @@ const port = process.env.PORT
 const appControllers = require("./controllers/appControllers");
 
 
-mongoose.connect(process.env.DB_URI, { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect(process.env.DB_URI , {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+});
 
 const db = mongoose.connection;
 db.on("error", (error) => console.log(error));
@@ -38,6 +41,8 @@ const Search = require("./models/search")
 const ActivationRoutes = require('./routes/maindashboard/activationroute');
 const deleteProviderRoutes = require('./routes/maindashboard/deleteproviderroute');
 const deleteUserRoutes = require('./routes/maindashboard/deleteuserroute');
+const reservationRoutes =require('./routes/reservation/reservation')
+
 
 app.set('view engine', 'ejs');
 const publicDir = path.join(__dirname, './public');
@@ -83,6 +88,9 @@ app.use('/updateActivation', ActivationRoutes);
 app.use('/deleteProvider', deleteProviderRoutes);
 app.use('/deleteUser', deleteUserRoutes);
 app.use('/dashbordMain', MaindashbordRoutes);
+app.use('/reservationConf', reservationRoutes);
+app.use('/reserve', reservationRoutes)
+
 
 app.use('/signupProvider', signupProvider);
 app.get('/eventproduct/:categoryName/:page', (req, res) => {

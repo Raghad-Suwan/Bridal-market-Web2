@@ -5,9 +5,10 @@ const UserSchema= new mongoose.Schema({
   name: String,
   emailAddress: String,
   phone: Number,
-  image: String,
-  date: String,
-  locaton: String
+
+  locaton: String ,
+   image: String,
+  date: String
   })  
 
   const UserModel =mongoose.model("dashbordorders",UserSchema)  

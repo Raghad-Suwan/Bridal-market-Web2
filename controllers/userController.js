@@ -12,18 +12,19 @@ exports.AddProductPage = (req, res) => {
     res.render("../views/addproduct.ejs");
 };
 
-const UserModel = require('../models/ordersSchema');
+const UserModel = require('../models/Reservation');
 
 exports.OrderPage = (req, res) => {
     UserModel.find({})
-    .then((dashbordorders) => {
-        res.render('../views/order.ejs', { arr: dashbordorders });
+    .then((Reservation) => {
+        res.render('../views/order.ejs', { arr: Reservation });
     })
     .catch((err) => {
         console.log(err);
         res.status(500).send('Internal Server Error');
     });
 };
+
 exports.DashboardPage =  (req, res) => {
       
      return Product.find().then((data) => res.render('../views/product-dashbord.ejs', { data: data}))
@@ -148,3 +149,30 @@ exports.calender2 = (req, res) => {
     res.render("../views/calendar2.ejs");
 };
 
+
+exports.reservationConf = (req, res) => {
+    res.render("../views/reservationConf.ejs");
+};
+
+const UserReservation = require('../models/Reservation');
+
+exports.reservationSupmit = async (req, res) => {
+    const { Name, Email, Location, Phone } = req.body;
+
+    const newReservation = new UserReservation({
+        Name,
+        Email,
+        Location,
+        Phone
+    });
+
+    try {
+        await newReservation.save();
+        console.log('Reservation saved successfully');
+        res.send('Reservation confirmed');
+        console.log('Body:', req.body); // Log to check if data is being received
+    } catch (err) {
+        console.error('Error saving reservation:', err);
+        res.status(500).send('Error saving reservation');
+    }
+};
