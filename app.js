@@ -36,8 +36,7 @@ const calender1 = require("./routes/calender/calender")
 const signupUser = require('./routes/sign/signup-routes')
 const signupProvider = require('./routes/sign/signup-routes');
 const MaindashbordRoutes = require('./routes/Maindashbord/main_dashbord')
-const searchModel = require("./models/Customer")
-const Search = require("./models/search")
+
 const ActivationRoutes = require('./routes/maindashboard/activationroute');
 const deleteProviderRoutes = require('./routes/maindashboard/deleteproviderroute');
 const deleteUserRoutes = require('./routes/maindashboard/deleteuserroute');
@@ -122,6 +121,9 @@ app.get('/eventproduct/:categoryName/:page', (req, res) => {
             res.status(500).send('Server Error');
         });
 });
+
+const searchModel = require("./models/userschema")
+const Search = require("./models/search")
 app.post("/searchPage", (req, res) => {
 
     console.log(req.body)
@@ -131,12 +133,40 @@ app.post("/searchPage", (req, res) => {
 
     }).catch(err => console.error(err));
 })
-app.get('/searchPage', (req, res) => {
-    searchModel.find({})
-        .then(search => res.json(search))
-        .catch(err => console.error(err));
-    console.log(req.body)
 
+app.get('/searchPage', async (req, res) => {
+    console.log('searchCustomers route hit'); // Log to verify if the route is hit
+    console.log('Request body:', req.body); // Log the request body to ensure data is coming through
+    let searchTerm = req.body.searchTerm;
+
+    const locals = {
+        title: "Search",
+        description: "Search in the system",
+    };
+
+    try {
+        const search_data = await searchModel.find({
+            $or: [
+                { "brand": { $regex: ".*" + searchTerm + ".*", $options: 'i' } },
+                { "category": { $regex: ".*" + searchTerm + ".*", $options: 'i' } },
+            ]
+        });
+
+        if (search_data.length > 0) {
+            res.render("searchPage", {
+                search_data,
+                locals
+            });
+        } else {
+            res.render("searchPage", {
+                search_data: [],
+                locals
+            });
+        }
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Internal Server Error');
+    }
 });
 
 

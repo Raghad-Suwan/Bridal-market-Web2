@@ -69,31 +69,33 @@
                         <tr>
                             <th>S No.</th>
                             <th>Image</th>
+                            <th>Brand </th>
+
                             <th>Date </th>
                             <th>Username</th>
                             <th>Email</th>
                             <th>phone </th>
                             <th>Location </th>
 
-                            <th>Action</th>
                         </tr>
                     </thead>
 
 
                     <tbody>
 
-                        <% products.forEach((product, index) => { %>
-                            <% reservations.forEach((reservation, index) => { %>                            
+
+                          
+                        <% products.forEach((product, index) => { %>                      
                             <tr>
                                 <td>
                                     <%= index+1 %>
                                 </td>
-                                <td><img src=<%=product.img %> alt="Image"  style="width:100px;height:auto;" /></td>
+                                <td><img src=<%=product.src %> alt="Image"  style="width:100px;height:auto;" /></td>
                                 <td>
-                                    <%= product.name  %>
+                                    <%= product.brand  %>
                                 </td>
                                
-
+                                <% reservations.forEach((reservation) => { %>      
                                 <td><%= reservation.Name %></td>
                                 <td><%= reservation.Email %></td>
                                 <td>
@@ -103,40 +105,12 @@
                                     <%= reservation.Location %>
                                 </td>
 
-                        
-
-                                <td>
-                                    
-                                    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal<%= index %>">
-                                        Delete
-                                    </button>
-                                    <!-- Modal with unique ID -->
-                                    <div class="modal fade" id="exampleModal<%= index %>" tabindex="-1" aria-labelledby="exampleModalLabel<%= index %>" aria-hidden="true">
-                                        <div class="modal-dialog">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h5 class="modal-title" id="exampleModalLabel<%= index %>">Delete Product</h5>
-                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    Are you sure ?
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                                    <a href="/dashbord/Order/delete/<%= product._id %>" class="btn btn-danger">Delete</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </td>
-
                             </tr>
                             <tr>
 
                             </tr>
                             <% }) %>
-                            <% }) %>
-
+                            <% }) %> 
 
 
 

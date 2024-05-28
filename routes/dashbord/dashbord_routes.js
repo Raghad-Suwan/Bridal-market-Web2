@@ -20,7 +20,6 @@ router.get("/product", productDashbord.DashboardPage)
 
 
 router.get("/order", order.OrderPage)
-router.get('/order/delete/:id', order.deleteOrder );
 
 
 

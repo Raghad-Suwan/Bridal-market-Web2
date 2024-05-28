@@ -49,17 +49,18 @@ exports.deleteProduct = async (req, res) => {
 }
 
 
-//const UserReservation = require('../models/Reservation');
 const OrderModel = require('../models/ordersSchema');
-const ProductModel =require('../models/productschema');
+const ProductModel =require('../models/user');
 const ReservationModel = require('../models/Reservation');
 
 exports.OrderPage = async (req, res) => {
     const reservations = await ReservationModel.find({}).exec();
-    const products = await ProductModel.find({}, 'img').exec();
+    const  products= await ProductModel.find({}).exec();
+
 
   OrderModel.find({})
     .populate('reservation')
+    .populate('product')
     .exec()
     .then((orders) => {
       if (!orders || orders.length === 0) {
@@ -67,30 +68,14 @@ exports.OrderPage = async (req, res) => {
         return res.status(404).send('No orders found');
       }
 
-      // Log the raw orders data with populated reservations
       console.log("Fetched orders with populated reservations:", orders);
 
       const data = orders.map(order => {
         // Log each order to debug potential issues
         console.log("Processing order:", order);
 
-        // هدول فش داعي الهم 
-        // const reservations = order.reservation.map(res => ({
-        //   Name: res.Name,
-        //   Email: res.Email,
-        //   Phone: res.Phone,
-        //   Location: res.Location
-        // }));
-
-        // return {
-        //   number: order.number,
-        //   image: order.image,
-        //   date: order.date,
-        //   reservations: reservations.length > 0 ? reservations : [{ Name: "not defined", Email: "not defined", Phone: "not defined", Location: "not defined" }]
-        // };
       });
 
-      // Log the transformed data
       console.log("Transformed data:", data);
 
       res.render('../views/order.ejs', { products, reservations });
@@ -101,11 +86,6 @@ exports.OrderPage = async (req, res) => {
     });
 };
 
-exports.deleteOrder = async (req, res) => {
-    await OrderModel.findByIdAndDelete({ _id: req.params.id });
-    res.redirect('/dashbord/product')
-
-}
 
 
 exports.DashboardPage = (req, res) => {
@@ -159,40 +139,6 @@ exports.allorder = (req, res, orders) => {
 
 }
 
-
-
-
-const Customer = require("../models/Customer")
-
-exports.searchCustomers = async (req, res) => {
-
-    console.log('searchCustomers route hit'); // Log to verify if the route is hit
-    console.log('Request body:', req.body); // Log the request body to ensure data is coming through
-
-    const locals = {
-        title: " serach",
-        description: " search in the system ",
-    };
-
-    try {
-        let searchTerm = req.body.searchTerm;
-        const searchNoSpecialChar = searchTerm.replace(/[^a-zA-Z0-9]/g, "");
-
-        const customers = await Customer.find({
-            $or: [
-                { brand: { $regex: new RegExp(searchNoSpecialChar, "i") } },
-                { catagory: { $regex: new RegExp(searchNoSpecialChar, "i") } },
-            ]
-        });
-        res.render("searchPage", {
-            customers,
-            locals
-        });
-    } catch (error) {
-        console.error(error);
-        res.status(500).send('Internal Server Error');
-    }
-};
 exports.calender1 = (req, res) => {
     res.render("../views/calendar1.ejs");
 };

@@ -2,12 +2,18 @@ const mongoose = require("mongoose");
 
 const UserSchema= new mongoose.Schema({  
   number: Number,
-  image: {
+
+  
+  product: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'productschema',
+    ref: 'users',
     required: true
 },
+
+
   date: String
+
+
   ,reservation: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Reservation',
