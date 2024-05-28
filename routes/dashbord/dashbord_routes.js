@@ -21,6 +21,8 @@ router.get("/product", productDashbord.DashboardPage)
 
 router.get("/order", order.OrderPage)
 
+
+
 router.get('/product/:id', productDashbord.updateProductRender);
 router.get('/product/delete/:id', productDashbord.deleteProduct );
 router.post('/update', upload.single('img'), productDashbord.updateProduct);
