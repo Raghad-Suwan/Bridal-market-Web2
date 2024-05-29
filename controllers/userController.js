@@ -174,6 +174,7 @@ res.render("searchPage", {
     res.status(500).send('Internal Server Error');
   }};
 
+//reservationConf controller 
 exports.reservationConf = (req, res) => {
     res.render("../views/reservationConf.ejs");
 };
@@ -193,7 +194,8 @@ exports.reservationSupmit = async (req, res) => {
     try {
         await newReservation.save();
         console.log('Reservation saved successfully');
-        res.render('reservationConf');
+        //get a message confirming that the reservation confirmation data is stored in the database.
+        res.render('home', {reservedoneMessage: 'Reservation saved successfully'});
         console.log('Body:', req.body); // Log to check if data is being received
     } catch (err) {
         console.error('Error saving reservation:', err);

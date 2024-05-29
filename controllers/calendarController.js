@@ -1,7 +1,5 @@
-//Exports : cal1 , cal2 and reservationConf pages
-exports.reservationConf = (req, res) => {
-  res.render("../views/reservationConf.ejs");
-};
+//Exports : cal1 , cal2  pages
+
 exports.cal1 = (req, res) => {
   res.render("../views/cal1.ejs");
 };
@@ -21,7 +19,7 @@ exports.postCal1Res = async (req, res) => {
     }
     else{
       //get a message confirming that the reservation data is stored in the database.
-      res.render('reservationConf', {reserveMessage: 'You have been booked successfully'});
+      res.render('reservationConf', {reserveMessage: 'To successfully confirm your booking, you must fill out this reservation confirmation form.'});
     }
     const newRes = new require('../models/calendar1Schema') ({dateReservation, timeReservation});
     await newRes.save();
@@ -41,7 +39,7 @@ exports.postCal1Res = async (req, res) => {
     }
     else{
       //get a message confirming that the reservation data is stored in the database.
-      res.render('reservationConf', {reserveMessage: 'You have been booked successfully'});
+      res.render('reservationConf', {reserveMessage: 'To successfully confirm your booking, you must fill out this reservation confirmation form.'});
     }
     const newRes = new require('../models/calendar2Schema') ({dateReservation, startTime, endTime});
     await newRes.save();

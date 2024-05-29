@@ -12,8 +12,6 @@ router.get("/cal1", calendarController.cal1);
 router.post('/cal2/reservationConf', calendarController.postCal2Res);
 router.get("/cal2", calendarController.cal2);
 
-//Route of reserfation Confirmation  
-router.get('/reservationConf', calendarController.reservationConf);
 
 //Exports router in app.js
 module.exports = router;
