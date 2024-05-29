@@ -84,7 +84,6 @@ app.use('/eventproduct', events);
 app.use('/cal1', calendar);
 app.use('/cal2', calendar);
 app.use('/signup', signupUser);
-app.use('/dashbord', dashbordRoutes);
 app.use('/eventproduct', events);
 app.use('/updateActivation', ActivationRoutes);
 app.use('/deleteProvider', deleteProviderRoutes);
@@ -242,7 +241,8 @@ app.get('/allusers', async (req, res) => {
 });
 
 
+
 app.listen(process.env.PORT, () => {
 
-    console.log('Example app listening at http://localhost:${process.env.PORT}');
+    console.log(`Example app listening at http://localhost:${process.env.PORT}`);
 });
