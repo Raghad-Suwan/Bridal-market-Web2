@@ -7,7 +7,7 @@ const reservationConf = require('../../controllers/userController')
 
 router.get("/reservationConf", reservationConf.reservationConf)
 
-router.post('/reservationConf', reservationConf.reservationSupmit);
+router.post('/', reservationConf.reservationSupmit);
 
     
 module.exports = router; 

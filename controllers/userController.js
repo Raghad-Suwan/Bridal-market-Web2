@@ -139,14 +139,42 @@ exports.allorder = (req, res, orders) => {
 
 }
 
-exports.calender1 = (req, res) => {
-    res.render("../views/calendar1.ejs");
-};
-exports.calender2 = (req, res) => {
-    res.render("../views/calendar2.ejs");
-};
 
 
+
+
+const Customer=require("../models/Customer")
+
+exports.searchCustomers = async(req, res) => {
+
+    console.log('searchCustomers route hit'); // Log to verify if the route is hit
+    console.log('Request body:', req.body); // Log the request body to ensure data is coming through
+
+    const locals ={
+        title:" serach",
+        description:" search in the system ",
+    };
+
+try {
+   let searchTerm =req.body.searchTerm;
+const searchNoSpecialChar=searchTerm.replace(/[^a-zA-Z0-9]/g ,"");
+ 
+const customers =await Customer.find({
+    $or: [
+    {brand: { $regex: new RegExp(searchNoSpecialChar, "i") }}, 
+    {catagory: { $regex: new RegExp(searchNoSpecialChar, "i") }},
+    ]
+});
+res.render("searchPage", {
+    customers ,
+    locals
+    });
+}catch (error) {
+    console.error(error);
+    res.status(500).send('Internal Server Error');
+  }};
+
+//reservationConf controller 
 exports.reservationConf = (req, res) => {
     res.render("../views/reservationConf.ejs");
 };
@@ -166,7 +194,8 @@ exports.reservationSupmit = async (req, res) => {
     try {
         await newReservation.save();
         console.log('Reservation saved successfully');
-        res.render('reservationConf');
+        //get a message confirming that the reservation confirmation data is stored in the database.
+        res.render('home', {reservedoneMessage: 'Reservation saved successfully'});
         console.log('Body:', req.body); // Log to check if data is being received
     } catch (err) {
         console.error('Error saving reservation:', err);
