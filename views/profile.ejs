@@ -29,15 +29,14 @@
                             src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg" >
                     </div>
 
-                    <span class="user-name">user name</span>
+                    <span class="user-name"><%= user.name %></span>
                 </div>
-                <!-- <div class="d-flex flex-column align-items-center text-center p-3 py-5">
-                    <img class="rounded-circle mt-5" width="150px" src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg">
-                    <span>user name </span>
-                </div> -->
+                
                 <div class="mt-1 text-center"><button class="btn btn-light profile-button" type="button"><i class="fas fa-shopping-cart"></i>&nbsp;  go to cart </button></div>
             </div>
-            <div class="col-md-5 border-right">
+
+            <form class="col-md-5 border-right"  method="GET" >
+          
                 <div class="p-3 py-5">
                     <div class="d-flex justify-content-between align-items-center mb-3">
                         <h4 class="text-right">Profile Settings</h4>
@@ -45,30 +44,31 @@
                     
                     <div class="row mt-3 ">
                         <div class="col-md-12"><label for="validationCustom01" class="labels">Name</label>
-                            <input id="validationCustom01" value=""  type="text" class="form-control" placeholder="" >
+                            <div name="name" id="validationCustom01"   type="text" class="form-control" placeholder="" ><%= user.name %></div>
                         </div>
                         <div class="col-md-12"><label class="labels">Mobile Number</label>
-                            <input type="text" class="form-control" placeholder="" value="">
+                            <div type="text" name="phone" class="form-control" placeholder="" ><%= user.phone %></div>
                         </div>
                         <div class="col-md-12"><label class="labels">Email ID</label>
-                            <input type="text" class="form-control" placeholder="" value="">
+                            <div type="text" name="emailAddress"  class="form-control" placeholder="" ><%= user.emailAddress %></div>
                         </div>
                     </div>
                     
-                    
+                </form>
                     <div class="row ">
                         <div class="col">
                             <div class="mt-5 text-center d-grid  mx-auto">
-                                <form action="/profiles/editprofile" method="GET">
+                                <form action="/profiles/editprofile">
                                     <button id="myButton" class="btn btn-light profile-button" type="submit">edit profile </button>
                                 </form>
                             </div>
-                </div>
+                      </div>
                 
                 </div>
 
                 </div>
-            </div>
+            
+            
         </div>
         
     </div>

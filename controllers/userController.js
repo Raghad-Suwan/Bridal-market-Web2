@@ -1,5 +1,5 @@
 const Product = require('../models/productschema');
-
+const User =require('../models/user');
 
 exports.ProductPage = (req, res) => {
     res.render("../views/ProductPage.ejs");
@@ -12,9 +12,40 @@ exports.AddProductPage = (req, res) => {
 };
 
 
-exports.ProfilePage = (req, res) => {
-    res.render("../views/profile.ejs");
+const UserModel = require('../models/ordersSchema');
+
+exports.OrderPage = (req, res) => {
+    UserModel.find({})
+    .then((dashbordorders) => {
+        res.render('../views/order.ejs', { arr: dashbordorders });
+    })
+    .catch((err) => {
+        console.log(err);
+        res.status(500).send('Internal Server Error');
+    });
 };
+exports.DashboardPage =  (req, res) => {
+      
+     return Product.find().then((data) => res.render('../views/product-dashbord.ejs', { data: data}))
+
+}
+
+
+exports.ProfilePage = async(req, res) => {
+
+    try{ 
+        const userData = await User.findOne({ emailAddress: req.session.emailAddress });
+            res.render('../views/profile.ejs', { user: userData });
+
+    }catch(error)  {
+            console.error(error);
+            res.status(500).send('Server error');
+        };
+    
+    };
+        
+
+
 exports.EditProfilePage = (req, res) => {
     res.render("../views/editprofile.ejs");
 };
