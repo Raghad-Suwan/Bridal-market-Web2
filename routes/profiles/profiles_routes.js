@@ -2,7 +2,7 @@ const { render } = require('ejs');
 const express = require('express');
 const router = express.Router();
 
-const profile = require('../../controllers/userController');
+const profile = require('../../controllers/profileController');
 const isAuth = require('../../middleware/is-auth');
 
 
