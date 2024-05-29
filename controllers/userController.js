@@ -1,5 +1,5 @@
 const Product = require('../models/productschema');
-const User =require('../models/user');
+const User = require('../models/user');
 
 exports.ProductPage = (req, res) => {
     res.render("../views/ProductPage.ejs");
@@ -15,38 +15,98 @@ const UserModel = require('../models/ordersSchema');
 
 exports.OrderPage = (req, res) => {
     UserModel.find({})
-    .then((dashbordorders) => {
-        res.render('../views/order.ejs', { arr: dashbordorders });
-    })
-    .catch((err) => {
-        console.log(err);
-        res.status(500).send('Internal Server Error');
-    });
+        .then((dashbordorders) => {
+            res.render('../views/order.ejs', { arr: dashbordorders });
+        })
+        .catch((err) => {
+            console.log(err);
+            res.status(500).send('Internal Server Error');
+        });
 };
-exports.DashboardPage =  (req, res) => {
-      
-     return Product.find().then((data) => res.render('../views/product-dashbord.ejs', { data: data}))
+exports.DashboardPage = (req, res) => {
+
+    return Product.find().then((data) => res.render('../views/product-dashbord.ejs', { data: data }))
 
 }
 
-exports.ProfilePage = async(req, res) => {
+exports.ProfilePage = async (req, res) => {
 
-    try{ 
+    try {
         const userData = await User.findOne({ emailAddress: req.session.emailAddress });
-            res.render('../views/profile.ejs', { user: userData });
+        res.render('../views/profile.ejs', { user: userData });
 
-    }catch(error)  {
-            console.error(error);
-            res.status(500).send('Server error');
-        };
-    
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Server error');
     };
-        
 
-
-exports.EditProfilePage = (req, res) => {
-    res.render("../views/editprofile.ejs");
 };
+
+
+
+
+
+exports.EditProfilePage = async (req, res) => {
+    try {
+        const userData = await User.findOne({ _id: req.session.user_id });
+        res.render('../views/editprofile.ejs', { user: userData });
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('SSSS error');
+    }
+};
+
+// exports.updateUserProfile = async (req, res) => {
+//     await User.findByIdAndUpdate({ _id: req.session.user_id }, {$set: {
+//         name: req.body.name,
+//         emailAddress: req.body.emailAddress,
+//         phone: req.body.phone,
+//         password: req.body.password,
+//         repeatPassword: req.body.repeatPassword,
+//     }})
+//     res.redirect('/profiles/profile')
+// }
+
+exports.updateUserProfile = async (req, res) => {
+    try {
+
+        console.log('name', req.body.name)
+        const userId = req.session.user_id;
+        const { name, emailAddress, phone, password, repeatPassword } = req.body;
+
+        if (!userId) {
+            return res.status(400).send('User ID not found in session');
+        }
+
+        // Validate that passwords match if provided
+        if (password && password !== repeatPassword) {
+            return res.status(400).send('Passwords do not match');
+        }
+
+        // Prepare update object
+        const updateData = {
+            name,
+            emailAddress,
+            phone,
+        };
+
+        // Hash the password if it is being updated
+        if (password) {
+            const hashedPassword = await bcrypt.hash(password, 10);
+            updateData.password = hashedPassword;
+        }
+
+        await User.findByIdAndUpdate(userId, { $set: updateData });
+            console.log("noor",updateData)
+        res.redirect('/profiles/profile');
+    } catch (error) {
+        console.error('Error updating user profile:', error);
+        res.status(500).send('Internal Server Error');
+    }
+};
+
+
+
 exports.ProviderProfilePage = (req, res) => {
     res.render("../views/providerprofile.ejs");
 };
@@ -76,7 +136,6 @@ exports.deleteProduct = async (req, res) => {
     res.redirect('/dashbord/product')
 
 }
-
 
 const OrderModel = require('../models/ordersSchema');
 const ProductModel =require('../models/user');
@@ -156,6 +215,7 @@ exports.updateProduct = async (req, res) => {
     })
     res.redirect('/dashbord/product')
 }
+
 exports.allproduct = (req, res, products) => {
     console.log(" hi iam in all product ")
     res.render("../views/systmedashbord/allproduct.ejs", { products });
@@ -174,14 +234,14 @@ exports.allorder = (req, res, orders) => {
 
 const Customer=require("../models/Customer")
 
-exports.searchCustomers = async(req, res) => {
+exports.searchCustomers = async (req, res) => {
 
     console.log('searchCustomers route hit'); // Log to verify if the route is hit
     console.log('Request body:', req.body); // Log the request body to ensure data is coming through
 
-    const locals ={
-        title:" serach",
-        description:" search in the system ",
+    const locals = {
+        title: " serach",
+        description: " search in the system ",
     };
 
 try {
@@ -206,6 +266,7 @@ res.render("searchPage", {
 //reservationConf controller 
 exports.reservationConf = (req, res) => {
     res.render("../views/reservationConf.ejs");
+
 };
 
 const Reservation = require('../models/Reservation');
