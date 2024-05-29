@@ -58,9 +58,14 @@
               <option value="XXL"> XXL</option>
 
             </select>
-            <form action="/calender1/calender1" method="GET">
-            <div ><button >Add to Cart</button></div>
-          </form>
+            <form action="/cart/add" method="POST">
+              <input type="hidden" name="productId" value="<%= product._id %>">
+              <input type="hidden" name="title" value="<%= product.title %>">
+              <input type="hidden" name="price" value="<%= product.price %>">
+              <input type="hidden" name="image" value="<%= product.src %>">
+              <button type="submit" class="btn btn-primary"><a>Add to Cart</a></button>
+            </form>
+            
           </div>
         </div>
         

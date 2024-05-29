@@ -56,6 +56,7 @@ exports.signupprovider = (req, res) => {
     res.render("../views/signup-provider.ejs");
 };
 
+
 exports.updateProductRender = async (req, res) => {
     let product = await Product.findOne({ _id: req.params.id });
     res.render('update_product', {product: product});
@@ -66,6 +67,7 @@ exports.deleteProduct = async (req, res) => {
     res.redirect('/dashbord/product')
 
 }
+
 
 exports.addNewProduct =  (req, res) => {
     const prov = new Product({ 
