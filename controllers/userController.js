@@ -1,6 +1,5 @@
 const Product = require('../models/productschema');
-
-
+const User =require('../models/user');
 
 exports.ProductPage = (req, res) => {
     res.render("../views/ProductPage.ejs");
@@ -11,6 +10,7 @@ exports.HomePage = (req, res) => {
 exports.AddProductPage = (req, res) => {
     res.render("../views/addproduct.ejs");
 };
+
 
 const UserModel = require('../models/ordersSchema');
 
@@ -28,12 +28,24 @@ exports.DashboardPage =  (req, res) => {
       
      return Product.find().then((data) => res.render('../views/product-dashbord.ejs', { data: data}))
 
-
 }
 
-exports.ProfilePage = (req, res) => {
-    res.render("../views/profile.ejs");
-};
+
+exports.ProfilePage = async(req, res) => {
+
+    try{ 
+        const userData = await User.findOne({ emailAddress: req.session.emailAddress });
+            res.render('../views/profile.ejs', { user: userData });
+
+    }catch(error)  {
+            console.error(error);
+            res.status(500).send('Server error');
+        };
+    
+    };
+        
+
+
 exports.EditProfilePage = (req, res) => {
     res.render("../views/editprofile.ejs");
 };
@@ -59,7 +71,7 @@ exports.signupprovider = (req, res) => {
 
 exports.updateProductRender = async (req, res) => {
     let product = await Product.findOne({ _id: req.params.id });
-    res.render('update_product', {product: product});
+    res.render('update_product', { product: product });
 }
 
 exports.deleteProduct = async (req, res) => {
@@ -69,8 +81,57 @@ exports.deleteProduct = async (req, res) => {
 }
 
 
-exports.addNewProduct =  (req, res) => {
-    const prov = new Product({ 
+
+
+const OrderModel = require('../models/ordersSchema');
+const ProductModel =require('../models/user');
+const ReservationModel = require('../models/Reservation');
+
+exports.OrderPage = async (req, res) => {
+    const reservations = await ReservationModel.find({}).exec();
+    const  products= await ProductModel.find({}).exec();
+
+
+  OrderModel.find({})
+    .populate('reservation')
+    .populate('product')
+    .exec()
+    .then((orders) => {
+      if (!orders || orders.length === 0) {
+        console.error("No orders found.");
+        return res.status(404).send('No orders found');
+      }
+
+      console.log("Fetched orders with populated reservations:", orders);
+
+      const data = orders.map(order => {
+        // Log each order to debug potential issues
+        console.log("Processing order:", order);
+
+      });
+
+      console.log("Transformed data:", data);
+
+      res.render('../views/order.ejs', { products, reservations });
+    })
+    .catch((err) => {
+      console.error("Error fetching orders:", err);
+      res.status(500).send('Internal Server Error');
+    });
+};
+
+
+
+exports.DashboardPage = (req, res) => {
+
+    return Product.find().then((data) => res.render('../views/product-dashbord.ejs', { data: data }))
+
+
+}
+
+
+exports.addNewProduct = (req, res) => {
+    const prov = new Product({
 
         name: req.body.name,
         price: req.body.price,
@@ -83,19 +144,21 @@ exports.addNewProduct =  (req, res) => {
 
     prov.save();
     res.redirect("/dashbord/add");
-    
+
 }
 
 exports.updateProduct = async (req, res) => {
-    await Product.findByIdAndUpdate({ _id: req.body.id }, {$set: {
-        name: req.body.name,
-        price: req.body.price,
-        size: req.body.size,
-        description: req.body.description,
-        service: req.body.service,
-        city: req.body.city,
-        img: req.file.filename,
-    }})
+    await Product.findByIdAndUpdate({ _id: req.body.id }, {
+        $set: {
+            name: req.body.name,
+            price: req.body.price,
+            size: req.body.size,
+            description: req.body.description,
+            service: req.body.service,
+            city: req.body.city,
+            img: req.file.filename,
+        }
+    })
     res.redirect('/dashbord/product')
 }
 exports.allproduct = (req, res, products) => {
@@ -103,12 +166,13 @@ exports.allproduct = (req, res, products) => {
     res.render("../views/systmedashbord/allproduct.ejs", { products });
 };
 
-exports.allorder=(req,res,orders)=>{
-    res.render("../views/systmedashbord/allorder.ejs",{ orders });
+exports.allorder = (req, res, orders) => {
+    res.render("../views/systmedashbord/allorder.ejs", { orders });
 
 
 
 }
+
 
 
 
@@ -143,10 +207,32 @@ res.render("searchPage", {
     console.error(error);
     res.status(500).send('Internal Server Error');
   }};
-exports.calender1 = (req, res) => {
-    res.render("../views/calendar1.ejs");
-};
-exports.calender2 = (req, res) => {
-    res.render("../views/calendar2.ejs");
+
+//reservationConf controller 
+exports.reservationConf = (req, res) => {
+    res.render("../views/reservationConf.ejs");
 };
 
+const Reservation = require('../models/Reservation');
+
+exports.reservationSupmit = async (req, res) => {
+    const { Name, Email, Location, Phone } = req.body;
+
+    const newReservation = new Reservation({
+        Name,
+        Email,
+        Location,
+        Phone
+    });
+
+    try {
+        await newReservation.save();
+        console.log('Reservation saved successfully');
+        //get a message confirming that the reservation confirmation data is stored in the database.
+        res.render('home', {reservedoneMessage: 'Reservation saved successfully'});
+        console.log('Body:', req.body); // Log to check if data is being received
+    } catch (err) {
+        console.error('Error saving reservation:', err);
+        res.status(500).send('Error saving reservation');
+    }
+};
