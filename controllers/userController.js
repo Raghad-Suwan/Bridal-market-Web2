@@ -22,5 +22,3 @@ exports.signupprovider = (req, res) => {
 
 
 
-
-
