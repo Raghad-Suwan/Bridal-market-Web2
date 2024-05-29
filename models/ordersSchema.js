@@ -2,12 +2,24 @@ const mongoose = require("mongoose");
 
 const UserSchema= new mongoose.Schema({  
   number: Number,
-  name: String,
-  emailAddress: String,
-  phone: Number,
-  image: String,
-  date: String,
-  locaton: String
+
+  
+  product: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'users',
+    required: true
+},
+
+
+  date: String
+
+
+  ,reservation: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Reservation',
+    required: true
+  }]
+ 
   })  
 
   const UserModel =mongoose.model("dashbordorders",UserSchema)  
