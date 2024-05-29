@@ -86,7 +86,6 @@ app.use('/updateActivation', ActivationRoutes);
 app.use('/deleteProvider', deleteProviderRoutes);
 app.use('/deleteUser', deleteUserRoutes);
 app.use('/dashbordMain', MaindashbordRoutes);
-
 app.use('/signupProvider', signupProvider);
 
 

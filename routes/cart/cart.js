@@ -15,16 +15,15 @@ router.post('/add', (req, res)=> {
         });
     } else {
         const cart = req.session.cart;
-        const newItem = true;
+        var newItem = true;
 
-        for (const i = 0; i < cart.length; i++) {
+        for (var i = 0; i < cart.length; i++) {
             if (cart[i].title == title) {
                 cart[i].qty++;
                 newItem = false;
                 break;
             }
         }
-
         if (newItem) {
             cart.push({
                 title: title,
@@ -45,6 +44,7 @@ router.get('/cart', (req, res) => {
         cart: req.session.cart
     });
 });
+
 
 // تحديث السلة
 router.get('/update', (req, res)=> {
@@ -69,7 +69,7 @@ router.get('/update', (req, res)=> {
     }
 
     // تنفيذ الإجراء بناءً على قيمة action
-    for (const i = 0; i < cart.length; i++) { 
+    for (let i = 0; i < cart.length; i++) { 
         if (cart[i].title === title) {
             switch (action) {
                 case "add":
