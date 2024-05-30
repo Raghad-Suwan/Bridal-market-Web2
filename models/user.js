@@ -1,14 +1,17 @@
 const mongoose = require("mongoose");
 
 const bcrypt = require("bcryptjs");
-//mongoose.connect("mongodb+srv://raghad:98765ragahd@cluster0.9jk40dj.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0", {
-   // useNewUrlParser: true,
-    //useUnifiedTopology: true,
-//}).then(() => {
-  //  console.log("MongoDB connected");
-//}).catch((error) => {
-    //console.error("MongoDB connection error:", error);
-//});
+
+/*
+mongoose.connect("mongodb+srv://raghad:98765ragahd@cluster0.9jk40dj.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0", {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+}).then(() => {
+    console.log("MongoDB connected");
+}).catch((error) => {
+    console.error("MongoDB connection error:", error);
+});
+*/
 
 const loginSchema = new mongoose.Schema({
 

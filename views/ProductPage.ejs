@@ -58,9 +58,16 @@
               <option value="XXL"> XXL</option>
 
             </select>
-            <form action="/cal1/cal1" method="GET">
-            <div ><button >Book now</button></div>
-          </form>
+
+            <form action="/cart/add" method="POST">
+              <input type="hidden" name="productId" value="<%= product._id %>">
+              <input type="hidden" name="title" value="<%= product.title %>">
+              <input type="hidden" name="price" value="<%= product.price %>">
+              <input type="hidden" name="image" value="<%= product.src %>">
+              <button type="submit" class="btn btn-primary"><a>Book now</a></button>
+            </form>
+            
+
           </div>
         </div>
         
@@ -76,6 +83,8 @@
 
   <div class="you-might-like" style="text-align: center; margin:10%;  max-width: 100%;"> <!--you might like -->
     <h3><strong>You might also like </strong></h3>
+    <% if (similarProducts.length > 0) { %>
+
     <div class="card-group">
       <% similarProducts.forEach(similarProduct => { %>
       <div class="card" style="border: none;padding:15px; text-align: left; line-height:1ch;">
@@ -90,16 +99,16 @@
       </div>
       <% }); %>
   </div>
-</div>
 
+
+</div>
+<% } else { %>
+  <p>No similar products found.</p>
+<% } %>
   </div> <!--you might like -->
 
 
-  <div class="reviews">
-    <h2>Customer Reviews</h2>
-    <p>No reviews yet, be the first to write a review</p>
-    <button>Write Review</button>
-  </div>
+
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"

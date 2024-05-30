@@ -21,9 +21,12 @@ db.once("open", () => console.log("Connected to the database!"));
 
 
 const Users = require('./models/userschema')
+const searchModel = require("./models/Customer")
+const Search = require("./models/search")
 
 
 const home = require('./routes/home/home-routes')
+const cart =require('./routes/cart/cart')
 const loginRoutes = require('./routes/Login/Login-routes');
 const dashbordRoutes = require('./routes/dashbord/dashbord_routes')
 const events =require('./routes/event/event-routes')
@@ -71,7 +74,8 @@ app.use(
     next();
 });
 app.use('/', home);
-app.use('/Login',loginRoutes)
+app.use('/Login',loginRoutes);
+app.use('/cart',cart)
 app.use('/dashbord', dashbordRoutes);
 app.use('/profiles', profiles);
 app.use('/loading', loading);
@@ -85,12 +89,20 @@ app.use('/updateActivation', ActivationRoutes);
 app.use('/deleteProvider', deleteProviderRoutes);
 app.use('/deleteUser', deleteUserRoutes);
 app.use('/dashbordMain', MaindashbordRoutes);
+
 app.use('/', conenctUsRoutes);
 app.use('/reservationConf', reservationRoutes);
 app.use('/reserve', reservationRoutes)
 
-
 app.use('/signupProvider', signupProvider);
+
+
+
+app.get('*', function (req, res, next)
+ { res.locals.cart = req.session.cart;
+    next()
+    });
+
 app.get('/eventproduct/:categoryName/:page', (req, res) => {
     const numofpage = parseInt(req.params.page);
     const numofproduct = 6;
