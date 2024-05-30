@@ -11,26 +11,6 @@ const appControllers = require("./controllers/appControllers");
 
 
 
-mongoose.connect(process.env.DB_URI, { useNewUrlParser: true, useUnifiedTopology: true });
-
-
-const db = mongoose.connection;
-db.on("error", (error) => console.log(error));
-db.once("open", () => console.log("Connected to the database!"));
-
-
-// mongoose.connect(process.env.DB_URI ,{ useNewUrlParser: true, useUnifiedTopology: true }). then(()=>{
-//     console.log("Connected to the database!");
-//     app.listen(process.env.PORT, () => {
-
-//         console.log(`Example app listening at http://localhost:${process.env.PORT}`);
-//     });
-    
-
-// }).catch((err)=>{
-//     console.log("error Connected to the database!")
-// });
-
 const Users = require('./models/userschema')
 
 
@@ -204,10 +184,14 @@ app.get('/allusers', async (req, res) => {
     });
 });
 
+mongoose.connect(process.env.DB_URI ,{ useNewUrlParser: true, useUnifiedTopology: true }). then(()=>{
+    console.log("Connected to the database!");
+    app.listen(process.env.PORT, () => {
 
+        console.log(`Example app listening at http://localhost:${process.env.PORT}`);
+    });
+    
 
-app.listen(process.env.PORT, () => {
-
-    console.log(`Example app listening at http://localhost:${process.env.PORT}`);
+}).catch((err)=>{
+    console.log("error Connected to the database!")
 });
-
