@@ -79,33 +79,3 @@ exports.reservationConf = (req, res) => {
 //         res.status(500).send('Error saving reservation');
 //     }
 // };
-
-
-
-
-// exports.reservationConf = (req, res) => {
-//     res.render("../views/reservationConf.ejs");
-// };
-
-// const Reservation = require('../models/Reservation');
-
-// exports.reservationSupmit = async (req, res) => {
-//     const { Name, Email, Location, Phone } = req.body;
-
-//     const newReservation = new Reservation({
-//         Name,
-//         Email,
-//         Location,
-//         Phone
-//     });
-
-//     try {
-//         await newReservation.save();
-//         console.log('Reservation saved successfully');
-//         res.render('reservationConf');
-//         console.log('Body:', req.body); // Log to check if data is being received
-//     } catch (err) {
-//         console.error('Error saving reservation:', err);
-//         res.status(500).send('Error saving reservation');
-//     }
-// };
