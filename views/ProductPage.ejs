@@ -58,11 +58,12 @@
               <input type="hidden" name="title" value="<%= product.title %>">
               <input type="hidden" name="price" value="<%= product.price %>">
               <input type="hidden" name="image" value="<%= product.src %>">
+
             </form>
             <form action="<%=(product.category === 'Dress' || product.category === 'Rose' || product.category === 'Cake' || product.category === 'Salons')? '/cal1/cal1' : '/cal1/cal1' %>" method="GET">
               <div>
                   <% if((product.category === 'Dress' || product.category === 'Rose' || product.category === 'Cake' || product.category === 'Salons') || (product.category === 'Wedding halls' || product.category === 'Photographers')){ %>
-                    <button type="submit" class="btn btn-primary"><a>Book now</a></button>               
+              <button type="submit" class="btn btn-primary" style="color: aliceblue; background-color:black;" ><a>Book now</a></button>
                  <% } %>
               </div>
             </form>
@@ -70,7 +71,7 @@
             <!--<form action="<%=(product.category === 'Dress' || product.category === 'Rose' || product.category === 'Cake' || product.category === 'Salons')? '/cal1/cal1' : '/cal2/cal2' %>" method="GET">
               <div>
                   <% if((product.category === 'Dress' || product.category === 'Rose' || product.category === 'Cake' || product.category === 'Salons') || (product.category === 'Wedding halls' || product.category === 'Photographers')){ %>
-                    <button type="submit" class="btn btn-primary"><a>Book now</a></button>               
+              <button type="submit" class="btn btn-primary" style="color: aliceblue; background-color:black;" ><a>Book now</a></button>
                  <% } %>
               </div>
             </form> -->
@@ -105,7 +106,6 @@
       </div>
       <% }); %>
   </div>
-
 
 </div>
 <% } else { %>
