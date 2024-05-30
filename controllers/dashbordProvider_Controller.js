@@ -1,4 +1,4 @@
-const Product = require('../models/productschema');
+const Users = require('../models/userschema');
 
 
 exports.AddProductPage = (req, res) => {
@@ -8,34 +8,34 @@ exports.AddProductPage = (req, res) => {
 
 exports.DashboardPage = (req, res) => {
 
-    return Product.find().then((data) => res.render('../views/product-dashbord.ejs', { data: data }))
+    return Users.find().then((data) => res.render('../views/product-dashbord.ejs', { data: data }))
 
 
 }
 
 
 exports.updateProductRender = async (req, res) => {
-    let product = await Product.findOne({ _id: req.params.id });
+    let product = await Users.findOne({ _id: req.params.id });
     res.render('update_product', { product: product });
 }
 
 exports.deleteProduct = async (req, res) => {
-    await Product.findByIdAndDelete({ _id: req.params.id });
+    await Users.findByIdAndDelete({ _id: req.params.id });
     res.redirect('/dashbord/product')
 
 }
 
 
 exports.addNewProduct = (req, res) => {
-    const prov = new Product({
+    const prov = new Users({
 
-        name: req.body.name,
+        title: req.body.title,
         price: req.body.price,
         size: req.body.size,
-        description: req.body.description,
-        service: req.body.service,
+        descreption: req.body.descreption,
+        category: req.body.category,
         city: req.body.city,
-        img: req.file.filename,
+        src: req.file.filename,
     });
 
     prov.save();
@@ -44,15 +44,15 @@ exports.addNewProduct = (req, res) => {
 }
 
 exports.updateProduct = async (req, res) => {
-    await Product.findByIdAndUpdate({ _id: req.body.id }, {
+    await Users.findByIdAndUpdate({ _id: req.body.id }, {
         $set: {
-            name: req.body.name,
-            price: req.body.price,
-            size: req.body.size,
-            description: req.body.description,
-            service: req.body.service,
-            city: req.body.city,
-            img: req.file.filename,
+        title: req.body.title,
+        price: req.body.price,
+        size: req.body.size,
+        descreption: req.body.descreption,
+        category: req.body.category,
+        city: req.body.city,
+        src: req.file.filename,
         }
     })
     res.redirect('/dashbord/product')
