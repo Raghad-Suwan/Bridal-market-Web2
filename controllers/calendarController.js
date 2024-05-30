@@ -9,7 +9,8 @@ exports.cal1 = (req, res) => {
 exports.cal2 = (req, res) => {
   res.render("../views/cal2.ejs" );
 }; 
-let modelr=require("../models/Reservation")
+
+
 //Exports : post form calendar 1 
 exports.postCal1Res = async (req, res) => {
     const {dateReservation, timeReservation ,productId } = req.body;
@@ -31,6 +32,9 @@ exports.postCal1Res = async (req, res) => {
     console.log('The reservation has been added to the database.');    
 };
   
+
+
+
 //Exports : post form calendar 2
   exports.postCal2Res = async (req, res) => {
     const { dateReservation, startTime, endTime } = req.body;
@@ -51,28 +55,7 @@ exports.postCal1Res = async (req, res) => {
     console.log('The reservation has been added to the database.');
     
   };
-//////////////////// reservtion 
-  exports.re=async (req,res) => {
-    const {Name,Email,Location ,Phone ,productId , dateReservation, timeReservation}= await req.body;
-    console.log("***************************************")
 
-    console.log(Name)
-    console.log(Email)
-    console.log(Location)
-    console.log(Phone)
-    console.log(dateReservation)
-    console.log(timeReservation )
-
-
-    console.log("***************************************")
-
-    let new2= await  new modelr({productId:productId , Name:Name ,Email:Email,Location:Location ,Phone:Phone ,dateReservation:dateReservation ,timeReservation:timeReservation})
-new2.save();
-res.redirect('/cart/cart');
- 
-
-  }
-  
 
 
  

@@ -37,6 +37,7 @@ exports.MessagingRequests=async(req, res) => {
 exports.allproduct = async (req, res) => {
     let products =  await Product.find()
 
+  
     res.render("../views/systmedashbord/allProduct.ejs", { products });
 };
 
@@ -62,8 +63,6 @@ timeReservation:order[i].timeReservation,
   })
 } else {
   re.push({
-    _id:order[i]._id,
-
       Name: order[i].Name,
       Email: order[i].Email,
       Location: order[i].Location,
