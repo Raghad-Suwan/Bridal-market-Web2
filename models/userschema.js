@@ -4,9 +4,9 @@ const Schema = mongoose.Schema;
 //define the schema
 const productscema = new Schema({
 id:Number,
-title:String,
 brand:String,
 price:Number,
+title:String,
 src:String,
 category:String,
 descreption:String,
