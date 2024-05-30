@@ -1,9 +1,5 @@
 // controllers/cartController.js
 const Order = require('../models/ordersSchema');
-
-
-
-
 exports.addToCart = async (req, res) => {
     const { productId, title, price, image } = req.body;
 
@@ -143,4 +139,3 @@ exports.displayOrders = async (req, res) => {
         res.status(500).send('Error fetching orders');
     }
 };
-

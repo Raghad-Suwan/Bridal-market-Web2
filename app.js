@@ -11,6 +11,10 @@ const appControllers = require("./controllers/appControllers");
 
 const appControllerSP = require("./controllers/appControllerSP");
 
+
+
+
+
 const Users = require('./models/userschema')
 
 const home = require('./routes/home/home-routes')
@@ -181,9 +185,10 @@ app.get("/productpage/productpage/:id", (req, res) => {
 });
 
 
-app.use((req, res, next) => {
-    res.status(404).send("Sorry, can't find that!");
-});
+ app.use((req, res, next) => {
+     res.status(404).send("Sorry, can't find that!");
+ });
+
 
 const Provider = require('./routes/maindashboard/models/allproviders');
 const User = require('./routes/maindashboard/models/allusers');
@@ -206,6 +211,9 @@ app.get('/allusers', async (req, res) => {
     });
 });
 
+
+    
+
 mongoose.connect(process.env.DB_URI ,{ useNewUrlParser: true, useUnifiedTopology: true }). then(()=>{
     console.log("Connected to the database!");
     app.listen(process.env.PORT, () => {
@@ -217,3 +225,4 @@ mongoose.connect(process.env.DB_URI ,{ useNewUrlParser: true, useUnifiedTopology
 }).catch((err)=>{
     console.log("error Connected to the database!")
 });
+
