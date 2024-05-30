@@ -133,8 +133,6 @@ app.get('/eventproduct/:categoryName/:page', (req, res) => {
         });
 });
 
-const searchModel = require("./models/userschema")
-const Search = require("./models/search")
 app.post("/searchPage", (req, res) => {
 
     console.log(req.body)
