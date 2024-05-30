@@ -25,24 +25,8 @@
     </nav>
     <div id="layoutSidenav">
         <div id="layoutSidenav_nav">
-            <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
-                <div class="sb-sidenav-menu">
-                    <div class="nav">
-                      
-                        <a class="nav-link" href="/dashbordMain/product">
-                            <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
-                           All product
 
-                        </a>
-                        <a class="nav-link" href="/dashbordMain/Order">
-                            <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
-                           All Order
-                        </a>
-                    </div>
-                </div>
-
-            </nav>
-        </div>
+            <%- include('./sidebar.ejs') %>        </div>
         <div id="layoutSidenav_content">
             <main>
                 <div class="container-fluid px-4">
@@ -75,18 +59,18 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <% if (orders.length > 0) { %>
-                            <% orders.forEach(orders => { %>
+                        <% if (order.length > 0) { %>
+                            <% order.forEach(product => { %>
                                 <tr>
-                                    <td><%= orders.Name %></td>
-                                    <td><img src="<%= orders.Image %>" alt="<%= orders.Name %>" style="max-width: 100px;"></td>
-                                    <td><%= orders.Size %></td>
-                                    <td><%= orders.price %></td>
-                                    <td><%= orders.Type %></td>
-                                    <td><%= orders.City %></td>
-                                    <td><%= orders.Description %></td>
-                                    <td><%= orders.companyname %></td>
-                                    <td><button>Delete</button></td>
+                                    <td><%= product.Name %></td>
+                                    <td><img src="<%= product.src %>" alt="<%= product.Name %>" style="max-width: 100px;"></td>
+                                    <td><%= product.Email %></td>
+                                    <td><%= product.Location %></td>
+                                    <td><%= product.productId %></td>
+                                    <td><%= product. Phone %></td>
+                                    <td><%= product.description %></td>
+                                    <td><%= product.companyname %></td>
+                                    <td><form action="delete/<%=product._id%>?_method=DELETE" method="post"><button type="submit">Delete</button></form></td>
                                 </tr>
                             <% }); %>
                         <% } else { %>

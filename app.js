@@ -5,13 +5,14 @@ const mongoose = require("mongoose");
 const path  = require('path');
 const app = express();
 require("dotenv").config();
-const port = process.env.PORT 
 
 
 const appControllers = require("./controllers/appControllers");
 
 const appControllerSP = require("./controllers/appControllerSP");
+
 mongoose.connect(process.env.DB_URI, { useNewUrlParser: true, useUnifiedTopology: true });
+
 
 const db = mongoose.connection;
 db.on("error", (error) => console.log(error));
@@ -20,6 +21,7 @@ db.once("open", () => console.log("Connected to the database!"));
 
 
 const Users = require('./models/userschema')
+
 const home = require('./routes/home/home-routes')
 const loginRoutes = require('./routes/Login/Login-routes');
 const dashbordRoutes = require('./routes/dashbord/dashbord_routes')
@@ -27,16 +29,18 @@ const events =require('./routes/event/event-routes')
 const profiles =require("./routes/profiles/profiles_routes");
 const loading = require('./routes/sign/loadingpage')
 const productpage = require('./routes/productPage/product-route');
-const calender1 = require("./routes/calender/calender")
+const calendar = require("./routes/calendar/calenderRoute")
 const signupUser = require('./routes/sign/signup-routes')
 const signupProvider = require('./routes/sign/sigunSP');
 const MaindashbordRoutes = require('./routes/Maindashbord/main_dashbord')
-const searchModel = require("./models/Customer")
-const Search = require("./models/search")
+
 const ActivationRoutes = require('./routes/maindashboard/activationroute');
 const deleteProviderRoutes = require('./routes/maindashboard/deleteproviderroute');
 const deleteUserRoutes = require('./routes/maindashboard/deleteuserroute');
 const ServiceProvider = require('./models/serviceProviderSchema');
+const conenctUsRoutes = require('./routes/ConenctUs/conenctUsRoute');
+const reservationRoutes =require('./routes/reservation/reservation')
+const cart =require('./routes/cart/cart')
 
 app.set('view engine', 'ejs');
 const publicDir = path.join(__dirname, './public');
@@ -90,23 +94,37 @@ app.use(
     next();
 });
 app.use('/', home);
-app.use('/Login',loginRoutes)
+app.use('/Login',loginRoutes);
+app.use('/cart',cart)
+app.use('/order',cart)
+
 app.use('/dashbord', dashbordRoutes);
 app.use('/profiles', profiles);
 app.use('/loading', loading);
 app.use('/productpage', productpage);
 app.use('/eventproduct', events);
-app.use('/calender1', calender1);
-app.use('/calender2', calender1);
+app.use('/cal1', calendar);
+app.use('/cal2', calendar);
 app.use('/signup', signupUser);
-app.use('/dashbord', dashbordRoutes);
 app.use('/eventproduct', events);
 app.use('/updateActivation', ActivationRoutes);
 app.use('/deleteProvider', deleteProviderRoutes);
 app.use('/deleteUser', deleteUserRoutes);
 app.use('/dashbordMain', MaindashbordRoutes);
 
+app.use('/', conenctUsRoutes);
+app.use('/reservationConf', reservationRoutes);
+app.use('/reserve', reservationRoutes)
+
 app.use('/signupProvider', signupProvider);
+
+
+
+app.get('*', function (req, res, next)
+ { res.locals.cart = req.session.cart;
+    next()
+    });
+
 app.get('/eventproduct/:categoryName/:page', (req, res) => {
     const numofpage = parseInt(req.params.page);
     const numofproduct = 6;
@@ -135,22 +153,6 @@ app.get('/eventproduct/:categoryName/:page', (req, res) => {
             console.error(error);
             res.status(500).send('Server Error');
         });
-});
-app.post("/searchPage", (req, res) => {
-
-    console.log(req.body)
-    const search = new Search(req.body);
-    search.save().then(() => {
-        res.redirect("/searchPage")
-
-    }).catch(err => console.error(err));
-})
-app.get('/searchPage', (req, res) => {
-    searchModel.find({})
-        .then(search => res.json(search))
-        .catch(err => console.error(err));
-    console.log(req.body)
-
 });
 
 
@@ -216,3 +218,4 @@ app.listen(process.env.PORT, () => {
 
     console.log(`Example app listening at http://localhost:${process.env.PORT}`);
 });
+

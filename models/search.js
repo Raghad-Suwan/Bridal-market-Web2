@@ -1,10 +1,15 @@
-const mongoose = require("mongoose");  
+
+
+const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const search= new Schema({  
-    searchTerm:  String,
-  })  
+const searchSchema = new Schema({
+    searchTerm: String,
+    date: { 
+        type: Date, 
+        default: Date.now },
+});
 
-  const Search =mongoose.model("searches",search)  
+const Search = mongoose.model('searches', searchSchema);
 
-  module.exports = Search;
+module.exports = Search;

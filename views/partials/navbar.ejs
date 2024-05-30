@@ -7,7 +7,14 @@
                 <a class="nav-link home mx-5" aria-current="page" href="/">Home</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link shop mx-5" aria-current="page" href="#">cart</a>
+                <a class="nav-link shop mx-5" aria-current="page"  href="/cart/cart">My Cart (
+                        <% if (typeof cart !== "undefined") { %>
+                        <%= cart.length %>
+                        <% } else {%>
+                            0
+                        <% } %>
+                        )</a>
+                
             </li>
             <li class="nav-item">
                 <a class="nav-link news-events mx-5" aria-current="page" href="/profiles/profile">profile</a>

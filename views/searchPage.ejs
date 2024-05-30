@@ -1,38 +1,29 @@
-
-
-
-<div class="d-flex justify-content-between flex-wrap flex-md nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-    <h1 class="h2">Search</h1>
-    
-</div>
-<div class="table-responsive">
-    <% if (customers > 0 ) { %>
-        <table class="table table-striped table-sm">
-            <thead>
-                <tr>
-                    <th scope="col">brand</th>
-                    <th scope="col">catagory</th>
-                    <th scope="col">price</th>
-                </tr>
-            </thead>
-            <tbody>
-                <% customers.forEach(element=> { %>
-                    <td>
-                        <%= element.brand %>
-                    </td>
-                    <td>
-                        <%= element.catagory %>
-                    </td>
-                    <td>
-                        <%= element.price %>
-                    </td>
-                    
-                    <% }) %>
-            </tbody>
-        </table>
-
+<!DOCTYPE html>
+<html>
+<head>
+    <title><%= locals.title %></title>
+    <meta name="description" content="<%= locals.description %>">
+    <link rel="stylesheet" href="/css/searchStyle.css">
+</head>
+<body>
+    <h1>Search Results</h1>
+    <div>
+        <% if (search_data.length > 0) { %>
+            <ul>
+                <% search_data.forEach(function(product) { %>
+                    <li>
+                        <img src="<%= product.src %>" alt="<%= product.title %>">
+                        <h2><%= product.title %></h2>
+                        <p>Brand: <%= product.brand %></p>
+                        <p>Category: <%= product.category %></p>
+                        <p>Price: <%= product.price %></p>
+                        <p>Description: <%= product.description %></p>
+                    </li>
+                <% }); %>
+            </ul>
         <% } else { %>
-
-            <h2>No results found.</h2>
-            <% } %>
-</div>
+            <p><%= message %></p>
+        <% } %>
+    </div>
+</body>
+</html>
