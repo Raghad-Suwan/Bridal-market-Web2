@@ -21,12 +21,10 @@ db.once("open", () => console.log("Connected to the database!"));
 
 
 const Users = require('./models/userschema')
-const searchModel = require("./models/Customer")
-const Search = require("./models/search")
+
 
 
 const home = require('./routes/home/home-routes')
-const cart =require('./routes/cart/cart')
 const loginRoutes = require('./routes/Login/Login-routes');
 const dashbordRoutes = require('./routes/dashbord/dashbord_routes')
 const events =require('./routes/event/event-routes')
@@ -43,7 +41,7 @@ const deleteProviderRoutes = require('./routes/maindashboard/deleteproviderroute
 const deleteUserRoutes = require('./routes/maindashboard/deleteuserroute');
 const conenctUsRoutes = require('./routes/ConenctUs/conenctUsRoute');
 const reservationRoutes =require('./routes/reservation/reservation')
-
+const cart =require('./routes/cart/cart')
 
 app.set('view engine', 'ejs');
 const publicDir = path.join(__dirname, './public');
@@ -76,6 +74,8 @@ app.use(
 app.use('/', home);
 app.use('/Login',loginRoutes);
 app.use('/cart',cart)
+app.use('/order',cart)
+
 app.use('/dashbord', dashbordRoutes);
 app.use('/profiles', profiles);
 app.use('/loading', loading);
@@ -131,51 +131,6 @@ app.get('/eventproduct/:categoryName/:page', (req, res) => {
             console.error(error);
             res.status(500).send('Server Error');
         });
-});
-
-app.post("/searchPage", (req, res) => {
-
-    console.log(req.body)
-    const search = new Search(req.body);
-    search.save().then(() => {
-        res.redirect("/searchPage")
-
-    }).catch(err => console.error(err));
-})
-
-app.get('/searchPage', async (req, res) => {
-    console.log('searchCustomers route hit'); // Log to verify if the route is hit
-    console.log('Request body:', req.body); // Log the request body to ensure data is coming through
-    let searchTerm = req.body.searchTerm;
-
-    const locals = {
-        title: "Search",
-        description: "Search in the system",
-    };
-
-    try {
-        const search_data = await searchModel.find({
-            $or: [
-                { "brand": { $regex: ".*" + searchTerm + ".*", $options: 'i' } },
-                { "category": { $regex: ".*" + searchTerm + ".*", $options: 'i' } },
-            ]
-        });
-
-        if (search_data.length > 0) {
-            res.render("searchPage", {
-                search_data,
-                locals
-            });
-        } else {
-            res.render("searchPage", {
-                search_data: [],
-                locals
-            });
-        }
-    } catch (error) {
-        console.error(error);
-        res.status(500).send('Internal Server Error');
-    }
 });
 
 
@@ -244,3 +199,4 @@ app.listen(process.env.PORT, () => {
 
     console.log(`Example app listening at http://localhost:${process.env.PORT}`);
 });
+

@@ -20,7 +20,6 @@ router.get("/product", productDashbord.DashboardPage)
 
 
 
-
 router.get('/product/:id', productDashbord.updateProductRender);
 router.get('/product/delete/:id', productDashbord.deleteProduct );
 
