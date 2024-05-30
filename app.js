@@ -9,6 +9,8 @@ require("dotenv").config();
 
 const appControllers = require("./controllers/appControllers");
 
+var methodOverride = require('method-override')
+app.use(methodOverride('_method'))
 const appControllerSP = require("./controllers/appControllerSP");
 
 
@@ -46,12 +48,13 @@ app.use(express.json());
   
 
 
-const sessionCookieLifeTime = 1000 * 60 * 15;
 const store = new MongoDBStore({
     uri:process.env.DB_URI,
     collection: 'MYsessions'
     //https://youtube.com/watch?v=TDe7DRYK8vU&si=6UbOY4mMgdKWLvds
 });
+const sessionCookieLifeTime = 1000 * 60 * 15;
+
 
 app.use(
     session({
@@ -113,7 +116,9 @@ app.use('/reserve', reservationRoutes)
 
 app.use('/signupProvider', signupProvider);
 
-
+app.get('/1111', (req, res) => {
+    res.render("./views/allusers.ejs")
+});
 
 app.get('*', function (req, res, next)
  { res.locals.cart = req.session.cart;
@@ -193,9 +198,7 @@ app.get("/productpage/productpage/:id", (req, res) => {
 const Provider = require('./routes/maindashboard/models/allproviders');
 const User = require('./routes/maindashboard/models/allusers');
 
-app.get('/', (req, res) => {
-    res.render('maindashboard')
-});
+
 app.get('/allserviceproviders', async (req, res) => {
     const providers = await Provider.find({});
     res.render('allserviceproviders', {

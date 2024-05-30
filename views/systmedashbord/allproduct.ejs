@@ -10,14 +10,10 @@
         <link href="/css/styles.css" rel="stylesheet" />
         <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
         <link href="/css/StylesControl.css"  rel="stylesheet" />
-
     </head>
     <body class="sb-nav-fixed">
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
-            <!-- Navbar Brand-->
             <a class="navbar-brand ps-3" href="/dashbordMain/product">Main Dashboard</a>
-            
-       
         </nav>
         <div id="layoutSidenav">
             <div id="layoutSidenav_nav">
@@ -31,25 +27,20 @@
                             <li class="breadcrumb-item"><a href="/dashbordMain/product">Main Dashboard</a></li>
                             <li class="breadcrumb-item active">All  Product</li>
                         </ol>
-                      
                     </div>
                 </main>
-
-
                 <div class="header_fixed  table-move " >
-                    <table>
+                    <table style="max-width: 80%;" >
                         <thead>
                             <tr>
-                                <th>Name</th>
+                                <th>Title</th>
                                 <th>Image</th>
-                                <th>Size </th>
-                                <th>price  </th>
-                                <th>Type</th>
+                                <th>Size</th>
+                                <th>Price</th>
+                                <th>Category</th>
                                 <th>City</th>
                                 <th>Description</th>
-                                <th>company name</th>
-
-
+                                <th>Created</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -57,14 +48,16 @@
                             <% if (products.length > 0) { %>
                                 <% products.forEach(product => { %>
                                     <tr>
-                                        <td><%= product.name %></td>
-                                        <td><img src="<%= product.img %>" alt="<%= product.Name %>" style="max-width: 100px;"></td>
+                                        <td><%= product.title %></td>
+                                        <td><img src="<%= product.src %>" alt="<%= product.title %>" style="max-width: 100px;"></td>
                                         <td><%= product.size %></td>
                                         <td><%= product.price %></td>
-                                        <td><%= product.Type %></td>
+                                        <td><%= product.category %></td>
                                         <td><%= product.city %></td>
-                                        <td><%= product.description %></td>
-                                        <td><%= product.companyname %></td>
+                                        <td><%= product.descreption %></td>
+                                        <td><%= new Date( product.created).toLocaleString('en-US', {
+                                            weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'
+                                        }) %></td>
                                         <td><form action="delete/<%=product._id%>?_method=DELETE" method="post"><button type="submit">Delete</button></form></td>
                                     </tr>
                                 <% }); %>
@@ -77,9 +70,6 @@
                         </tbody>
                     </table>
                 </div>
-
-
-                 
                 <footer class="py-4 bg-light mt-auto">
                     <div class="container-fluid px-4">
                         <div class="d-flex align-items-center justify-content-between small">
@@ -95,6 +85,5 @@
         <script src="assets/demo/chart-area-demo.js"></script>
         <script src="assets/demo/chart-bar-demo.js"></script>
         <script src="assets/demo/chart-pie-demo.js"></script>
-
     </body>
 </html>

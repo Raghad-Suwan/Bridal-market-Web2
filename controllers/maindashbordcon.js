@@ -14,9 +14,7 @@ exports.deleteorderM=(req,res)=>{
 }
 
 exports.deleteproductM=(req,res)=>{
-    console.log(" this task is done ")
     console.log( req.params.id )
-  
     Product.deleteOne({ _id: req.params.id }).then((result) => {
       res.redirect("/dashbordMain/product");
       });
@@ -24,9 +22,7 @@ exports.deleteproductM=(req,res)=>{
 
 }
 exports.deletemessageM=(req,res)=>{
-    console.log(" this task is done ")
     console.log( req.params.id )
-  
     messagemodel.deleteOne({ _id: req.params.id }).then((result) => {
       res.redirect("/dashbordMain/MessagingRequests");
       });
@@ -36,72 +32,48 @@ exports.deletemessageM=(req,res)=>{
 const messagemodel= require("../models/ConenctUsSchema")
 exports.MessagingRequests=async(req, res) => {
     let message =  await  messagemodel.find()
-    // console.log(" hi iam in all product ")
     res.render("../views/systmedashbord/MessagingRequests.ejs",{message} );
 };
 exports.allproduct = async (req, res) => {
     let products =  await Product.find()
 
-    console.log(" hi iam in all product ")
+  
     res.render("../views/systmedashbord/allProduct.ejs", { products });
 };
 
 exports.allorder= async(req,res)=>{
- 
-
-
-  // let order = await OrderModel.find();
-  // let product = await Product.find();
-  
-  // let result = order.map(  (ele) => {
-  //   let matchedProducts =   product.filter((ele1) => ele1._id ==ele.productId);
-  //   return {
-  //     products: matchedProducts
-  //   };
-  // });
-  
-  // // الآن result يحتوي على المصفوفة الجديدة
-  // console.log(result.products);
-  //  res.render("../views/systmedashbord/AllOrder.ejs", { order });
-
-  let order = await OrderModel.find();
-let product = await Product.find();
-let re=[];
-
-let result = order.map((ele) => {
-  let matchedProducts = product.filter((ele1) => ele1._id == ele.productId);
-  re.push({matchedProducts ,ele});
-
-  if (matchedProducts.length > 0) {
-    return {
-      order: ele,
-      products: matchedProducts
-    };
-  }
-}).filter(item => item !== undefined);
-
-// عرض البيانات في وحدة التحكم للتحقق
-result.forEach((item) => {
-  console.log('Order:', item.products);
- 
-});
-console.log(result.length)
-
-console.log("*********************************************************")
-
-// re.forEach((item) => {
-//   console.log('Order:', item);
- 
-// });
-// عرض البيانات في وحدة التحكم للتحقق
-// result.forEach((item) => {
-//   console.log('Order:', item.products);
-//   // item.products.forEach((product) => {
-//   //   console.log('Product:', product);
-//   // });
-// });
-
-// إرسال البيانات إلى العرض
-res.render("../views/systmedashbord/AllOrder.ejs", { order:result });
+let order = await OrderModel.find();
+let re = [];
+for (let i=0;i<order.length;i++){
+  let zz= await Product.findById(order[i].productId)
+if (zz!=null){
+  re.push({
+    _id:order[i]._id,
+     Name:order[i].Name,
+    Email:order[i].Email,
+    Location:order[i].Location,
+    Phone:order[i].Phone,
+dateReservation:order[i].dateReservation,
+timeReservation:order[i].timeReservation,
+    title:zz.title,
+    price:zz.price,
+    src:zz.src,
+    category:zz.category,
+    size:zz.size,
+  })
+} else {
+  re.push({
+      Name: order[i].Name,
+      Email: order[i].Email,
+      Location: order[i].Location,
+      Phone:order[i].Phone,
+      title: 'Unknown Product',
+      price: 'N/A',
+      src: 'N/A',
+      dateReservation:'n'
+  });
+}
+}
+res.render("../views/systmedashbord/AllOrder.ejs", { order: re });
 }
 
