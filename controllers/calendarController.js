@@ -23,7 +23,7 @@ exports.postCal1Res = async (req, res) => {
     }
     else{
       //get a message confirming that the reservation data is stored in the database.
-      res.render('reservationConf', {reserveMessage: 'To successfully confirm your booking, you must fill out this reservation confirmation form.' , productId});
+      res.render('reservationConf', {reserveMessage: 'To successfully confirm your booking, you must fill out this reservation confirmation form.' , productId , timeReservation,dateReservation});
     }
     const newRes = new require('../models/calendar1Schema') ({dateReservation, timeReservation});
     await newRes.save();
@@ -51,19 +51,22 @@ exports.postCal1Res = async (req, res) => {
     console.log('The reservation has been added to the database.');
     
   };
+//////////////////// reservtion 
   exports.re=async (req,res) => {
-    const {Name,Email,Location ,Phone ,productId }= await req.body;
+    const {Name,Email,Location ,Phone ,productId , dateReservation, timeReservation}= await req.body;
     console.log("***************************************")
 
     console.log(Name)
     console.log(Email)
     console.log(Location)
     console.log(Phone)
-    console.log(req.body )
+    console.log(dateReservation)
+    console.log(timeReservation )
+
 
     console.log("***************************************")
 
-    let new2= new modelr({productId:productId , Name:Name ,Email:Email,Location:Location ,Phone:Phone})
+    let new2= await  new modelr({productId:productId , Name:Name ,Email:Email,Location:Location ,Phone:Phone ,dateReservation:dateReservation ,timeReservation:timeReservation})
 new2.save();
 res.redirect('/cart/cart');
  

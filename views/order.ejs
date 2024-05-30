@@ -40,7 +40,7 @@
                             product
 
                         </a>
-                        <a class="nav-link" href="/dashbord/Order">
+                        <a class="nav-link" href="/order/order">
                             <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
                             Order
                         </a>
@@ -81,41 +81,24 @@
                     </thead>
 
 
-                    <tbody>
+                 
+                <tbody>
+                    <% cart.forEach((item, index) => { %>
+                        <tr>
+                            <td><%= index + 1 %></td>
+                            <td><img src="<%= item.image %>" alt="<%= item.title %>" style="width: 100px; height: 100px;"></td>
+                            <td><%= item.title %></td>
+                            <td><%= item.username %></td>
 
+                            <td><%= item.username %></td>
 
-                          
-                        <% products.forEach((product, index) => { %>                      
-                            <tr>
-                                <td>
-                                    <%= index+1 %>
-                                </td>
-                                <td><img src=<%=product.src %> alt="Image"  style="width:100px;height:auto;" /></td>
-                                <td>
-                                    <%= product.brand  %>
-                                </td>
-                               
-                                <% reservations.forEach((reservation) => { %>      
-                                <td><%= reservation.Name %></td>
-                                <td><%= reservation.Email %></td>
-                                <td>
-                                    <%= reservation.Phone %>
-                                </td>
-                                <td>
-                                    <%= reservation.Location %>
-                                </td>
-
-                            </tr>
-                            <tr>
-
-                            </tr>
-                            <% }) %>
-                            <% }) %> 
-
-
-
-
-                    </tbody>
+                            <td><%= item.email %></td>
+                            <td><%= item.location %></td>
+                            <td><%= item.phone %></td>
+                        </tr>
+                    <% }) %>
+                </tbody>
+                    
                 </table>
             </div>
 

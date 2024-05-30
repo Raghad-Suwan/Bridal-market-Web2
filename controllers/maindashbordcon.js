@@ -85,11 +85,14 @@ result.forEach((item) => {
   console.log('Order:', item.products);
  
 });
+console.log(result.length)
+
 console.log("*********************************************************")
-re.forEach((item) => {
-  console.log('Order:', item);
+
+// re.forEach((item) => {
+//   console.log('Order:', item);
  
-});
+// });
 // عرض البيانات في وحدة التحكم للتحقق
 // result.forEach((item) => {
 //   console.log('Order:', item.products);

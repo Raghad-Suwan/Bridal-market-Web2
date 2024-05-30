@@ -1,13 +1,10 @@
-const express = require('express');
-const router = express.Router();
-const bodyParser = require('body-parser');
-const cartController = require('../../controllers/cart_orderController');
+const Order = require('../models/ordersSchema');
 
-// إضافة منتج إلى السلة
-router.post('/add',  async(req, res)=> {
-    const { productId, title, price, image } =  await req.body;
+// Add product to cart
+exports.addToCart = async (req, res) => {
+    const { productId, title, price, image } = req.body;
 
-    if (typeof req.session.cart == "undefined") {
+    if (typeof req.session.cart === "undefined") {
         req.session.cart = [];
         req.session.cart.push({
             title: title,
@@ -17,10 +14,10 @@ router.post('/add',  async(req, res)=> {
         });
     } else {
         const cart = req.session.cart;
-        var newItem = true;
+        let newItem = true;
 
-        for (var i = 0; i < cart.length; i++) {
-            if (cart[i].title == title) {
+        for (let i = 0; i < cart.length; i++) {
+            if (cart[i].title === title) {
                 cart[i].qty++;
                 newItem = false;
                 break;
@@ -36,26 +33,45 @@ router.post('/add',  async(req, res)=> {
         }
     }
 
-    console.log(req.session.cart);
-    req.session.productId = productId;
-    res.redirect(`/cal1/cal1`);
-});
-
-// عرض محتويات السلة
-router.get('/cart', (req, res) => {
-    res.render('cart', { 
-        cart: req.session.cart
+    const newOrder = new Order({
+        title: title,
+        productId: productId,
+        image: image,
     });
-});
 
+    try {
+        await newOrder.save();
+        console.log('Order saved successfully!');
+    } catch (err) {
+        console.log('Error saving order:', err);
+    }
 
-// تحديث السلة
-router.get('/update', (req, res)=> {
+    console.log(req.session.cart);
+    res.redirect('/cal1/cal1');
+};
+
+// Display cart contents
+exports.displayCart = (req, res) => {
+    res.render('cart', { cart: req.session.cart });
+};
+
+// Display orders
+exports.displayOrders = async (req, res) => {
+    try {
+        const orders = await Order.find({});
+        res.render('order', { cart: orders });
+    } catch (err) {
+        console.log('Error fetching orders:', err);
+        res.status(500).send('Error fetching orders');
+    }
+};
+
+// Update cart
+exports.updateCart = (req, res) => {
     const title = req.query.title;
     const action = req.query.action;
     const cart = req.session.cart;
 
-    // التحقق من وجود العربة والعنوان والإجراء
     if (!cart) {
         console.log("Cart is not defined");
         return res.redirect('/cart/cart');
@@ -71,7 +87,6 @@ router.get('/update', (req, res)=> {
         return res.redirect('/cart/cart');
     }
 
-    // تنفيذ الإجراء بناءً على قيمة action
     for (let i = 0; i < cart.length; i++) { 
         if (cart[i].title === title) {
             switch (action) {
@@ -95,25 +110,15 @@ router.get('/update', (req, res)=> {
         }
     }
 
-    // إذا كانت العربة فارغة، احذفها من الجلسة
     if (cart.length === 0) {
         delete req.session.cart;
     }
 
     res.redirect('/cart/cart');
-});
+};
 
-// إزالة منتج من السلة
-router.get('/clear', (req, res) => {
-    delete req.session.cart
+// Clear cart
+exports.clearCart = (req, res) => {
+    delete req.session.cart;
     res.redirect('/cart/cart');
-});
-// router.use(bodyParser.urlencoded({ extended: true }));
-
-// router.post('/add', cartController.addToCart);
-// router.get('/cart', cartController.displayCart);
-// router.get('/order', cartController.displayOrders);
-// router.get('/update', cartController.updateCart);
-// router.get('/clear', cartController.clearCart);
-
-module.exports = router;
+};
