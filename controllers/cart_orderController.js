@@ -1,10 +1,10 @@
+// controllers/cartController.js
 const Order = require('../models/ordersSchema');
 
-// Add product to cart
 exports.addToCart = async (req, res) => {
     const { productId, title, price, image } = req.body;
 
-    if (typeof req.session.cart === "undefined") {
+    if (typeof req.session.cart == "undefined") {
         req.session.cart = [];
         req.session.cart.push({
             title: title,
@@ -17,7 +17,7 @@ exports.addToCart = async (req, res) => {
         let newItem = true;
 
         for (let i = 0; i < cart.length; i++) {
-            if (cart[i].title === title) {
+            if (cart[i].title == title) {
                 cart[i].qty++;
                 newItem = false;
                 break;
@@ -33,40 +33,17 @@ exports.addToCart = async (req, res) => {
         }
     }
 
-    const newOrder = new Order({
-        title: title,
-        productId: productId,
-        image: image,
-    });
-
-    try {
-        await newOrder.save();
-        console.log('Order saved successfully!');
-    } catch (err) {
-        console.log('Error saving order:', err);
-    }
-
     console.log(req.session.cart);
-    res.redirect('/cal1/cal1');
+    req.session.productId = productId;
+    res.redirect(`/cal1/cal1`);
 };
 
-// Display cart contents
-exports.displayCart = (req, res) => {
-    res.render('cart', { cart: req.session.cart });
+exports.viewCart = (req, res) => {
+    res.render('cart', { 
+        cart: req.session.cart
+    });
 };
 
-// Display orders
-exports.displayOrders = async (req, res) => {
-    try {
-        const orders = await Order.find({});
-        res.render('order', { cart: orders });
-    } catch (err) {
-        console.log('Error fetching orders:', err);
-        res.status(500).send('Error fetching orders');
-    }
-};
-
-// Update cart
 exports.updateCart = (req, res) => {
     const title = req.query.title;
     const action = req.query.action;
@@ -117,8 +94,19 @@ exports.updateCart = (req, res) => {
     res.redirect('/cart/cart');
 };
 
-// Clear cart
 exports.clearCart = (req, res) => {
     delete req.session.cart;
     res.redirect('/cart/cart');
+};
+
+
+
+exports.displayOrders = async (req, res) => {
+    try {
+        const orders = await Order.find({});
+        res.render('order', { cart: orders });
+    } catch (err) {
+        console.log('Error fetching orders:', err);
+        res.status(500).send('Error fetching orders');
+    }
 };
