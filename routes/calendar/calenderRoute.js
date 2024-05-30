@@ -1,4 +1,3 @@
-//Route of calendarController
 const express = require('express');
 const router = express.Router();
 
@@ -13,7 +12,6 @@ router.post('/cal2/reservationConf', calendarController.postCal2Res);
 router.get("/cal2", calendarController.cal2);
 
 
-//Exports router in app.js
 module.exports = router;
 
 

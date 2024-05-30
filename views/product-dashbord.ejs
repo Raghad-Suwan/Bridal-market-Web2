@@ -37,7 +37,7 @@
                                 <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
                                  product
                             </a>
-                            <a class="nav-link" href="/dashbord/Order">
+                            <a class="nav-link" href="/order/order">
                                 <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
                                 Order
                             </a>
@@ -79,13 +79,13 @@
 
                             <% for(let i = 0; i < data.length; i++) { %>
                             <tr>
-                                <td><%= data[i].name %></td>
-                                <td><img src='/uploads/<%= data[i].img %>' alt="Product Image" /></td>
+                                <td><%= data[i].title %></td>
+                                <td><img src='/uploads/<%= data[i].src %>' alt="Product Image" /></td>
                                 <td><%= data[i].size %></td>
                                 <td><%= data[i].price %></td>
-                                <td><%= data[i].service %></td>
+                                <td><%= data[i].category %></td>
                                 <td><%= data[i].city %></td>
-                                <td><%= data[i].description %></td>
+                                <td><%= data[i].descreption %></td>
                                     <td>
                                         <a href="/dashbord/product/<%= data[i]._id %>" class="btn btn-secondary">
                                           Update

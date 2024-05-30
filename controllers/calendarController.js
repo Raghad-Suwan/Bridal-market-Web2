@@ -1,17 +1,22 @@
 //Exports : cal1 , cal2  pages
 
 exports.cal1 = (req, res) => {
-  res.render("../views/cal1.ejs");
+  const productId = req.session.productId;
+  delete req.session.productId;
+
+  res.render("../views/cal1.ejs" ,{ productId: productId });
 };
 exports.cal2 = (req, res) => {
-  res.render("../views/cal2.ejs");
+  res.render("../views/cal2.ejs" );
 }; 
+
 
 //Exports : post form calendar 1 
 exports.postCal1Res = async (req, res) => {
-    const {dateReservation, timeReservation} = req.body;
+    const {dateReservation, timeReservation ,productId } = req.body;
+    // const productId =  await req.session.productId;
     if(!dateReservation || !timeReservation){
-      return res.render('cal1', {errorMessage: 'Please select a date and time for your reservation.'});
+      return res.render('cal1', {errorMessage: 'Please select a date and time for your reservation.' });
     }
     const existingReservation = await require('../models/calendar1Schema').findOne({dateReservation: dateReservation, timeReservation: timeReservation});
     if(existingReservation){
@@ -19,7 +24,7 @@ exports.postCal1Res = async (req, res) => {
     }
     else{
       //get a message confirming that the reservation data is stored in the database.
-      res.render('reservationConf', {reserveMessage: 'To successfully confirm your booking, you must fill out this reservation confirmation form.'});
+      res.render('reservationConf', {reserveMessage: 'To successfully confirm your booking, you must fill out this reservation confirmation form.' , productId , timeReservation,dateReservation});
     }
     const newRes = new require('../models/calendar1Schema') ({dateReservation, timeReservation});
     await newRes.save();
@@ -27,6 +32,9 @@ exports.postCal1Res = async (req, res) => {
     console.log('The reservation has been added to the database.');    
 };
   
+
+
+
 //Exports : post form calendar 2
   exports.postCal2Res = async (req, res) => {
     const { dateReservation, startTime, endTime } = req.body;
@@ -47,8 +55,7 @@ exports.postCal1Res = async (req, res) => {
     console.log('The reservation has been added to the database.');
     
   };
-  
-  
+
 
 
  

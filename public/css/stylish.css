@@ -30,7 +30,7 @@ body, html {
 
 .right-content {
     align-items: flex-end;
-    margin-left: 2rem; /* تعديل التباعد بين العنوان والصورة */
+    margin-left: 2rem; 
 }
 
 h1 {

@@ -17,8 +17,12 @@ const ReservationSchema = new Schema({
         type: String, required: true
     },
 
+    productId: { type :String ,required:true} ,
+    Phone: { type: Number, required: true },
+    dateReservation:Date ,
+    
+    timeReservation:   String 
 
-    Phone: { type: Number, required: true }
 })
 
 const UserReservation = mongoose.model("Reservation", ReservationSchema)
