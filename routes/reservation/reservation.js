@@ -5,9 +5,9 @@ const router = express.Router();
 const reservationConf = require('../../controllers/reservationControllers')
 
 
-router.get("/reservationConf", reservationConf.reservationConf)
+// router.get("/reservationConf", reservationConf.reservationConf)
 
-router.post('/reservationConf', reservationConf.reservationSupmit);
+// router.post('/', reservationConf.reservationSupmit);
 
     
 module.exports = router; 

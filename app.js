@@ -5,16 +5,14 @@ const mongoose = require("mongoose");
 const path  = require('path');
 const app = express();
 require("dotenv").config();
-const port = process.env.PORT 
 
 
 const appControllers = require("./controllers/appControllers");
 
 
-mongoose.connect(process.env.DB_URI , {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-});
+
+mongoose.connect(process.env.DB_URI, { useNewUrlParser: true, useUnifiedTopology: true });
+
 
 const db = mongoose.connection;
 db.on("error", (error) => console.log(error));
@@ -33,7 +31,7 @@ const events =require('./routes/event/event-routes')
 const profiles =require("./routes/profiles/profiles_routes");
 const loading = require('./routes/sign/loadingpage')
 const productpage = require('./routes/productPage/product-route');
-const calender1 = require("./routes/calender/calender")
+const calendar = require("./routes/calendar/calenderRoute")
 const signupUser = require('./routes/sign/signup-routes')
 const signupProvider = require('./routes/sign/signup-routes');
 const MaindashbordRoutes = require('./routes/Maindashbord/main_dashbord')
@@ -41,6 +39,7 @@ const MaindashbordRoutes = require('./routes/Maindashbord/main_dashbord')
 const ActivationRoutes = require('./routes/maindashboard/activationroute');
 const deleteProviderRoutes = require('./routes/maindashboard/deleteproviderroute');
 const deleteUserRoutes = require('./routes/maindashboard/deleteuserroute');
+const conenctUsRoutes = require('./routes/ConenctUs/conenctUsRoute');
 const reservationRoutes =require('./routes/reservation/reservation')
 const cart =require('./routes/cart/cart')
 
@@ -82,19 +81,28 @@ app.use('/profiles', profiles);
 app.use('/loading', loading);
 app.use('/productpage', productpage);
 app.use('/eventproduct', events);
-app.use('/calender1', calender1);
-app.use('/calender2', calender1);
+app.use('/cal1', calendar);
+app.use('/cal2', calendar);
 app.use('/signup', signupUser);
 app.use('/eventproduct', events);
 app.use('/updateActivation', ActivationRoutes);
 app.use('/deleteProvider', deleteProviderRoutes);
 app.use('/deleteUser', deleteUserRoutes);
 app.use('/dashbordMain', MaindashbordRoutes);
+
+app.use('/', conenctUsRoutes);
 app.use('/reservationConf', reservationRoutes);
 app.use('/reserve', reservationRoutes)
 
-
 app.use('/signupProvider', signupProvider);
+
+
+
+app.get('*', function (req, res, next)
+ { res.locals.cart = req.session.cart;
+    next()
+    });
+
 app.get('/eventproduct/:categoryName/:page', (req, res) => {
     const numofpage = parseInt(req.params.page);
     const numofproduct = 6;
@@ -184,6 +192,7 @@ app.get('/allusers', async (req, res) => {
         message: null
     });
 });
+
 
 
 app.listen(process.env.PORT, () => {

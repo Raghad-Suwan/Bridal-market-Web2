@@ -4,13 +4,18 @@ const Schema = mongoose.Schema;
 //define the schema
 const productscema = new Schema({
 id:Number,
-brand:String,
-price:Number,
 title:String,
+city:String,
+price:Number,
 src:String,
 category:String,
 descreption:String,
-
+size :String,
+created: {
+    type: Date,
+    required: true,
+    default: Date.now,
+},
 
 })
 
