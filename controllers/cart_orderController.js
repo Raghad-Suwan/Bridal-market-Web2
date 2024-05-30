@@ -1,6 +1,5 @@
 // controllers/cartController.js
 const Order = require('../models/ordersSchema');
-
 exports.addToCart = async (req, res) => {
     const { productId, title, price, image } = req.body;
 
@@ -101,10 +100,48 @@ exports.clearCart = (req, res) => {
 
 
 
+const OrderModel = require("../models/Reservation");
+const Product = require("../models/userschema");
+
 exports.displayOrders = async (req, res) => {
     try {
-        const orders = await Order.find({});
-        res.render('order', { cart: orders });
+        let orders = await OrderModel.find();
+        let re = [];
+        for (let i = 0; i < orders.length; i++) {
+            let zz = await Product.findById(orders[i].productId);
+            if (zz) {
+                re.push({
+                    Name: orders[i].Name,
+                    Email: orders[i].Email,
+                    Location: orders[i].Location,
+                    Phone: orders[i].Phone,
+                    title: zz.title,
+                    price: zz.price,
+                    src: zz.src,
+                    dateReservation: orders[i].dateReservation,
+                });
+            } else {
+                re.push({
+                    Name: orders[i].Name,
+                    Email: orders[i].Email,
+                    Location: orders[i].Location,
+                    Phone: orders[i].Phone,
+                    title: 'Unknown Product',
+                    price: 'N/A',
+                    src: 'N/A',
+                    dateReservation: 'N/A',
+                });
+            }
+        }
+
+        console.log("*********************************************************");
+        re.forEach((item, index) => {
+            console.log('Order:', item);
+        });
+        console.log("re length: " + re.length);
+        console.log("*********************************************************");
+
+        res.render('order', { orders: re });
     } catch (err) {
         console.log('Error fetching orders:', err);
         res.status(500).send('Error fetching orders');

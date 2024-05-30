@@ -13,12 +13,7 @@ var methodOverride = require('method-override')
 app.use(methodOverride('_method'))
 const appControllerSP = require("./controllers/appControllerSP");
 
-mongoose.connect(process.env.DB_URI, { useNewUrlParser: true, useUnifiedTopology: true });
 
-
-const db = mongoose.connection;
-db.on("error", (error) => console.log(error));
-db.once("open", () => console.log("Connected to the database!"));
 
 
 
@@ -195,6 +190,10 @@ app.get("/productpage/productpage/:id", (req, res) => {
 });
 
 
+ app.use((req, res, next) => {
+     res.status(404).send("Sorry, can't find that!");
+ });
+
 
 const Provider = require('./routes/maindashboard/models/allproviders');
 const User = require('./routes/maindashboard/models/allusers');
@@ -217,8 +216,15 @@ app.get('/allusers', async (req, res) => {
 
 
 
-app.listen(process.env.PORT, () => {
+mongoose.connect(process.env.DB_URI ,{ useNewUrlParser: true, useUnifiedTopology: true }). then(()=>{
+    console.log("Connected to the database!");
+    app.listen(process.env.PORT, () => {
 
-    console.log(`Example app listening at http://localhost:${process.env.PORT}`);
+        console.log(`Example app listening at http://localhost:${process.env.PORT}`);
+    });
+    
+
+}).catch((err)=>{
+    console.log("error Connected to the database!")
 });
 

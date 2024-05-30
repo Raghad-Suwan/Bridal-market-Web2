@@ -12,10 +12,6 @@ exports.searchSupmit = async (req, res) => {
         })
         .catch(err => console.error(err));
 };
-
-
-
-
 exports.search = async (req, res) => {
     console.log('searchPage route hit');
     console.log('Request query:', req.query);

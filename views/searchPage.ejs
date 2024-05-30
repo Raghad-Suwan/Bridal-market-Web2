@@ -12,6 +12,7 @@
             <ul>
                 <% search_data.forEach(function(product) { %>
                     <li>
+                        <!-- Product information -->
                         <img src="<%= product.src %>" alt="<%= product.title %>">
                         <h2><%= product.title %></h2>
                         <p>Brand: <%= product.brand %></p>
@@ -22,6 +23,7 @@
                 <% }); %>
             </ul>
         <% } else { %>
+            <!-- No product found message -->
             <p><%= message %></p>
         <% } %>
     </div>
