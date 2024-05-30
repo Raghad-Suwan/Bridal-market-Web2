@@ -99,18 +99,17 @@ exports.clearCart = (req, res) => {
 };
 
 
-
 const OrderModel = require("../models/Reservation");
 const Product = require("../models/userschema");
 
 exports.displayOrders = async (req, res) => {
     try {
         let orders = await OrderModel.find();
-        let re = [];
+        let arrayOrder = [];
         for (let i = 0; i < orders.length; i++) {
             let zz = await Product.findById(orders[i].productId);
             if (zz) {
-                re.push({
+                arrayOrder.push({
                     Name: orders[i].Name,
                     Email: orders[i].Email,
                     Location: orders[i].Location,
@@ -121,7 +120,7 @@ exports.displayOrders = async (req, res) => {
                     dateReservation: orders[i].dateReservation,
                 });
             } else {
-                re.push({
+                arrayOrder.push({
                     Name: orders[i].Name,
                     Email: orders[i].Email,
                     Location: orders[i].Location,
@@ -134,14 +133,7 @@ exports.displayOrders = async (req, res) => {
             }
         }
 
-        console.log("*********************************************************");
-        re.forEach((item, index) => {
-            console.log('Order:', item);
-        });
-        console.log("re length: " + re.length);
-        console.log("*********************************************************");
-
-        res.render('order', { orders: re });
+        res.render('order', { orders: arrayOrder });
     } catch (err) {
         console.log('Error fetching orders:', err);
         res.status(500).send('Error fetching orders');
