@@ -19,8 +19,6 @@ router.get("/add", addproduct.AddProductPage)
 router.get("/product", productDashbord.DashboardPage)
 
 
-router.get("/order", order.OrderPage)
-
 
 
 router.get('/product/:id', productDashbord.updateProductRender);

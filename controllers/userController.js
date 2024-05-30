@@ -49,42 +49,44 @@ exports.deleteProduct = async (req, res) => {
 }
 
 
-const OrderModel = require('../models/ordersSchema');
-const ProductModel =require('../models/user');
-const ReservationModel = require('../models/Reservation');
-
-exports.OrderPage = async (req, res) => {
-    const reservations = await ReservationModel.find({}).exec();
-    const  products= await ProductModel.find({}).exec();
 
 
-  OrderModel.find({})
-    .populate('reservation')
-    .populate('product')
-    .exec()
-    .then((orders) => {
-      if (!orders || orders.length === 0) {
-        console.error("No orders found.");
-        return res.status(404).send('No orders found');
-      }
+// const OrderModel = require('../models/ordersSchema');
+// const ProductModel =require('../models/user');
+// const ReservationModel = require('../models/Reservation');
 
-      console.log("Fetched orders with populated reservations:", orders);
+// exports.OrderPage = async (req, res) => {
+//     const reservations = await ReservationModel.find({}).exec();
+//     const  products= await ProductModel.find({}).exec();
 
-      const data = orders.map(order => {
-        // Log each order to debug potential issues
-        console.log("Processing order:", order);
 
-      });
+//   OrderModel.find({})
+//     .populate('reservation')
+//     .populate('product')
+//     .exec()
+//     .then((orders) => {
+//       if (!orders || orders.length === 0) {
+//         console.error("No orders found.");
+//         return res.status(404).send('No orders found');
+//       }
 
-      console.log("Transformed data:", data);
+//       console.log("Fetched orders with populated reservations:", orders);
 
-      res.render('../views/order.ejs', { products, reservations });
-    })
-    .catch((err) => {
-      console.error("Error fetching orders:", err);
-      res.status(500).send('Internal Server Error');
-    });
-};
+//       const data = orders.map(order => {
+//         // Log each order to debug potential issues
+//         console.log("Processing order:", order);
+
+//       });
+
+//       console.log("Transformed data:", data);
+
+//       res.render('../views/order.ejs', { products, reservations });
+//     })
+//     .catch((err) => {
+//       console.error("Error fetching orders:", err);
+//       res.status(500).send('Internal Server Error');
+//     });
+// };
 
 
 
@@ -147,29 +149,3 @@ exports.calender2 = (req, res) => {
 };
 
 
-exports.reservationConf = (req, res) => {
-    res.render("../views/reservationConf.ejs");
-};
-
-const Reservation = require('../models/Reservation');
-
-exports.reservationSupmit = async (req, res) => {
-    const { Name, Email, Location, Phone } = req.body;
-
-    const newReservation = new Reservation({
-        Name,
-        Email,
-        Location,
-        Phone
-    });
-
-    try {
-        await newReservation.save();
-        console.log('Reservation saved successfully');
-        res.render('reservationConf');
-        console.log('Body:', req.body); // Log to check if data is being received
-    } catch (err) {
-        console.error('Error saving reservation:', err);
-        res.status(500).send('Error saving reservation');
-    }
-};

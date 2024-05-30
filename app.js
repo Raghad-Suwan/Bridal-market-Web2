@@ -25,6 +25,7 @@ db.once("open", () => console.log("Connected to the database!"));
 const Users = require('./models/userschema')
 
 
+
 const home = require('./routes/home/home-routes')
 const loginRoutes = require('./routes/Login/Login-routes');
 const dashbordRoutes = require('./routes/dashbord/dashbord_routes')
@@ -41,7 +42,7 @@ const ActivationRoutes = require('./routes/maindashboard/activationroute');
 const deleteProviderRoutes = require('./routes/maindashboard/deleteproviderroute');
 const deleteUserRoutes = require('./routes/maindashboard/deleteuserroute');
 const reservationRoutes =require('./routes/reservation/reservation')
-
+const cart =require('./routes/cart/cart')
 
 app.set('view engine', 'ejs');
 const publicDir = path.join(__dirname, './public');
@@ -72,7 +73,10 @@ app.use(
     next();
 });
 app.use('/', home);
-app.use('/Login',loginRoutes)
+app.use('/Login',loginRoutes);
+app.use('/cart',cart)
+app.use('/order',cart)
+
 app.use('/dashbord', dashbordRoutes);
 app.use('/profiles', profiles);
 app.use('/loading', loading);
@@ -81,7 +85,6 @@ app.use('/eventproduct', events);
 app.use('/calender1', calender1);
 app.use('/calender2', calender1);
 app.use('/signup', signupUser);
-app.use('/dashbord', dashbordRoutes);
 app.use('/eventproduct', events);
 app.use('/updateActivation', ActivationRoutes);
 app.use('/deleteProvider', deleteProviderRoutes);
@@ -120,53 +123,6 @@ app.get('/eventproduct/:categoryName/:page', (req, res) => {
             console.error(error);
             res.status(500).send('Server Error');
         });
-});
-
-const searchModel = require("./models/userschema")
-const Search = require("./models/search")
-app.post("/searchPage", (req, res) => {
-
-    console.log(req.body)
-    const search = new Search(req.body);
-    search.save().then(() => {
-        res.redirect("/searchPage")
-
-    }).catch(err => console.error(err));
-})
-
-app.get('/searchPage', async (req, res) => {
-    console.log('searchCustomers route hit'); // Log to verify if the route is hit
-    console.log('Request body:', req.body); // Log the request body to ensure data is coming through
-    let searchTerm = req.body.searchTerm;
-
-    const locals = {
-        title: "Search",
-        description: "Search in the system",
-    };
-
-    try {
-        const search_data = await searchModel.find({
-            $or: [
-                { "brand": { $regex: ".*" + searchTerm + ".*", $options: 'i' } },
-                { "category": { $regex: ".*" + searchTerm + ".*", $options: 'i' } },
-            ]
-        });
-
-        if (search_data.length > 0) {
-            res.render("searchPage", {
-                search_data,
-                locals
-            });
-        } else {
-            res.render("searchPage", {
-                search_data: [],
-                locals
-            });
-        }
-    } catch (error) {
-        console.error(error);
-        res.status(500).send('Internal Server Error');
-    }
 });
 
 
@@ -234,3 +190,4 @@ app.listen(process.env.PORT, () => {
 
     console.log(`Example app listening at http://localhost:${process.env.PORT}`);
 });
+
