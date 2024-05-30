@@ -9,7 +9,8 @@ require("dotenv").config();
 
 const appControllers = require("./controllers/appControllers");
 
-
+var methodOverride = require('method-override')
+app.use(methodOverride('_method'))
 
 mongoose.connect(process.env.DB_URI, { useNewUrlParser: true, useUnifiedTopology: true });
 
@@ -56,6 +57,15 @@ const store = new MongoDBStore({
     //https://youtube.com/watch?v=TDe7DRYK8vU&si=6UbOY4mMgdKWLvds
 });
 const sessionCookieLifeTime = 1000 * 60 * 15;
+app.get('/serviceproviders', (req, res) => {
+    let message=[];
+let providers=[]
+    res.render('allserviceproviders',{message,providers});
+});
+app.get('/1111', (req, res) => {
+    res.render("allusers.ejs")
+});
+
 app.use(
     session({
       secret: "Muy8fuSOYHDsR6WOCwNS6K6sy2QmhSEp",
@@ -96,7 +106,9 @@ app.use('/reserve', reservationRoutes)
 
 app.use('/signupProvider', signupProvider);
 
-
+app.get('/1111', (req, res) => {
+    res.render("./views/allusers.ejs")
+});
 
 app.get('*', function (req, res, next)
  { res.locals.cart = req.session.cart;
@@ -175,9 +187,7 @@ app.use((req, res, next) => {
 const Provider = require('./routes/maindashboard/models/allproviders');
 const User = require('./routes/maindashboard/models/allusers');
 
-app.get('/', (req, res) => {
-    res.render('maindashboard')
-});
+
 app.get('/allserviceproviders', async (req, res) => {
     const providers = await Provider.find({});
     res.render('allserviceproviders', {
