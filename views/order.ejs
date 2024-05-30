@@ -79,25 +79,24 @@
 
                         </tr>
                     </thead>
-
-
-                 
-                <tbody>
-                    <% cart.forEach((item, index) => { %>
-                        <tr>
-                            <td><%= index + 1 %></td>
-                            <td><img src="<%= item.image %>" alt="<%= item.title %>" style="width: 100px; height: 100px;"></td>
-                            <td><%= item.title %></td>
-                            <td><%= item.username %></td>
-
-                            <td><%= item.username %></td>
-
-                            <td><%= item.email %></td>
-                            <td><%= item.location %></td>
-                            <td><%= item.phone %></td>
-                        </tr>
-                    <% }) %>
-                </tbody>
+                    <tbody>
+                        <% if (orders.length > 0) { %>
+                            <% orders.forEach((item, index) => { %>
+                                <tr>
+                                    <td><%= index + 1 %></td>
+                                    <td><img src="/uploads/<%= item.src %>" alt="<%= item.title %>" style="width: 100px; height: 100px;"></td>
+                                    <td><%= item.title %></td>
+                                    <td><%= new Date(item.dateReservation).toLocaleString('en-US', {
+                                        weekday: 'long', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit'
+                                    }) %></td>
+                                    <td><%= item.Name %></td>
+                                    <td><%= item.Email %></td>
+                                    <td><%= item.Phone %></td>
+                                    <td><%= item.Location %></td>
+                                </tr>
+                            <% }) %>
+                        <% } %>
+                    </tbody>
                     
                 </table>
             </div>
