@@ -30,7 +30,7 @@
       <div class="row g-2">
 
         <div class="col-md-5">
-          <img src="<%= product.src %>"
+          <img src="/uploads/<%= product.src %>"
             class="img-fluid rounded-start" style="width: 500px; height: 450px;">
         </div>
 
@@ -47,17 +47,11 @@
             </div>
             <br>
             <p class="card-text"><%= product.descreption %> </p>
-            <span>Size :</span>
+            <span>Size : <%= product.size %></span>
             <br>
-            <select class="options" name="quantity">
-              <option value="XS"> XS</option>
-              <option value="S"> S</option>
-              <option value="M"> M</option>
-              <option value="L"> L</option>
-              <option value="XL"> XL</option>
-              <option value="XXL"> XXL</option>
+            <span>City : <%= product.city %></span>
 
-            </select>
+            <br>
 
             <form action="/cart/add" method="POST">
               <input type="hidden" name="productId" value="<%= product._id %>">
