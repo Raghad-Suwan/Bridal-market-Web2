@@ -25,57 +25,51 @@
     </nav>
     <div id="layoutSidenav">
         <div id="layoutSidenav_nav">
-
-            <%- include('./sidebar.ejs') %>        </div>
+            <%- include('./sidebar.ejs') %>    
+        </div>
         <div id="layoutSidenav_content">
             <main>
                 <div class="container-fluid px-4">
-                    <h1 class="mt-4">All Order</h1>
+                    <h1 class="mt-4">Messaging Requests</h1>
                     <ol class="breadcrumb mb-4">
                         <li class="breadcrumb-item"><a href="/dashbordMain/product">Main Dashboard</a></li>
-                        <li class="breadcrumb-item active"> All Order</li>
+                        <li class="breadcrumb-item active"> Messaging Requests</li>
                     </ol>
 
                 </div>
             </main>
 
 
-
-            <div class="header_fixed  table-move">
-                <table>
+           
+            <div class="header_fixed  table-move"   >
+                <table style="max-width: 80%;">
                     <thead>
                         <tr>
-                            <th>Name</th>
-                            <th>Image</th>
-                            <th>Size </th>
-                            <th>price  </th>
-                            <th>Type</th>
-                            <th>City</th>
-                            <th>Description</th>
-                            <th>company name</th>
+                            <th>#</th>
 
+                            <th>Name</th>
+                            <th> email</th>
+                            <th>phonenumber </th>
+                            <th> message </th>
 
                             <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <% if (order.length > 0) { %>
-                            <% order.forEach(product => { %>
+                        <% if (message.length>0) { %>
+                            <% message.forEach((message,index) => { %>
                                 <tr>
-                                    <td><%= product.Name %></td>
-                                    <td><img src="<%= product.src %>" alt="<%= product.Name %>" style="max-width: 100px;"></td>
-                                    <td><%= product.Email %></td>
-                                    <td><%= product.Location %></td>
-                                    <td><%= product.productId %></td>
-                                    <td><%= product. Phone %></td>
-                                    <td><%= product.description %></td>
-                                    <td><%= product.companyname %></td>
-                                    <td><form action="delete/<%=product._id%>?_method=DELETE" method="post"><button type="submit">Delete</button></form></td>
+                                    <td><%= index + 1  %></td>
+                                    <td><%= message.name %></td>
+                                    <td><%= message.email %></td>
+                                    <td><%= message.phonenumber %></td>
+                                    <td><%= message.message %></td>
+                                    <td><form action="dmessage/<%=message._id%>?_method=DELETE" method="post"><button type="submit">Delete</button></form></td>
                                 </tr>
                             <% }); %>
                         <% } else { %>
                             <tr>
-                                <td colspan="9">No order found</td>
+                                <td colspan="9">No messages found</td>
                             </tr>
                         <% } %>
                     

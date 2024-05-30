@@ -2,8 +2,8 @@ const express = require("express");
 const router = express.Router();
 
 // إضافة منتج إلى السلة
-router.post('/add', (req, res)=> {
-    const { productId, title, price, image } = req.body;
+router.post('/add',  async(req, res)=> {
+    const { productId, title, price, image } =  await req.body;
 
     if (typeof req.session.cart == "undefined") {
         req.session.cart = [];
@@ -35,7 +35,8 @@ router.post('/add', (req, res)=> {
     }
 
     console.log(req.session.cart);
-    res.redirect('/calender1/calender1');
+    req.session.productId = productId;
+    res.redirect(`/cal1/cal1`);
 });
 
 // عرض محتويات السلة

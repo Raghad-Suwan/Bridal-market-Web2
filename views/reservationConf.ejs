@@ -27,7 +27,7 @@
     <%-include('../views/partials/search.ejs')-%>
     <%-include('../views/partials/navbar.ejs')-%>
     <div class="container mt-5">
-        <form id="reservationForm" class="FORM custom-form" action="/reserve" method="post" >
+        <form id="reservationForm" class="FORM custom-form" action="/cal1/reserve" method="post" >
             <div class="mb-3">
                 <label for="Name" class="label">Name:</label>
                 <input type="text" id="Name" name="Name" class="InB form-control" required>
@@ -44,9 +44,11 @@
                 <label for="Phone" class="label">Phone:</label>
                 <input type="number" id="Phone" name="Phone" class="InB form-control" required> 
             </div>
-            
+            <input type="hidden" name="productId" value="<%= productId %>" />
             <button class="BR btn btn-primary" type="submit">Reservation Confirmation</button>
         </form>
+        <h1> <%= productId %></h1>
+
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 
