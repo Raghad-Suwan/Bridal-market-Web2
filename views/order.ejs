@@ -69,39 +69,50 @@
                         <tr>
                             <th>S No.</th>
                             <th>Image</th>
+                            <th>Brand </th>
+
+                            <th>Date </th>
                             <th>Username</th>
                             <th>Email</th>
                             <th>phone </th>
                             <th>Location </th>
-                            <th>Date </th>
 
-                            <th>Action</th>
                         </tr>
                     </thead>
 
 
                     <tbody>
 
-                       <% arr.forEach((item, index) => { %>
-                         <tr>
-                            <td><%= index+1 %> </td>
-                            <td><img src=<%= item.image %> alt="Image"/></td>
-                            <td><%= item.name %></td>
-                            <td><%= item.emailAddress %></td>
-                            <td><%= item.phone %></td>
-                            <td><%= item.locaton %></td>
-                            <td><%= item.date %></td>
 
-                           
-                            <td><button>Delete</button></td>
+                          
+                        <% products.forEach((product, index) => { %>                      
+                            <tr>
+                                <td>
+                                    <%= index+1 %>
+                                </td>
+                                <td><img src=<%=product.src %> alt="Image"  style="width:100px;height:auto;" /></td>
+                                <td>
+                                    <%= product.brand  %>
+                                </td>
+                               
+                                <% reservations.forEach((reservation) => { %>      
+                                <td><%= reservation.Name %></td>
+                                <td><%= reservation.Email %></td>
+                                <td>
+                                    <%= reservation.Phone %>
+                                </td>
+                                <td>
+                                    <%= reservation.Location %>
+                                </td>
 
-                        </tr>
-                        <tr>
-                         
-                        </tr>
-                       <% }) %>
-                       
-                       
+                            </tr>
+                            <tr>
+
+                            </tr>
+                            <% }) %>
+                            <% }) %> 
+
+
 
 
                     </tbody>
