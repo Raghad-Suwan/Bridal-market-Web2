@@ -13,19 +13,14 @@
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
     <link href="/css/StylesControl.css" rel="stylesheet" />
 
-
 </head>
-
 <body class="sb-nav-fixed">
     <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
         <!-- Navbar Brand-->
         <a class="navbar-brand ps-3" href="/dashbordMain/product"> Main Dashboard</a>
-
-
     </nav>
     <div id="layoutSidenav">
         <div id="layoutSidenav_nav">
-
             <%- include('./sidebar.ejs') %>        </div>
         <div id="layoutSidenav_content">
             <main>
@@ -38,39 +33,41 @@
 
                 </div>
             </main>
-
-
-
             <div class="header_fixed  table-move">
-                <table>
+                <table style="max-width: 80%;">
                     <thead>
                         <tr>
                             <th>Name</th>
                             <th>Image</th>
-                            <th>Size </th>
-                            <th>price  </th>
-                            <th>Type</th>
-                            <th>City</th>
-                            <th>Description</th>
-                            <th>company name</th>
-
-
+                            <th>title </th>
+                            <th>Location  </th>
+                            <th>Email</th>
+                            <th>Phone</th>
+                            <th>size</th>
+                            <th>price</th>
+                            <th>timeReservation</th>
+                            <th>dateReservation</th>
                             <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
                         <% if (order.length > 0) { %>
-                            <% order.forEach(product => { %>
+                            <% order.forEach(orders => { %>
                                 <tr>
-                                    <td><%= product.Name %></td>
-                                    <td><img src="<%= product.src %>" alt="<%= product.Name %>" style="max-width: 100px;"></td>
-                                    <td><%= product.Email %></td>
-                                    <td><%= product.Location %></td>
-                                    <td><%= product.productId %></td>
-                                    <td><%= product. Phone %></td>
-                                    <td><%= product.description %></td>
-                                    <td><%= product.companyname %></td>
-                                    <td><form action="delete/<%=product._id%>?_method=DELETE" method="post"><button type="submit">Delete</button></form></td>
+                                    <td><%= orders.Name %></td>
+                                    <td><img src="<%= orders.src %>" alt="<%= orders.Name %>" style="max-width: 100px;"></td>
+                                    <td><%= orders.title %></td>
+                                    <td><%= orders.Location %></td>
+                                    <td><%= orders.Email %></td>
+                                    <td><%= orders.Phone %></td>
+                                    <td><%= orders.size %></td>
+                                    <td><%= orders. price %></td>
+                                    <td><%= new Date( orders.dateReservation).toLocaleString('en-US', {
+                                        weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'
+                                    }) %></td>
+                                    <td><%= orders.timeReservation %></td>
+
+                                    <td><form action="<%=orders._id%>?_method=DELETE" method="post"><button type="submit">Delete</button></form></td>
                                 </tr>
                             <% }); %>
                         <% } else { %>
@@ -82,12 +79,6 @@
                     </tbody>
                 </table>
             </div>
-
-
-
-
-
-
             <footer class="py-4 bg-light mt-auto">
                 <div class="container-fluid px-4">
                     <div class="d-flex align-items-center justify-content-between small">
