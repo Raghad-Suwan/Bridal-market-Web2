@@ -51,3 +51,5 @@ https://youtu.be/6D7DyrlxWc4?si=rvZGXRbiKDf74APY
 https://youtu.be/9LseL3exbcA?si=c60odfA8wkMtPixH
 
 
+log in and sign up :https://youtu.be/O5kh3sTVSvA?si=fc3sF7Od3wlpNSLp
+Authentication and Sessions:https://youtu.be/TDe7DRYK8vU?si=aQLEjLfZUa2ipoJO
