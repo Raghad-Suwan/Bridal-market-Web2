@@ -38,7 +38,7 @@ exports.allproduct = async (req, res) => {
     let products =  await Product.find()
 
   
-    res.render("../views/systmedashbord/allProduct.ejs", { products });
+    res.render("../views/systmedashbord/allproduct.ejs", { products });
 };
 
 exports.allorder= async(req,res)=>{
@@ -63,6 +63,8 @@ timeReservation:order[i].timeReservation,
   })
 } else {
   re.push({
+    _id:order[i]._id,
+
       Name: order[i].Name,
       Email: order[i].Email,
       Location: order[i].Location,
@@ -74,6 +76,6 @@ timeReservation:order[i].timeReservation,
   });
 }
 }
-res.render("../views/systmedashbord/AllOrder.ejs", { order: re });
+res.render("../views/systmedashbord/allorder.ejs", { order: re });
 }
 
