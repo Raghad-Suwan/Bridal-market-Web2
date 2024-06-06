@@ -58,23 +58,10 @@
               <input type="hidden" name="title" value="<%= product.title %>">
               <input type="hidden" name="price" value="<%= product.price %>">
               <input type="hidden" name="image" value="<%= product.src %>">
+              <button type="submit" class="btn btn-primary" style="color: aliceblue; background-color:black;"><a>Book now</a></button>
+            </form>
+            
 
-            </form>
-            <form action="<%=(product.category === 'Dress' || product.category === 'Rose' || product.category === 'Cake' || product.category === 'Salons')? '/cal1/cal1' : '/cal1/cal1' %>" method="GET">
-              <div>
-                  <% if((product.category === 'Dress' || product.category === 'Rose' || product.category === 'Cake' || product.category === 'Salons') || (product.category === 'Wedding halls' || product.category === 'Photographers')){ %>
-              <button type="submit" class="btn btn-primary" style="color: aliceblue; background-color:black;" ><a>Book now</a></button>
-                 <% } %>
-              </div>
-            </form>
-            <!-- تم تحديد نوع التقويم على حسب نوع صنف المنتج  بحيث يتم عرض التقويم الاول لصنف الفساتين والورد والكيك والصالونات وباقي الاصناف يعض التقويم التاني -->
-            <!--<form action="<%=(product.category === 'Dress' || product.category === 'Rose' || product.category === 'Cake' || product.category === 'Salons')? '/cal1/cal1' : '/cal2/cal2' %>" method="GET">
-              <div>
-                  <% if((product.category === 'Dress' || product.category === 'Rose' || product.category === 'Cake' || product.category === 'Salons') || (product.category === 'Wedding halls' || product.category === 'Photographers')){ %>
-              <button type="submit" class="btn btn-primary" style="color: aliceblue; background-color:black;" ><a>Book now</a></button>
-                 <% } %>
-              </div>
-            </form> -->
           </div>
         </div>
         
@@ -96,7 +83,8 @@
       <% similarProducts.forEach(similarProduct => { %>
       <div class="card" style="border: none;padding:15px; text-align: left; line-height:1ch;">
           <a href="/productpage/productpage/<%= similarProduct._id %>">
-              <img id="might-like-img" src="/uploads/<%= similarProduct.src %>"class="card-img-top" alt="..." style="width: 100%; height: 230px; object-fit: cover;">
+              <img id="might-like-img" src="/uploads/<%= similarProduct.src %>"class="card-img-top" 
+              alt="..." style="width: 100%; height: 230px; object-fit: cover;">
           </a>
           <div class="card-body">
               <h5 class="card-title"><strong><%= similarProduct.title %></strong></h5>
@@ -106,6 +94,7 @@
       </div>
       <% }); %>
   </div>
+
 
 </div>
 <% } else { %>
