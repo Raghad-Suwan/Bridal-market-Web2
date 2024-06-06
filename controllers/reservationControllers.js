@@ -9,27 +9,23 @@ exports.reservationConf = (req, res) => {
     res.render("../views/reservationConf.ejs");
 };
 
-exports.re=async (req,res) => {
+exports.re= async (req,res) => {
     const {Name,Email,Location ,Phone ,productId , dateReservation, timeReservation}= await req.body;
-    console.log("***************************************")
 
-    console.log(Name)
-    console.log(Email)
-    console.log(Location)
-    console.log(Phone)
-    console.log(dateReservation)
-    console.log(timeReservation )
-
-
-    console.log("***************************************")
 try{  
     
-    
-    let new2= await  new modelr({productId:productId , Name:Name ,Email:Email,Location:Location ,Phone:Phone ,dateReservation:dateReservation ,timeReservation:timeReservation})
+    let new2= await  new modelr({
+        productId:productId , 
+        Name:Name ,
+        Email:Email,
+        Location:Location ,
+        Phone:Phone ,
+        dateReservation:dateReservation ,
+        timeReservation:timeReservation
+    })
 
     new2.save();
 
-    // res.redirect('/');
     res.render('home', { reservedoneMessage: 'Reservation saved successfully' });
     console.log('Body:', req.body);
 

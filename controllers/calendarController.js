@@ -16,11 +16,11 @@ exports.postCal1Res = async (req, res) => {
     const {dateReservation, timeReservation ,productId } = req.body;
     // const productId =  await req.session.productId;
     if(!dateReservation || !timeReservation){
-      return res.render('cal1', {errorMessage: 'Please select a date and time for your reservation.' });
+      return res.render('cal1', {errorMessage: 'Please select a date and time for your reservation.',productId });
     }
     const existingReservation = await require('../models/calendar1Schema').findOne({dateReservation: dateReservation, timeReservation: timeReservation});
     if(existingReservation){
-      return res.render('cal1', {errorMessage: 'Sorry, this date has been reserved , You can choose another one.'});
+      return res.render('cal1', {errorMessage: 'Sorry, this date has been reserved , You can choose another one.' ,productId});
     }
     else{
       //get a message confirming that the reservation data is stored in the database.
