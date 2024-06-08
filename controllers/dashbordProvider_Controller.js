@@ -8,7 +8,8 @@ exports.AddProductPage = (req, res) => {
 
 exports.DashboardPage = (req, res) => {
 
-    return Users.find().then((data) => res.render('../views/product-dashbord.ejs', { data: data }))
+    const userId = req.session.user_id; 
+    return Users.find({ provider_id: userId }).then((data) => res.render('../views/product-dashbord.ejs', { data: data }))
 
 
 }
@@ -27,6 +28,8 @@ exports.deleteProduct = async (req, res) => {
 
 
 exports.addNewProduct = (req, res) => {
+    console.log(req.session.user_id);
+
     const prov = new Users({
 
         title: req.body.title,
@@ -36,6 +39,7 @@ exports.addNewProduct = (req, res) => {
         category: req.body.category,
         city: req.body.city,
         src: req.file.filename,
+        provider_id : req.session.user_id
     });
 
     prov.save();
