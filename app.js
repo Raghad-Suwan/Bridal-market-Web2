@@ -114,7 +114,7 @@ app.use('/updateActivation', ActivationRoutes);
 app.use('/deleteProvider', deleteProviderRoutes);
 app.use('/deleteUser', deleteUserRoutes);
 app.use('/dashbordMain', MaindashbordRoutes);
-
+app.use('/providerprofile' ,profiles);//
 app.use('/', conenctUsRoutes);
 app.use('/reservationConf', reservationRoutes);
 app.use('/reserve', reservationRoutes)

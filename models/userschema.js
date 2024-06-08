@@ -15,6 +15,9 @@ created: {
     default: Date.now,
 },
 
+provider_id: String
+
+
 })
 
 const Provider = mongoose.model('users', productscema)

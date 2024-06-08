@@ -31,6 +31,7 @@ exports.EditProfilePage = async (req, res) => {
 
 
 exports.updateUserProfile = async (req, res) => {
+
     await User.findByIdAndUpdate({ _id: req.session.user_id }, {$set: {
         name: req.body.name,
         emailAddress: req.body.emailAddress,
@@ -38,6 +39,13 @@ exports.updateUserProfile = async (req, res) => {
         password: req.body.password,
         repeatPassword: req.body.repeatPassword,
     }})
+
+    console.log( req.body.name,
+         req.body.emailAddress,
+        req.body.phone,
+        req.body.password,
+       req.body.repeatPassword,)
+
     res.redirect('/profiles/profile')
 }
 
