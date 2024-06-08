@@ -34,8 +34,14 @@ exports.addToCart = async (req, res) => {
 
     console.log(req.session.cart);
     req.session.productId = productId;
-    res.redirect(`/cal1/cal1`);
-};
+    const Pro = require('../models/userschema');
+    const calpro = await Pro.findById(productId);
+    const category = calpro.category;
+    if (category == 'Dress' ||category == 'Cake'|| category == 'Rose'||category == 'Salons' ) {
+        res.redirect('/cal1/cal1?category=' + category);
+    } else if (category == 'Wedding halls'|| category == 'Photographers') {
+        res.redirect('/cal2/cal2?category=' + category);
+    }};
 
 exports.viewCart = (req, res) => {
     res.render('cart', { 
