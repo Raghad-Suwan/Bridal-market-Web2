@@ -2,6 +2,7 @@ const bcrypt = require('bcryptjs');
 const User = require("../models/user"); 
 const mongoose=require('mongoose')
 
+const ServiceProvider = require("../models/serviceProviderSchema"); 
 
 
 
@@ -18,31 +19,64 @@ exports.login_post = async (req, res) => {
     try {
         const user = await User.findOne({ emailAddress });
 
-        if (!user) {
+         let co 
+         let path
+         console.log (!user);
+
+        if (user) {
+
             req.session.error = "Invalid email or password";
-            console.log("User not found");
-            return res.redirect('/Login/Login');
-        }
-
-        const isPasswordMatch = await bcrypt.compare(password, user.password);
-
-        if (!isPasswordMatch) {
+         const isPasswordMatch = await bcrypt.compare(password, user.password);
+           
+         if (!isPasswordMatch) {
             if(req.session){
                 req.session.error = "Invalid email or password";
             }
             console.log("Password does not match");
             return res.redirect('/Login/Login');
         }
+           co = user;
+           path= "/"
+        }
+
+
+        else{
+
+            
+            const serviceProvider = await ServiceProvider.findOne({ emailAddress });
+
+            if (!serviceProvider) {
+                req.session.error = "invalid email or password";
+                console.log("Service Provider not found");
+                return res.redirect('/Login/Login');
+            }
+            const isPasswordMatch = await bcrypt.compare(password, serviceProvider.password);
+
+            if (!isPasswordMatch) {
+                
+                if(req.session){
+                    req.session.error = "Invalid email or password";
+                }
+                console.log("Password does not match");
+                return res.redirect('/Login/Login');
+            }
+            co = serviceProvider;
+               path ='/dashbord/add';
+        }
+
+        
 
         if (req.session) {
             req.session.isAuth = true;
-            req.session.name = user.name;
-            req.session.emailAddress = user.emailAddress; //
-            req.session.user_id = user._id;//
+            req.session.name = co.name;
+            req.session.emailAddress = co.emailAddress; //
+            req.session.user_id = co._id;//
             console.log("Session updated", req.session);
         }
 
-        return res.redirect("/");
+
+
+        return res.redirect(path);
     } catch (error) {
         console.error(error);
         return res.status(500).send("Internal Server Error");

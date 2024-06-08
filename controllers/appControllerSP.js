@@ -5,55 +5,7 @@ const ServiceProvider = require("../models/serviceProviderSchema");
  
 
 
-exports.login_get = (req, res) => {
-    const error = req.session && req.session.error; 
-    if (req.session) {
-        delete req.session.error; 
-    }
-    res.render("LoginPages.ejs", { err: error });
-}
 
-
-exports.login_post = async (req, res) => {
-    const { emailAddress, password } = req.body;
-
-    try {
-    
-        
-        const serviceProvider = await ServiceProvider.findOne({ emailAddress });
-       
-        if (!serviceProvider) {
-            req.session.error = "invalid email or password";
-            console.log("Service Provider not found");
-            return res.redirect('/Login/Login');
-        }
-
-       
-        
-        const isPasswordMatch = await bcrypt.compare(password, serviceProvider.password);
-        
-
-        if (!isPasswordMatch) {
-            if(req.session){
-            req.session.error = "invalid email or password";
-        
-        }
-        console.log("Password does not match");
-        return res.redirect('/Login/Login');
-    }
-    if (req.session) {
-        req.session.isAuth = true;
-        req.session.name = serviceProvider.name;
-        console.log("Session updated", req.session);
-    }
-        return res.redirect("/dashbord/add");
-     
-    } catch (error) {
-        
-        console.error(error);
-        res.status(500).send("Internal Server Error");
-    }
-};
 
 
 exports.signin_get = (req, res) => {
@@ -67,6 +19,11 @@ exports.signin_get = (req, res) => {
 
 exports.signin_post = async (req, res) => {
     const { name,companyName, emailAddress, location ,password, phone, repeatPassword } = req.body;
+    console.log("data saved ");
+    console.log({
+        name,companyName, emailAddress, location ,password, phone, repeatPassword
+    });
+    
 
     try {
      
@@ -76,7 +33,7 @@ exports.signin_post = async (req, res) => {
             return res.redirect('/Login/Login');
         }
 
-        const gmailRegex = /^[a-zA-Z][a-zA-Z0-9._%+-]*@gmail\.com$/;//https://www.w3schools.com/jsref/jsref_obj_regexp.asp
+        const gmailRegex = /^[a-zA-Z][a-zA-Z0-9._%+-]*@gmail\.com$/;
         if (!gmailRegex.test(emailAddress)) {
             return res.render('signup-provider.ejs', { error: 'Email address must be a Gmail address' });}
           
@@ -109,7 +66,10 @@ exports.signin_post = async (req, res) => {
        
         
       
-        await newServiceProvider.save();
+         newServiceProvider.save();
+        console.log(
+            {newServiceProvider}
+        );
 
       
         res.redirect('/Login/Login');
@@ -122,5 +82,5 @@ exports.signin_post = async (req, res) => {
 
 exports.homes_get = (req, res) => {
     const name = req.session.name;
-    res.render('dashbord/add', { name });
+    res.render('home.ejs', { name: name });
 };
